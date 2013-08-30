@@ -1,2 +1,7 @@
 # Maven output directory
 line-server/target/
+
+# Eclipse dirs
+.classpath
+.project
+.settings/
