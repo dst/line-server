@@ -6,7 +6,7 @@
 # It starts LineServer application.
 # Argument: name of the file to serve
 
-SERVER_CLASS="com.stefanski.lineserver.App"
+SERVER_CLASS="com.stefanski.lineserver.LineServerRunner"
 SERVER_CLASSPATH="line-server/target/classes/"
 
 if [ $# -ne 1 ]
@@ -22,5 +22,4 @@ then
   exit 1
 fi
 
-# TODO(dst): pass argument
-java -classpath $SERVER_CLASSPATH $SERVER_CLASS 
+java -classpath $SERVER_CLASSPATH $SERVER_CLASS $file
