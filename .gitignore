@@ -4,4 +4,5 @@ line-server/target/
 # Eclipse dirs
 .classpath
 .project
-.settings/
+.settings
+.checkstyle
