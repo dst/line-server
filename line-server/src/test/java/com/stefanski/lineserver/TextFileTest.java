@@ -1,7 +1,9 @@
 package com.stefanski.lineserver;
 
+import java.io.IOException;
+import java.net.URL;
+
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -11,11 +13,12 @@ import org.junit.Test;
  */
 public class TextFileTest {
 
-    private TextFile textFile;
+    private static TextFile textFile;
 
-    @Before
-    public void setUp() {
-        textFile = new TextFile("fox.txt");
+    @BeforeClass
+    public static void setUp() throws IOException {
+        URL foxUrl = TextFileTest.class.getResource("fox.txt");
+        textFile = new TextFile(foxUrl.getPath());
     }
 
     @Test

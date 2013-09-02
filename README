@@ -2,6 +2,9 @@ LineServer
 
 == Description ==
 
+== Assumptions ==
+* "map" (line number -> line metadata) will fit in RAM.
+
 == Performance ==
 
 === Requests per second ===
@@ -9,6 +12,9 @@ LineServer
 === Size of file ===
 
 == Online resources ==
+Java tutorials: http://docs.oracle.com/javase/tutorial
+Java 7 API Specification: http://docs.oracle.com/javase/7/docs/api
+stackoverflow.com
 
 == Libraries ==
 
