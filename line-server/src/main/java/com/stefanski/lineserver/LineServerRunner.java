@@ -19,7 +19,7 @@ public class LineServerRunner {
         String fileName = args[0];
 
         try {
-            LineServer server = LineServer.create(fileName);
+            LineServer server = LineServerFactory.createServer(fileName);
             server.run();
         } catch (LineServerException e) {
             StdLogger.error("Critical problem with line server: " + e);

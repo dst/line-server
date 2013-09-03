@@ -46,6 +46,14 @@ class LineServer {
     private static final String QUIT_CMD = "QUIT";
     private static final String SHUTDOWN_CMD = "SHUTDOWN";
 
+    /**
+     * Socket for accepting clients.
+     */
+    private ServerSocket serverSocket;
+
+    /**
+     * Protocol for serving GET requests.
+     */
     private final LineServerProtocol protocol;
 
     /**
@@ -53,25 +61,6 @@ class LineServer {
      * SHUTDOWN message.
      */
     private boolean listening;
-
-    /**
-     * Factory for easy creating servers.
-     * 
-     * @param fileName
-     *            The name of an immutable text file
-     * @return A new line server
-     * @throws LineServerException
-     *             If server cannot be created
-     */
-    // TODO(dst), Sep 3, 2013: move to separate class
-    public static LineServer create(String fileName) throws LineServerException {
-        try {
-            TextFile textFile = new TextFile(fileName);
-            return new LineServer(textFile);
-        } catch (IOException e) {
-            throw new LineServerException("Cannot create TextFile", e);
-        }
-    }
 
     /**
      * @param textFile
@@ -86,37 +75,23 @@ class LineServer {
      * Runs server.
      * 
      * @throws LineServerException
-     *             If critical exception occurs durng starting server.
+     *             If critical exception occurs during starting server.
      */
     public void run() throws LineServerException {
-        StdLogger.info(String.format("Start listening on port %s ...", TCP_PORT));
+        createServerSocket();
+        listen();
+        stopServer();
+    }
 
-        ServerSocket serverSocket = null;
+    private void createServerSocket() throws LineServerException {
         try {
             serverSocket = new ServerSocket(TCP_PORT);
         } catch (IOException e) {
             throw new LineServerException("Could not listen on port: " + TCP_PORT, e);
         }
+    }
 
-        while (isListening()) {
-            Socket clientSocket = null;
-            try {
-                clientSocket = serverSocket.accept();
-            } catch (IOException e) {
-                StdLogger.error("Accept failed: " + e);
-                // Try to handle next client
-                continue;
-            }
-
-            try {
-                handleClient(clientSocket);
-            } catch (IOException e) {
-                StdLogger.error("I/O exception while handling client: " + e);
-                // Try to handle next client
-                continue;
-            }
-        }
-
+    private void stopServer() {
         try {
             serverSocket.close();
         } catch (IOException e) {
@@ -124,7 +99,23 @@ class LineServer {
             // Ignore, we are just exiting
         }
 
-        StdLogger.info("Server stopped.");
+        StdLogger.info("Server stopped");
+    }
+
+    private void listen() {
+        StdLogger.info(String.format("Start listening on port %s ...", TCP_PORT));
+
+        while (isListening()) {
+            Socket clientSocket = null;
+            try {
+                clientSocket = serverSocket.accept();
+                handleClient(clientSocket);
+            } catch (IOException ioe) {
+                StdLogger.error("I/O exception while handling client: " + ioe);
+                // Try to handle next client
+                continue;
+            }
+        }
     }
 
     /**
@@ -132,6 +123,8 @@ class LineServer {
      * @throws IOException
      */
     private void handleClient(Socket clientSocket) throws IOException {
+        StdLogger.info("Handling new client");
+
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
@@ -147,6 +140,7 @@ class LineServer {
                     continue;
                 }
             } else if (inputLine.startsWith(QUIT_CMD)) {
+                StdLogger.info("Disconnecting client");
                 break;
             } else if (inputLine.startsWith(SHUTDOWN_CMD)) {
                 shutdown();
@@ -163,6 +157,7 @@ class LineServer {
     }
 
     private void shutdown() {
+        StdLogger.info("Server shoutdown was requested");
         listening = false;
     }
 
