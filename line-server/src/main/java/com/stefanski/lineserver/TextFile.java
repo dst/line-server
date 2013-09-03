@@ -60,6 +60,10 @@ class TextFile {
         process();
     }
 
+    public boolean isLineNrValid(int lineNr) {
+        return lineNr >= 1 && lineNr <= getLinesCount();
+    }
+
     /**
      * Returns specified line from a file.
      * 

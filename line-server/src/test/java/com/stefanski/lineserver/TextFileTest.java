@@ -2,6 +2,8 @@ package com.stefanski.lineserver;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -43,5 +45,21 @@ public class TextFileTest {
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionForTooBigLineNr() {
         textFile.getLine(5);
+    }
+
+    @Test
+    public void shouldDetectValidLinesNr() {
+        List<Integer> validLineNrs = Arrays.asList(1, 2, 3, 4);
+        for (int lineNr : validLineNrs) {
+            Assert.assertTrue(textFile.isLineNrValid(lineNr));
+        }
+    }
+
+    @Test
+    public void shouldDetectInvalidLinesNr() {
+        List<Integer> invalidLineNrs = Arrays.asList(-5, -1, 0, 5, 10);
+        for (int lineNr : invalidLineNrs) {
+            Assert.assertFalse(textFile.isLineNrValid(lineNr));
+        }
     }
 }

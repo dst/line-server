@@ -18,14 +18,12 @@ public class LineServerRunner {
         }
         String fileName = args[0];
 
-        LineServer server = null;
         try {
-            server = LineServer.create(fileName);
+            LineServer server = LineServer.create(fileName);
+            server.run();
         } catch (LineServerException e) {
-            StdLogger.error("Cannot create server: " + e);
+            StdLogger.error("Critical problem with line server: " + e);
             System.exit(1);
         }
-
-        server.run();
     }
 }
