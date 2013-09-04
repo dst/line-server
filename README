@@ -2,18 +2,34 @@ LineServer
 
 == Description ==
 
+Index size: 12 B * line count
+
 == Usage ==
 Run server: ./run.sh fileName
 Run test client: nc localhost 10497
 
 == Assumptions ==
 * Maximum line length is <= 2GB (Integer.MAX_VALUE)
+* There is enough free space on disk for index file. An index file cam be even
+  bigger then file itself in case of very short lines (like empty one).
+* Server start can be slow (index is built before clients can connect)
+ 
+
+== Alternatives ==
+Take an existing database, create table Line(nr, text) with index on nr.
+Insert all lines to the database and next query by nr.
 
 == Performance ==
 
 === Requests per second ===
 
 === Size of file ===
+The system is scalable for a growing file size. In theory, it can handle a file
+with any size which can be stored in a file system. Increasing file size has
+no influence on speed of GET commands, but only on a system start (building an
+index). The time of building index increases linear with a file size increase.
+The system was tested with 100 GB file and worked correctly and fast on a
+middle-class laptop.
 
 == Online resources ==
 Java tutorials: http://docs.oracle.com/javase/tutorial
