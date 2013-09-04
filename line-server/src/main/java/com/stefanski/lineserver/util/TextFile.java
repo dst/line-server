@@ -1,4 +1,4 @@
-package com.stefanski.lineserver;
+package com.stefanski.lineserver.util;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -28,7 +28,7 @@ import com.stefanski.lineserver.index.TextFileIndexer;
  * @date Sep 1, 2013
  * 
  */
-class TextFile {
+public class TextFile {
 
     /**
      * FileChannel for a random access to file. It is used when getting specified line number.

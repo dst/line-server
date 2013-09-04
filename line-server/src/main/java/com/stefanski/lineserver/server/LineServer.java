@@ -1,4 +1,4 @@
-package com.stefanski.lineserver;
+package com.stefanski.lineserver.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import com.stefanski.lineserver.util.StdLogger;
+import com.stefanski.lineserver.util.TextFile;
 
 /**
  * Network server that serves individual lines of an immutable text file over the network to clients
@@ -34,7 +37,7 @@ import java.net.Socket;
  * @date Sep 1, 2013
  * 
  */
-class LineServer {
+public class LineServer {
 
     /**
      * The server listens for connections on this port.

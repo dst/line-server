@@ -11,7 +11,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.stefanski.lineserver.StdLogger;
+import com.stefanski.lineserver.util.StdLogger;
 
 /**
  * Creates index in a file for the specified text file.

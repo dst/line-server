@@ -1,10 +1,10 @@
-package com.stefanski.lineserver;
+package com.stefanski.lineserver.server;
 
 /**
  * @author Dariusz Stefanski
  * @date Sep 2, 2013
  */
-class LineServerException extends Exception {
+public class LineServerException extends Exception {
 
     private static final long serialVersionUID = -6569023245031873948L;
 

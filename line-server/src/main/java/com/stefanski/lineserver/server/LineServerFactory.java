@@ -1,6 +1,8 @@
-package com.stefanski.lineserver;
+package com.stefanski.lineserver.server;
 
 import java.io.IOException;
+
+import com.stefanski.lineserver.util.TextFile;
 
 /**
  * A factory for creating line servers.

@@ -1,4 +1,4 @@
-package com.stefanski.lineserver;
+package com.stefanski.lineserver.util;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +19,7 @@ public class TextFileTest {
 
     @BeforeClass
     public static void setUp() throws IOException {
-        URL foxUrl = TextFileTest.class.getResource("fox.txt");
+        URL foxUrl = TextFileTest.class.getResource("../fox.txt");
         textFile = new TextFile(foxUrl.getPath());
     }
 

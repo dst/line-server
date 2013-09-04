@@ -1,4 +1,6 @@
-package com.stefanski.lineserver;
+package com.stefanski.lineserver.server;
+
+import com.stefanski.lineserver.util.TextFile;
 
 /**
  * A protocol of a line server.

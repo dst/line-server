@@ -1,4 +1,4 @@
-package com.stefanski.lineserver;
+package com.stefanski.lineserver.util;
 
 /**
  * Very simple logger. It logs to standard output and error.

@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.stefanski.lineserver.TextFileTest;
+import com.stefanski.lineserver.util.TextFileTest;
 
 /**
  * @author Dariusz Stefanski
@@ -21,7 +21,7 @@ public class TextFileIndexerTest {
 
     @BeforeClass
     public static void setUp() throws IOException {
-        URL foxUrl = TextFileTest.class.getResource("fox.txt");
+        URL foxUrl = TextFileTest.class.getResource("../fox.txt");
         Path foxPath = FileSystems.getDefault().getPath(foxUrl.getPath());
         index = TextFileIndexer.buildIndex(foxPath);
     }
