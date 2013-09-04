@@ -6,3 +6,11 @@ line-server/target/
 .project
 .settings
 .checkstyle
+
+# Generated file for testing purpose
+test/file.txt
+# and its index
+test/file.txt_lineServerIndex
+
+# vim temporary files
+*~
