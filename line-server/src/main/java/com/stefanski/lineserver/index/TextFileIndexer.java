@@ -24,6 +24,8 @@ public class TextFileIndexer {
     // position + length in bytes
     static final int INDEX_LINE_METADATA_LEN = (Long.SIZE + Integer.SIZE) / 8;
 
+    private static final int WRITER_BUFFER_SIZE = INDEX_LINE_METADATA_LEN * 1024 * 1024;
+
     private static final long MB = 1024 * 1024;
     private static final long PROCESSED_CHUNK_SIZE_TO_REPORT_IN_MB = 100;
     private static final long PROCESSED_CHUNK_SIZE_TO_REPORT = PROCESSED_CHUNK_SIZE_TO_REPORT_IN_MB
@@ -39,7 +41,6 @@ public class TextFileIndexer {
     // TODO(dst), Sep 3, 2013: Impl in more efficient fashion. Things to optimize:
     // - we don't need read lines to String. We can read whole blocks and search only \n chars.
     // - Maybe FileChannel.map usage
-    // - reimplement writing in more efficient way
     public static TextFileIndex buildIndex(Path filePath) throws IOException {
         StdLogger.info("Indexing file...");
         long start = System.currentTimeMillis();
@@ -53,22 +54,26 @@ public class TextFileIndexer {
         try (BufferedReader reader = Files.newBufferedReader(filePath, StandardCharsets.US_ASCII);
                 FileChannel writer = FileChannel.open(indexPath, WRITE)) {
 
-            ByteBuffer buf = ByteBuffer.allocate(INDEX_LINE_METADATA_LEN);
+            ByteBuffer buf = ByteBuffer.allocate(WRITER_BUFFER_SIZE);
             String line;
 
             while ((line = reader.readLine()) != null) {
                 buf.putLong(position);
                 buf.putInt(line.length());
-                // write from buffer's begin
-                buf.flip();
-                writer.write(buf);
-                // prepare for putting in next iteration
-                buf.flip();
+
+                // Write only full buffer
+                if (!buf.hasRemaining()) {
+                    // Write from buffer's begin
+                    buf.flip();
+                    writer.write(buf);
+                    // Prepare for putting in next iteration
+                    buf.flip();
+                }
 
                 position += line.length() + 1; // 1 for \n
                 lineCount++;
 
-                // log progress
+                // Log progress
                 if (position > PROCESSED_CHUNK_SIZE_TO_REPORT * chunkCount) {
                     long elapsedTime = System.currentTimeMillis() - start;
                     StdLogger.info(String.format("Processed %s MB. Current processing time: %s",
@@ -76,9 +81,13 @@ public class TextFileIndexer {
                     chunkCount++;
                 }
             }
+
+            // Write rest of buffer
+            buf.flip();
+            writer.write(buf);
         }
 
-        // log processing stats
+        // Log processing stats
         long elapsedTime = System.currentTimeMillis() - start;
         StdLogger.info(String.format("Index build in %s ms", elapsedTime));
         StdLogger.info(String.format("Lines: %d, size: %d MB", lineCount, position / MB));
