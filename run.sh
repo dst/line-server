@@ -22,4 +22,7 @@ then
   exit 1
 fi
 
-java -classpath $SERVER_CLASSPATH $SERVER_CLASS $file
+# read properties
+. ./system.properties
+
+java -Xms$ms -Xmx$mx -classpath $SERVER_CLASSPATH $SERVER_CLASS $file
