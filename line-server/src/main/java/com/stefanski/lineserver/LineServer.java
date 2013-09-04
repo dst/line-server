@@ -103,7 +103,7 @@ class LineServer {
     }
 
     private void listen() {
-        StdLogger.info(String.format("Start listening on port %s ...", TCP_PORT));
+        StdLogger.info(String.format("Start listening on port %s...", TCP_PORT));
 
         while (isListening()) {
             Socket clientSocket = null;
