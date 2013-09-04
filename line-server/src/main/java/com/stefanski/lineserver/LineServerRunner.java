@@ -23,6 +23,9 @@ public class LineServerRunner {
             server.run();
         } catch (LineServerException e) {
             StdLogger.error("Critical problem with line server: " + e);
+            if (e.getCause() != null) {
+                StdLogger.error("Cause: " + e.getCause());
+            }
             System.exit(1);
         }
     }

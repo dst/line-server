@@ -41,8 +41,8 @@ class LineServerProtocol {
         int lineNr;
         try {
             lineNr = Integer.valueOf(tokens[1]);
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Cannot parse line number: " + tokens[1]);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Cannot parse line number: " + tokens[1], e);
         }
 
         if (textFile.isLineNrValid(lineNr)) {

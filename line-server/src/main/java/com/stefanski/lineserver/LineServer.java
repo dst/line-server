@@ -110,8 +110,8 @@ class LineServer {
             try {
                 clientSocket = serverSocket.accept();
                 handleClient(clientSocket);
-            } catch (IOException ioe) {
-                StdLogger.error("I/O exception while handling client: " + ioe);
+            } catch (IOException e) {
+                StdLogger.error("I/O exception while handling client: " + e);
                 // Try to handle next client
                 continue;
             }
@@ -134,8 +134,8 @@ class LineServer {
                 try {
                     String response = protocol.processGetCmd(inputLine);
                     out.println(response);
-                } catch (IllegalArgumentException iae) {
-                    StdLogger.error("Error while handling get command: " + iae);
+                } catch (IllegalArgumentException e) {
+                    StdLogger.error("Error while handling get command: " + e);
                     // Try to handle a next command
                     continue;
                 }
