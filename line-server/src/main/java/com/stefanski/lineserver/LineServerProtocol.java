@@ -38,9 +38,9 @@ class LineServerProtocol {
             throw new IllegalArgumentException("Invalid format of get command: " + input);
         }
 
-        int lineNr;
+        long lineNr;
         try {
-            lineNr = Integer.valueOf(tokens[1]);
+            lineNr = Long.valueOf(tokens[1]);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Cannot parse line number: " + tokens[1], e);
         }

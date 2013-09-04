@@ -7,7 +7,7 @@ Run server: ./run.sh fileName
 Run test client: nc localhost 10497
 
 == Assumptions ==
-* "map" (line number -> line metadata) will fit in RAM.
+* Maximum line length is <= 2GB (Integer.MAX_VALUE)
 
 == Performance ==
 
@@ -19,6 +19,7 @@ Run test client: nc localhost 10497
 Java tutorials: http://docs.oracle.com/javase/tutorial
 Java 7 API Specification: http://docs.oracle.com/javase/7/docs/api
 stackoverflow.com
+google.com
 
 == Libraries ==
 * Junit 4
