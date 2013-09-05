@@ -7,10 +7,10 @@ line-server/target/
 .settings
 .checkstyle
 
-# Generated file for testing purpose
+# Testing files and indexes:
 test/file.txt
-# and its index
 test/file.txt_lineServerIndex
+fox.txt_lineServerIndex
 
 # vim temporary files
 *~
