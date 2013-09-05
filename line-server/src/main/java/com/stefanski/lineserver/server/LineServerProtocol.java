@@ -5,9 +5,12 @@ import com.stefanski.lineserver.util.TextFile;
 /**
  * A protocol of a line server.
  * 
+ * It is thread-safe.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 3, 2013
  */
+// It is thread-safe because TextFile is thread-safe.
 class LineServerProtocol {
 
     /**

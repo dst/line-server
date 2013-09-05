@@ -12,6 +12,7 @@ import java.nio.file.Path;
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */
+// TODO(dst), Sep 5, 2013: add thread-safe
 public class TextFileIndex {
     private final long lineCount;
 

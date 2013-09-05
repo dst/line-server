@@ -28,6 +28,7 @@ import com.stefanski.lineserver.index.TextFileIndexer;
  * @date Sep 1, 2013
  * 
  */
+// TODO(dst), Sep 5, 2013: add thread-safe
 public class TextFile {
 
     /**
