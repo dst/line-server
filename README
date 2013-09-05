@@ -1,25 +1,28 @@
-LineServer
+= LineServer =
+Author: Dariusz Stefanski
 
 == Description ==
+When starting a server it processes a specified file and creates an index as
+binary file with offsets to each line of the original file. The index size is
+12 B * line count. Then it starts handling clients in parallel using a thread
+pool. One thread is used for one client. Getting a line is done in 2 steps and
+does 2 disk read for short lines (finding a line in an index, reading a line
+from the file). For bigger lines an operating system can do multiple reads.
 
-Index size: 12 B * line count
-
-== Usage ==
+== Example usage ==
 Run server: ./run.sh fileName
 Run test client: nc localhost 10497
 
 == Assumptions ==
 * Maximum line length is <= 2GB (Integer.MAX_VALUE)
-* There is enough free space on disk for index file. An index file cam be even
+* There is enough free space on disk for index file. An index file can be even
   bigger then file itself in case of very short lines (like empty one).
 * Server start can be slow (index is built before clients can connect)
  
-
-== Alternatives ==
-Take an existing database, create table Line(nr, text) with index on nr.
-Insert all lines to the database and next query by nr.
-
 == Performance ==
+Tests where run on 2 machines:
+* laptop with Ubuntu 12.04
+* laptop with Ubuntu 13.04
 
 === Requests per second ===
 
@@ -31,7 +34,16 @@ index). The time of building index increases linear with a file size increase.
 The system was tested with 100 GB file and worked correctly and fast on a
 middle-class laptop.
 
-== Online resources ==
+== Alternatives ==
+Take an existing database, create table Line(nr, text) with index on nr.
+Insert all lines to the database and next query by nr.
+
+== Possible extensions ==
+Mount other drive if exists and then there are at least 2 possibilities:
+- put a copy of file and index on the second drive and create 2 TextFile instances
+- put a half of file and index on the first drive and rest on the other one
+
+== On-line resources ==
 Java tutorials: http://docs.oracle.com/javase/tutorial
 Java 7 API Specification: http://docs.oracle.com/javase/7/docs/api
 stackoverflow.com
@@ -41,4 +53,5 @@ google.com
 * Junit 4
 * Mockito
 
-== Man-hour ==
+== Man-hours ==
+The happy know no hours :)
