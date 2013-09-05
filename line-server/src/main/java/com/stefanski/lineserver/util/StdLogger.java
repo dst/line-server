@@ -10,10 +10,14 @@ package com.stefanski.lineserver.util;
 public final class StdLogger {
 
     public static void info(String msg) {
-        System.out.println(msg);
+        System.out.println(formatMsg(msg));
     }
 
     public static void error(String msg) {
-        System.err.println(msg);
+        System.err.println(formatMsg(msg));
+    }
+
+    private static String formatMsg(String msg) {
+        return String.format("%d %s", System.currentTimeMillis(), msg);
     }
 }
