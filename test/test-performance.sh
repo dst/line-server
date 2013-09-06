@@ -8,9 +8,18 @@
 MAX_LINE_NR="400000000"
 FILE="file4x10^8.txt"
 
+#MAX_LINE_NR="10000000"
+#FILE="file10^7.txt"
+
 ./createFile.sh $MAX_LINE_NR $FILE
+
+# read properties
+. ../system.properties
+
+export MAVEN_OPTS="-Xms$ms -Xmx$mx"
 
 export PerformanceTesting="true"
 export TestFile=`pwd`/$FILE
 export MaxLineNr=$MAX_LINE_NR
+
 mvn test  -f ../line-server/pom.xml

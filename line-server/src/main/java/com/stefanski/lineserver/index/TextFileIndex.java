@@ -1,6 +1,6 @@
 package com.stefanski.lineserver.index;
 
-import static com.stefanski.lineserver.index.TextFileIndexer.INDEX_LINE_METADATA_LEN;
+import static com.stefanski.lineserver.index.TextFileIndexer.OFFSET_SIZE;
 import static java.nio.file.StandardOpenOption.READ;
 
 import java.io.IOException;
@@ -30,6 +30,8 @@ public class TextFileIndex {
     }
 
     /**
+     * Gets a metadata of specified line from the index.
+     * 
      * @param lineNr
      * @return
      * @throws IndexException
@@ -37,11 +39,11 @@ public class TextFileIndex {
     public LineMetadata getLineMetadata(long lineNr) throws IndexException {
         try {
             // Set starting position in index file. The first line of the file is line 1.
-            long pos = (lineNr - 1) * INDEX_LINE_METADATA_LEN;
+            long pos = (lineNr - 1) * OFFSET_SIZE;
             fileChannel.position(pos);
 
-            // and read metadata of specified line
-            ByteBuffer buf = ByteBuffer.allocate(INDEX_LINE_METADATA_LEN);
+            // Read 2 offsets
+            ByteBuffer buf = ByteBuffer.allocate(OFFSET_SIZE * 2);
             int readCount;
             do {
                 readCount = fileChannel.read(buf);
@@ -52,7 +54,13 @@ public class TextFileIndex {
             }
 
             buf.flip();
-            return new LineMetadata(buf.getLong(), buf.getInt());
+            long offset = buf.getLong();
+            long nextOffset = buf.getLong();
+
+            int lineLen = (int) (nextOffset - offset - 1);
+            assert lineLen >= 0;
+
+            return new LineMetadata(offset, lineLen);
 
         } catch (IOException e) {
             throw new IndexException("I/O exception during reading index", e);
@@ -60,7 +68,7 @@ public class TextFileIndex {
     }
 
     /**
-     * @return
+     * @return Line number in file which was indexed
      */
     public long getLineCount() {
         return lineCount;

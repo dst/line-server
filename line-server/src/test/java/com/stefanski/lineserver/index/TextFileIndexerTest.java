@@ -23,7 +23,9 @@ public class TextFileIndexerTest {
     public static void setUp() throws IOException {
         URL foxUrl = TextFileTest.class.getResource("../fox.txt");
         Path foxPath = FileSystems.getDefault().getPath(foxUrl.getPath());
-        index = TextFileIndexer.buildIndex(foxPath);
+        TextFileIndexer indexer = TextFileIndexer.createIndexer(foxPath);
+        index = indexer.buildIndex();
+        ;
     }
 
     @Test

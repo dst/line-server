@@ -52,7 +52,9 @@ public class TextFile {
     public TextFile(String fileName) throws IOException {
         Path path = FileSystems.getDefault().getPath(fileName);
         fileChannel = FileChannel.open(path, StandardOpenOption.READ);
-        index = TextFileIndexer.buildIndex(path);
+
+        TextFileIndexer indexer = TextFileIndexer.createIndexer(path);
+        index = indexer.buildIndex();
     }
 
     public boolean isLineNrValid(long lineNr) {

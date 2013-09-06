@@ -1,12 +1,13 @@
 package com.stefanski.lineserver.index;
 
+import static java.nio.file.StandardOpenOption.READ;
 import static java.nio.file.StandardOpenOption.WRITE;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.StandardCharsets;
+import java.nio.channels.FileChannel.MapMode;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +16,7 @@ import com.stefanski.lineserver.util.StdLogger;
 
 /**
  * Builds index.
- *
+ * 
  * It should be done as fast as possible because it delays starting server.
  * 
  * @author Dariusz Stefanski
@@ -23,86 +24,108 @@ import com.stefanski.lineserver.util.StdLogger;
  */
 public class TextFileIndexer {
 
-    // position + length in bytes
-    static final int INDEX_LINE_METADATA_LEN = (Long.SIZE + Integer.SIZE) / 8;
+    // offset has type long
+    static final int OFFSET_SIZE = Long.SIZE / 8;
 
-    private static final int WRITER_BUFFER_SIZE = INDEX_LINE_METADATA_LEN * 1024 * 1024;
+    private static final int HDD_MB = 1_000_000;
+    private static final int FILE_BUF_SIZE = 256 * HDD_MB;
+    private static final int INDEX_BUF_SIZE = 20 * OFFSET_SIZE * HDD_MB;
 
-    private static final long MB = 1024 * 1024;
-    private static final long PROCESSED_CHUNK_SIZE_TO_REPORT_IN_MB = 100;
-    private static final long PROCESSED_CHUNK_SIZE_TO_REPORT = PROCESSED_CHUNK_SIZE_TO_REPORT_IN_MB
-            * MB;
+    /**
+     * The path to file which is indexed.
+     */
+    private final Path filePath;
 
-    private TextFileIndexer() {
+    public static TextFileIndexer createIndexer(Path filePath) {
+        return new TextFileIndexer(filePath);
+    }
+
+    /**
+     * 
+     * @param filePath
+     */
+    public TextFileIndexer(Path filePath) {
+        this.filePath = filePath;
     }
 
     /**
      * Builds an index as a binary file with offsets to each line of the original file. The index
-     * size is 12 B * line count.
+     * size is 8B * line count.
      * 
      * @param filePath
      *            A path to the text file.
      * @return
      * @throws IOException
      */
-    // TODO(dst), Sep 3, 2013: Impl in more efficient fashion. Things to optimize:
-    // - we don't need read lines to String. We can read whole blocks and search only \n chars.
-    // - Maybe FileChannel.map usage
-    public static TextFileIndex buildIndex(Path filePath) throws IOException {
+    public TextFileIndex buildIndex() throws IOException {
         StdLogger.info("Indexing file...");
         long start = System.currentTimeMillis();
 
         Path indexPath = createIndexFile(filePath);
 
-        long position = 0;
         long lineCount = 0;
-        int chunkCount = 1;
+        long size = 0;
 
-        try (BufferedReader reader = Files.newBufferedReader(filePath, StandardCharsets.US_ASCII);
-                FileChannel writer = FileChannel.open(indexPath, WRITE)) {
+        try (FileChannel fileFC = FileChannel.open(filePath, READ);
+                FileChannel indexFC = FileChannel.open(indexPath, WRITE)) {
 
-            ByteBuffer buf = ByteBuffer.allocate(WRITER_BUFFER_SIZE);
-            String line;
+            ByteBuffer indexBuf = ByteBuffer.allocate(INDEX_BUF_SIZE);
+            byte[] fileArr = new byte[FILE_BUF_SIZE];
 
-            while ((line = reader.readLine()) != null) {
-                buf.putLong(position);
-                buf.putInt(line.length());
+            size = fileFC.size();
+            logFileSize(size);
 
-                // Write only full buffer
-                if (!buf.hasRemaining()) {
-                    // Write from buffer's begin
-                    buf.flip();
-                    writer.write(buf);
-                    // Prepare for putting in next iteration
-                    buf.flip();
+            long lastPos = 0;
+            long processed = 0;
+            int lineLength;
+
+            while (processed < size) {
+                long bytesToProcess = size - processed;
+                long bytesToMap = Math.min(bytesToProcess, FILE_BUF_SIZE);
+                assert bytesToMap <= Integer.MAX_VALUE;
+
+                MappedByteBuffer mappedBuf = fileFC.map(MapMode.READ_ONLY, processed, bytesToMap);
+
+                mappedBuf.get(fileArr, 0, (int) bytesToMap);
+                for (int i = 0; i < bytesToMap; i++) {
+                    if (fileArr[i] == '\n') {
+                        lineLength = (int) (processed + i - lastPos);
+                        assert lineLength >= 0;
+
+                        indexBuf.putLong(lastPos);
+
+                        lineCount++;
+                        lastPos += lineLength + 1;
+
+                        // Write only full buffer
+                        if (!indexBuf.hasRemaining()) {
+                            // Write from buffer's begin
+                            indexBuf.flip();
+                            indexFC.write(indexBuf);
+                            // Prepare for putting in next iteration
+                            indexBuf.flip();
+                        }
+                    }
                 }
 
-                position += line.length() + 1; // 1 for \n
-                lineCount++;
-
-                // Log progress
-                if (position > PROCESSED_CHUNK_SIZE_TO_REPORT * chunkCount) {
-                    long elapsedTime = System.currentTimeMillis() - start;
-                    StdLogger.info(String.format("Processed %s MB. Current processing time: %s",
-                            PROCESSED_CHUNK_SIZE_TO_REPORT_IN_MB, elapsedTime));
-                    chunkCount++;
-                }
+                processed += bytesToMap;
+                logProgress(start, processed, size);
             }
 
-            // Write rest of buffer
-            buf.flip();
-            writer.write(buf);
+            // To calculate later length of last line
+            indexBuf.putLong(lastPos);
+
+            // Write rest of index buffer
+            indexBuf.flip();
+            indexFC.write(indexBuf);
         }
 
-        // Log processing stats
-        long elapsedTime = System.currentTimeMillis() - start;
-        StdLogger.info(String.format("Index build in %s ms", elapsedTime));
-        StdLogger.info(String.format("Lines: %d, size: %d MB", lineCount, position / MB));
+        logProcessingStats(start, lineCount, size);
 
         return new TextFileIndex(indexPath, lineCount);
     }
 
-    private static Path createIndexFile(Path filePath) throws IOException {
+    private Path createIndexFile(Path filePath) throws IOException {
         String indexFileName = filePath.toString() + "_lineServerIndex";
         Path indexPath = FileSystems.getDefault().getPath(indexFileName);
 
@@ -116,5 +139,27 @@ public class TextFileIndexer {
         indexPath = Files.createFile(indexPath);
 
         return indexPath;
+    }
+
+    private long byte2MB(long b) {
+        return b / HDD_MB;
+    }
+
+    private void logFileSize(long size) {
+        StdLogger.info(String.format("File size to process: %s MB", byte2MB(size)));
+    }
+
+    private void logProgress(long start, long done, long size) {
+        long elapsedTime = System.currentTimeMillis() - start;
+        long percent = (100 * done) / size;
+        StdLogger.info(String.format("Processed %d MB in %d (%d %%)", byte2MB(done), elapsedTime,
+                percent));
+    }
+
+    private void logProcessingStats(long start, long lineCount, long size) {
+        long elapsedTime = System.currentTimeMillis() - start;
+
+        StdLogger.info(String.format("Index build in %s ms", elapsedTime));
+        StdLogger.info(String.format("Lines: %d, size: %d MB", lineCount, size / HDD_MB));
     }
 }
