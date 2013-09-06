@@ -12,6 +12,9 @@ import com.stefanski.lineserver.util.TextFile;
  */
 public class LineServerFactory {
 
+    private LineServerFactory() {
+    }
+
     /**
      * Creates new line server associated with specified file.
      * 

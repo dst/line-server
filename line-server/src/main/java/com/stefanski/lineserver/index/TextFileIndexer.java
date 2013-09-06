@@ -14,7 +14,9 @@ import java.nio.file.Path;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
- * Creates index in a file for the specified text file.
+ * Builds index.
+ *
+ * It should be done as fast as possible because it delays starting server.
  * 
  * @author Dariusz Stefanski
  * @date Sep 3, 2013
@@ -31,7 +33,12 @@ public class TextFileIndexer {
     private static final long PROCESSED_CHUNK_SIZE_TO_REPORT = PROCESSED_CHUNK_SIZE_TO_REPORT_IN_MB
             * MB;
 
+    private TextFileIndexer() {
+    }
+
     /**
+     * Builds an index as a binary file with offsets to each line of the original file. The index
+     * size is 12 B * line count.
      * 
      * @param filePath
      *            A path to the text file.

@@ -15,4 +15,10 @@ public class LineServerException extends Exception {
     public LineServerException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    @Override
+    public String toString() {
+        return "LineServerException [message=" + getMessage() + ", cause=" + getCause() + "]";
+    }
+
 }

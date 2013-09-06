@@ -9,6 +9,9 @@ package com.stefanski.lineserver.util;
  */
 public final class StdLogger {
 
+    private StdLogger() {
+    }
+
     public static void info(String msg) {
         System.out.println(formatMsg(msg));
     }

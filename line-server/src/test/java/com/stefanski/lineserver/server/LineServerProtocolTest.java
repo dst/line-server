@@ -6,8 +6,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.stefanski.lineserver.server.LineServerException;
-import com.stefanski.lineserver.server.LineServerProtocol;
 import com.stefanski.lineserver.util.TextFile;
 
 /**

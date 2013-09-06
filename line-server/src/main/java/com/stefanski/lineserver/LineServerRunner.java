@@ -16,6 +16,9 @@ import com.stefanski.lineserver.util.StdLogger;
  */
 public class LineServerRunner {
 
+    private LineServerRunner() {
+    }
+
     public static void main(String[] args) {
         if (args.length != 1) {
             StdLogger.error("File name not specified");
@@ -28,9 +31,6 @@ public class LineServerRunner {
             server.run();
         } catch (LineServerException e) {
             StdLogger.error("Critical problem with line server: " + e);
-            if (e.getCause() != null) {
-                StdLogger.error("Cause: " + e.getCause());
-            }
             System.exit(1);
         }
     }

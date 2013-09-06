@@ -34,8 +34,6 @@ class LineServerProtocol {
      * 
      * @param input
      * @return Response to client
-     * @throws LineServerException
-     *             If command cannot be handled
      */
     public String processGetCmd(String input) {
         String[] tokens = input.split(" ");
