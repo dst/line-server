@@ -8,9 +8,8 @@ line-server/target/
 .checkstyle
 
 # Testing files and indexes:
-test/file.txt
-test/file.txt_lineServerIndex
-fox.txt_lineServerIndex
+file*.txt
+*_lineServerIndex
 
 # vim temporary files
 *~

@@ -3,17 +3,28 @@
 # Date: 03.09.2013
 # Author: Dariusz Stefanski
 #
-# It creates file.txt with specified count of lines in current directory.
+# It creates a file with specified count of lines (n) in current directory.
+# The file looks in the following way:
+# 1
+# 2
+# ...
+# n
 
-FILE_NAME="file.txt"
-
-if [ $# -ne 1 ]
+if [ $# -ne 2 ]
 then
-  echo "Usage: $0 lineCount"
+  echo "Usage: $0 lineCount file"
   exit
 fi
-lineCount=$1
 
-rm $FILE_NAME
-time seq $lineCount | dd of=file.txt bs=1024 count=$lineCount
+lineCount=$1
+file=$2
+
+if [ -f $file ]
+then
+  echo "File $file exists. Aborting."
+  exit 1
+fi
+
+
+time seq $lineCount | dd of=$file bs=1024 count=$lineCount
 

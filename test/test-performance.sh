@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Date: 05.09.2013
+# Author: Dariusz Stefanski
+#
+# It runs unit and _performance_ tests of LineServer application.
+
+MAX_LINE_NR="400000000"
+FILE="file4x10^8.txt"
+
+./createFile.sh $MAX_LINE_NR $FILE
+
+export PerformanceTesting="true"
+export TestFile=`pwd`/$FILE
+export MaxLineNr=$MAX_LINE_NR
+mvn test  -f ../line-server/pom.xml

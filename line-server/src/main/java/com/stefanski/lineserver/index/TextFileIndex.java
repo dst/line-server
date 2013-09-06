@@ -9,10 +9,13 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 
 /**
+ * The index to file.
+ * 
+ * It is not thread-safe.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */
-// TODO(dst), Sep 5, 2013: add thread-safe
 public class TextFileIndex {
     private final long lineCount;
 

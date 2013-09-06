@@ -20,15 +20,16 @@ import com.stefanski.lineserver.index.TextFileIndexer;
  * <li>Each line is terminated with a newline ("\n")</li>
  * <li>Any given line will fit into memory</li>
  * <li>The line is valid ASCII (e.g. not Unicode)</li>
- * <ul>
+ * </ul>
  * 
  * A file is pre-processed at the beginning for a future good performance.
+ * 
+ * It is thread-safe.
  * 
  * @author Dariusz Stefanski
  * @date Sep 1, 2013
  * 
  */
-// TODO(dst), Sep 5, 2013: add thread-safe
 public class TextFile {
 
     /**
@@ -67,7 +68,7 @@ public class TextFile {
      *            Number of line to read
      * @return A line from a file
      */
-    public String getLine(long lineNr) {
+    public synchronized String getLine(long lineNr) {
         if (lineNr < 1 || lineNr > getLineCount()) {
             throw new IllegalArgumentException("Invalid line number: " + lineNr);
         }

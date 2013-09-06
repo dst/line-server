@@ -42,20 +42,20 @@ import com.stefanski.lineserver.util.TextFile;
 public class LineServer {
 
     // Server commands:
-    static final String GET_CMD = "GET";
-    static final String QUIT_CMD = "QUIT";
-    static final String SHUTDOWN_CMD = "SHUTDOWN";
+    public static final String GET_CMD = "GET";
+    public static final String QUIT_CMD = "QUIT";
+    public static final String SHUTDOWN_CMD = "SHUTDOWN";
 
     // TODO(dst), Sep 5, 2013: move TCP_PORT and SIMULTANEOUS_CLIENTS_LIMIT to config
     /**
      * The server listens for connections on this port.
      */
-    static final int TCP_PORT = 10497;
+    public static final int TCP_PORT = 10497;
 
     /*
      * Determines how many simultaneous clients the server can handle.
      */
-    private static final int SIMULTANEOUS_CLIENTS_LIMIT = 10;
+    private static final int SIMULTANEOUS_CLIENTS_LIMIT = 100;
 
     /**
      * Socket for accepting clients.
@@ -174,8 +174,13 @@ public class LineServer {
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.startsWith(GET_CMD)) {
                         try {
+                            // long start = System.currentTimeMillis();
+
                             String response = protocol.processGetCmd(inputLine);
                             out.println(response);
+
+                            // long elapsedTime = System.currentTimeMillis() - start;
+                            // StdLogger.info("Get request responed in " + elapsedTime);
                         } catch (IllegalArgumentException e) {
                             StdLogger.error("Error while handling get command: " + e);
                             // Try to handle a next command
