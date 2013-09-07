@@ -10,7 +10,7 @@ package com.stefanski.lineserver.util;
 // TODO(dst), Sep 7, 2013: use logging library
 public final class StdLogger {
 
-    private static boolean TRACE = false;
+    private static final boolean TRACE_ENABLED = false;
 
     private StdLogger() {
     }
@@ -24,9 +24,13 @@ public final class StdLogger {
     }
 
     public static void trace(String msg) {
-        if (TRACE) {
+        if (isTraceEnabled()) {
             System.out.println(formatMsg(msg));
         }
+    }
+
+    public static boolean isTraceEnabled() {
+        return TRACE_ENABLED;
     }
 
     private static String formatMsg(String msg) {

@@ -170,15 +170,20 @@ public class LineServer {
                             socket.getInputStream()))) {
 
                 String inputLine;
+                long start = 0;
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.startsWith(GET_CMD)) {
-                        long start = System.currentTimeMillis();
+                        if (StdLogger.isTraceEnabled()) {
+                            start = System.currentTimeMillis();
+                        }
 
                         Response resp = protocol.processGetCmd(inputLine);
                         out.println(resp);
 
-                        long elapsedTime = System.currentTimeMillis() - start;
-                        StdLogger.trace("Get request responded in " + elapsedTime);
+                        if (StdLogger.isTraceEnabled()) {
+                            long elapsedTime = System.currentTimeMillis() - start;
+                            StdLogger.trace("Get request responded in " + elapsedTime);
+                        }
                     } else if (inputLine.startsWith(QUIT_CMD)) {
                         StdLogger.info("Disconnecting client");
                         break;
