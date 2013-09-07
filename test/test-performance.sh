@@ -8,9 +8,6 @@
 MAX_LINE_NR="400000000"
 FILE="file4x10^8.txt"
 
-#MAX_LINE_NR="10000000"
-#FILE="file10^7.txt"
-
 ./createFile.sh $MAX_LINE_NR $FILE
 
 # read properties
