@@ -37,7 +37,7 @@ public class TextFileIndexerTest {
     public void shouldLineMetadataBeCorrectForLine1() throws IndexException {
         // the
         LineMetadata meta1 = index.getLineMetadata(1);
-        Assert.assertEquals(0, meta1.begin);
+        Assert.assertEquals(0, meta1.offset);
         Assert.assertEquals(3, meta1.length);
     }
 
@@ -45,7 +45,7 @@ public class TextFileIndexerTest {
     public void shouldLineMetadataBeCorrectForLine2() throws IndexException {
         // the
         LineMetadata meta1 = index.getLineMetadata(2);
-        Assert.assertEquals(4, meta1.begin);
+        Assert.assertEquals(4, meta1.offset);
         Assert.assertEquals(11, meta1.length);
     }
 }

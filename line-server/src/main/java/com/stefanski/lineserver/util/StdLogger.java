@@ -7,7 +7,10 @@ package com.stefanski.lineserver.util;
  * @date Sep 1, 2013
  * 
  */
+// TODO(dst), Sep 7, 2013: use logging library
 public final class StdLogger {
+
+    private static boolean TRACE = false;
 
     private StdLogger() {
     }
@@ -18,6 +21,12 @@ public final class StdLogger {
 
     public static void error(String msg) {
         System.err.println(formatMsg(msg));
+    }
+
+    public static void trace(String msg) {
+        if (TRACE) {
+            System.out.println(formatMsg(msg));
+        }
     }
 
     private static String formatMsg(String msg) {

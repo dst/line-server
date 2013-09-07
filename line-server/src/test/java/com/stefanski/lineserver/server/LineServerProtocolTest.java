@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.stefanski.lineserver.util.TextFile;
+import com.stefanski.lineserver.util.TextFileException;
 
 /**
  * @author Dariusz Stefanski
@@ -20,27 +21,36 @@ public class LineServerProtocolTest {
         when(textFile.isLineNrValid(Mockito.anyInt())).thenReturn(false);
         LineServerProtocol protocol = new LineServerProtocol(textFile);
 
-        Assert.assertEquals("ERR\r\n", protocol.processGetCmd("GET 1"));
+        Response resp = protocol.processGetCmd("GET 1");
+        assertIsErrResp(resp);
     }
 
     @Test
-    public void shouldReturnLineForValidLineNr() throws LineServerException {
+    public void shouldReturnLineForValidLineNr() throws TextFileException {
+        String line = "Very nice line";
         TextFile textFile = Mockito.mock(TextFile.class);
         when(textFile.isLineNrValid(Mockito.anyInt())).thenReturn(true);
-        when(textFile.getLine(Mockito.anyInt())).thenReturn("Very nice line");
+        when(textFile.getLine(Mockito.anyInt())).thenReturn(line);
         LineServerProtocol protocol = new LineServerProtocol(textFile);
 
-        Assert.assertEquals("OK\r\nVery nice line", protocol.processGetCmd("GET 1"));
+        Response resp = protocol.processGetCmd("GET 1");
+        Assert.assertEquals(Response.createOkResp(line), resp);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForInvalidFormatOfGetCmd() {
-        createProtocolWithMockedTextFile().processGetCmd("GET");
+    @Test
+    public void shouldReturnErrorForInvalidFormatOfGetCmd() {
+        Response resp = createProtocolWithMockedTextFile().processGetCmd("GET");
+        assertIsErrResp(resp);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForNotParsableLineNr() {
-        createProtocolWithMockedTextFile().processGetCmd("GET a12a");
+    @Test
+    public void shouldReturnErrorForNotParsableLineNr() {
+        Response resp = createProtocolWithMockedTextFile().processGetCmd("GET a12a");
+        assertIsErrResp(resp);
+    }
+
+    private void assertIsErrResp(Response resp) {
+        Assert.assertEquals(Response.createErrResp(), resp);
     }
 
     private LineServerProtocol createProtocolWithMockedTextFile() {

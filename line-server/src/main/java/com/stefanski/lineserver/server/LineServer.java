@@ -161,7 +161,6 @@ public class LineServer {
             this.protocol = protocol;
         }
 
-        // TODO(dst), Sep 5, 2013: some logic can be moved to protocol
         @Override
         public void run() {
             StdLogger.info("Handling new client");
@@ -173,19 +172,13 @@ public class LineServer {
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.startsWith(GET_CMD)) {
-                        try {
-                            // long start = System.currentTimeMillis();
+                        long start = System.currentTimeMillis();
 
-                            String response = protocol.processGetCmd(inputLine);
-                            out.println(response);
+                        Response resp = protocol.processGetCmd(inputLine);
+                        out.println(resp);
 
-                            // long elapsedTime = System.currentTimeMillis() - start;
-                            // StdLogger.info("Get request responed in " + elapsedTime);
-                        } catch (IllegalArgumentException e) {
-                            StdLogger.error("Error while handling get command: " + e);
-                            // Try to handle a next command
-                            continue;
-                        }
+                        long elapsedTime = System.currentTimeMillis() - start;
+                        StdLogger.trace("Get request responded in " + elapsedTime);
                     } else if (inputLine.startsWith(QUIT_CMD)) {
                         StdLogger.info("Disconnecting client");
                         break;

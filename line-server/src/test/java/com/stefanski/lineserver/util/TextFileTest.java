@@ -24,7 +24,7 @@ public class TextFileTest {
     }
 
     @Test
-    public void shouldReturnTextForCorrectLineNr() {
+    public void shouldReturnTextForCorrectLineNr() throws TextFileException {
         Assert.assertEquals("the", textFile.getLine(1));
         Assert.assertEquals("quick brown", textFile.getLine(2));
         Assert.assertEquals("fox jumps over the", textFile.getLine(3));
@@ -33,17 +33,17 @@ public class TextFileTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForNegativeLineNr() {
+    public void shouldThrowExceptionForNegativeLineNr() throws TextFileException {
         textFile.getLine(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForZeroLineNr() {
+    public void shouldThrowExceptionForZeroLineNr() throws TextFileException {
         textFile.getLine(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForTooBigLineNr() {
+    public void shouldThrowExceptionForTooBigLineNr() throws TextFileException {
         textFile.getLine(5);
     }
 

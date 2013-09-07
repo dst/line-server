@@ -5,7 +5,7 @@ package com.stefanski.lineserver.index;
  * @date Sep 4, 2013
  */
 public class LineMetadata {
-    public long begin;
+    public long offset;
     public int length;
 
     /**
@@ -13,12 +13,12 @@ public class LineMetadata {
      * @param length
      */
     public LineMetadata(long begin, int length) {
-        this.begin = begin;
+        this.offset = begin;
         this.length = length;
     }
 
     @Override
     public String toString() {
-        return "LineMetadata [begin=" + begin + " , length=" + length + "]";
+        return "LineMetadata [offset=" + offset + " , length=" + length + "]";
     }
 }

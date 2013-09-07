@@ -1,6 +1,8 @@
 package com.stefanski.lineserver.server;
 
+import com.stefanski.lineserver.util.StdLogger;
 import com.stefanski.lineserver.util.TextFile;
+import com.stefanski.lineserver.util.TextFileException;
 
 /**
  * A protocol of a line server.
@@ -35,23 +37,32 @@ class LineServerProtocol {
      * @param input
      * @return Response to client
      */
-    public String processGetCmd(String input) {
+    public Response processGetCmd(String input) {
         String[] tokens = input.split(" ");
         if (tokens.length != 2) {
-            throw new IllegalArgumentException("Invalid format of get command: " + input);
+            StdLogger.error("Invalid format of get command: " + input);
+            return Response.createErrResp();
         }
 
         long lineNr;
         try {
             lineNr = Long.valueOf(tokens[1]);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Cannot parse line number: " + tokens[1], e);
+            StdLogger.error("Cannot parse line number: " + tokens[1]);
+            return Response.createErrResp();
         }
 
-        if (textFile.isLineNrValid(lineNr)) {
-            return "OK\r\n" + textFile.getLine(lineNr);
-        } else {
-            return "ERR\r\n";
+        if (!textFile.isLineNrValid(lineNr)) {
+            StdLogger.error("Invalid line nr: " + lineNr);
+            return Response.createErrResp();
+        }
+
+        try {
+            String line = textFile.getLine(lineNr);
+            return Response.createOkResp(line);
+        } catch (TextFileException e) {
+            StdLogger.error("Cannot get line: " + e);
+            return Response.createErrResp();
         }
     }
 }

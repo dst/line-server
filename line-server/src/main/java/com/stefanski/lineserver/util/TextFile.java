@@ -69,8 +69,9 @@ public class TextFile {
      * @param lineNr
      *            Number of line to read
      * @return A line from a file
+     * @throws TextFileException
      */
-    public synchronized String getLine(long lineNr) {
+    public synchronized String getLine(long lineNr) throws TextFileException {
         if (lineNr < 1 || lineNr > getLineCount()) {
             throw new IllegalArgumentException("Invalid line number: " + lineNr);
         }
@@ -79,14 +80,12 @@ public class TextFile {
         try {
             lineMetadata = index.getLineMetadata(lineNr);
         } catch (IndexException e) {
-            // TODO(dst), Sep 4, 2013: throw exception
-            StdLogger.error("Error when getting line metadata: " + e);
-            return "";
+            throw new TextFileException("Error when getting line metadata nr " + lineNr, e);
         }
 
         try {
             // Set starting position in file
-            fileChannel.position(lineMetadata.begin);
+            fileChannel.position(lineMetadata.offset);
 
             // and read until a whole line will be in buffer
             ByteBuffer line = ByteBuffer.allocate(lineMetadata.length);
@@ -95,12 +94,11 @@ public class TextFile {
                 readCount = fileChannel.read(line);
             } while (readCount != -1 && line.hasRemaining());
 
-            // TODO(dst), Sep 2, 2013: String is not effective
+            // TODO(dst), Sep 2, 2013: creating String is not a good idea here (memory + coping). It
+            // would be better to use byte[]
             return new String(line.array(), "ASCII");
         } catch (IOException e) {
-            // TODO(dst), Sep 4, 2013: throw exception
-            StdLogger.error("Error when reading line: " + e);
-            return "";
+            throw new TextFileException("Error when reading line: " + lineNr, e);
         }
     }
 

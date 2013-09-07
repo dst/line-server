@@ -1,6 +1,8 @@
 package com.stefanski.lineserver.server;
 
 /**
+ * This is an exception that is thrown whenever there are some problems with the line server.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 2, 2013
  */
