@@ -5,5 +5,5 @@
 #
 # It builds LineServer application.
 
-# TODO(dst): install Maven?
+setup-ubuntu.sh
 mvn compile  -f line-server/pom.xml
