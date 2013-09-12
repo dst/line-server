@@ -23,7 +23,7 @@ import com.stefanski.lineserver.util.StdLogger;
  */
 public class PerformanceLineServerTest extends LineServerTest {
 
-    private static final long TIME_PER_TEST_MS = 20000;
+    private static final long TIME_PER_TEST_MS = 1000;
 
     // Only 1 instance of server because it is expensive to start it for big file
     private static Thread serverThread;

@@ -1,4 +1,7 @@
-package com.stefanski.lineserver.server;
+package com.stefanski.lineserver.server.resp;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * A response to client
@@ -6,7 +9,7 @@ package com.stefanski.lineserver.server;
  * @author Dariusz Stefanski
  * @date Sep 7, 2013
  */
-public class Response {
+public class GetResponse implements Response {
 
     static final String RESP_END_OF_LINE = "\r\n";
     private static final String OK = "OK" + RESP_END_OF_LINE;
@@ -15,26 +18,37 @@ public class Response {
     String status;
     String line;
 
-    static Response createOkResp(String line) {
-        return new Response(OK, line);
+    public static GetResponse createOkResp(String line) {
+        return new GetResponse(OK, line);
     }
 
-    static Response createErrResp() {
-        return new Response(ERROR, null);
+    public static GetResponse createErrResp() {
+        return new GetResponse(ERROR, null);
     }
 
     /**
      * @param status
      * @param line
      */
-    public Response(String status, String line) {
+    public GetResponse(String status, String line) {
         this.status = status;
         this.line = line;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void write(PrintWriter writer) throws IOException {
+        writer.print(status);
+        if (line != null) {
+            writer.println(line);
+        }
+    }
+
     @Override
     public String toString() {
-        return line != null ? status + line : status;
+        return "GetResponse [status=" + status + ", line=" + line + "]";
     }
 
     @Override
@@ -54,7 +68,7 @@ public class Response {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Response other = (Response) obj;
+        GetResponse other = (GetResponse) obj;
         if (line == null) {
             if (other.line != null)
                 return false;
@@ -67,5 +81,4 @@ public class Response {
             return false;
         return true;
     }
-
 }

@@ -1,5 +1,7 @@
 package com.stefanski.lineserver.server;
 
+import com.stefanski.lineserver.server.cmd.GetCommand;
+import com.stefanski.lineserver.server.resp.GetResponse;
 import com.stefanski.lineserver.util.StdLogger;
 import com.stefanski.lineserver.util.TextFile;
 import com.stefanski.lineserver.util.TextFileException;
@@ -13,7 +15,8 @@ import com.stefanski.lineserver.util.TextFileException;
  * @date Sep 3, 2013
  */
 // It is thread-safe because TextFile is thread-safe.
-class LineServerProtocol {
+public class LineServerProtocol {
+    // TODO(dst), Sep 12, 2013: move to GetCommand?
 
     /**
      * An immutable text file to serve over the network.
@@ -37,32 +40,18 @@ class LineServerProtocol {
      * @param input
      * @return Response to client
      */
-    public Response processGetCmd(String input) {
-        String[] tokens = input.split(" ");
-        if (tokens.length != 2) {
-            StdLogger.error("Invalid format of get command: " + input);
-            return Response.createErrResp();
-        }
-
-        long lineNr;
-        try {
-            lineNr = Long.valueOf(tokens[1]);
-        } catch (NumberFormatException e) {
-            StdLogger.error("Cannot parse line number: " + tokens[1]);
-            return Response.createErrResp();
-        }
-
-        if (!textFile.isLineNrValid(lineNr)) {
-            StdLogger.error("Invalid line nr: " + lineNr);
-            return Response.createErrResp();
+    public GetResponse processGetCmd(GetCommand cmd) {
+        if (!textFile.isLineNrValid(cmd.getLineNr())) {
+            StdLogger.error("Invalid line nr: " + cmd.getLineNr());
+            return GetResponse.createErrResp();
         }
 
         try {
-            String line = textFile.getLine(lineNr);
-            return Response.createOkResp(line);
+            String line = textFile.getLine(cmd.getLineNr());
+            return GetResponse.createOkResp(line);
         } catch (TextFileException e) {
             StdLogger.error("Cannot get line: " + e);
-            return Response.createErrResp();
+            return GetResponse.createErrResp();
         }
     }
 }

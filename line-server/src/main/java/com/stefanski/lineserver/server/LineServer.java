@@ -1,14 +1,13 @@
 package com.stefanski.lineserver.server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.stefanski.lineserver.server.comm.Communication;
+import com.stefanski.lineserver.server.comm.SocketCommunication;
 import com.stefanski.lineserver.util.StdLogger;
 import com.stefanski.lineserver.util.TextFile;
 
@@ -39,12 +38,7 @@ import com.stefanski.lineserver.util.TextFile;
  * @date Sep 1, 2013
  * 
  */
-public class LineServer {
-
-    // Server commands:
-    public static final String GET_CMD = "GET";
-    public static final String QUIT_CMD = "QUIT";
-    public static final String SHUTDOWN_CMD = "SHUTDOWN";
+public class LineServer implements Server {
 
     // TODO(dst), Sep 5, 2013: move TCP_PORT and SIMULTANEOUS_CLIENTS_LIMIT to config
     /**
@@ -89,14 +83,21 @@ public class LineServer {
     }
 
     /**
-     * Runs server.
-     * 
-     * @throws LineServerException
-     *             If critical exception occurs during starting server.
+     * {@inheritDoc}
      */
     public void run() throws LineServerException {
         createServerSocket();
         listen();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void shutdown() {
+        StdLogger.info("Server shoutdown was requested");
+        listening = false;
+        executor.shutdownNow();
+        stopServer();
     }
 
     private void createServerSocket() throws LineServerException {
@@ -124,7 +125,9 @@ public class LineServer {
         while (isListening()) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                executor.execute(new ClientHandler(clientSocket, protocol));
+                Communication communication = new SocketCommunication(clientSocket);
+                ClientHandler handler = new ClientHandler(this, communication, protocol);
+                executor.execute(handler);
             } catch (IOException e) {
                 StdLogger.error("I/O exception while handling client: " + e);
                 // Try to handle next client
@@ -133,85 +136,7 @@ public class LineServer {
         }
     }
 
-    private void shutdown() {
-        StdLogger.info("Server shoutdown was requested");
-        listening = false;
-        executor.shutdownNow();
-        stopServer();
-    }
-
     private boolean isListening() {
         return listening;
     }
-
-    /**
-     * Handles interaction with one client using socket and protocol.
-     */
-    class ClientHandler implements Runnable {
-
-        private final Socket socket;
-        private final LineServerProtocol protocol;
-
-        /**
-         * @param socket
-         * @param protocol
-         */
-        public ClientHandler(Socket socket, LineServerProtocol protocol) {
-            this.socket = socket;
-            this.protocol = protocol;
-        }
-
-        @Override
-        public void run() {
-            StdLogger.info("Handling new client");
-
-            try (PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(
-                            socket.getInputStream()))) {
-
-                String inputLine;
-                long start = 0;
-                while ((inputLine = in.readLine()) != null) {
-                    if (inputLine.startsWith(GET_CMD)) {
-                        if (StdLogger.isTraceEnabled()) {
-                            start = System.currentTimeMillis();
-                        }
-
-                        Response resp = protocol.processGetCmd(inputLine);
-                        out.println(resp);
-
-                        if (StdLogger.isTraceEnabled()) {
-                            long elapsedTime = System.currentTimeMillis() - start;
-                            StdLogger.trace("Get request responded in " + elapsedTime);
-                        }
-                    } else if (inputLine.startsWith(QUIT_CMD)) {
-                        StdLogger.info("Disconnecting client");
-                        break;
-                    } else if (inputLine.startsWith(SHUTDOWN_CMD)) {
-                        shutdown();
-                        break;
-                    } else {
-                        StdLogger.error("Unknown command: " + inputLine);
-                        // Try to handle a next command
-                        continue;
-                    }
-                }
-            } catch (IOException e) {
-                StdLogger.error("I/O error during handling client: " + e);
-                // Just close connection
-            }
-
-            closeConnection();
-        }
-
-        private void closeConnection() {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                StdLogger.error("Failed closing client socket: " + e);
-                // Ignore, we are just finishing
-            }
-        }
-    }
-
 }

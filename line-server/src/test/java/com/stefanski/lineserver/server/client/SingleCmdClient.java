@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.stefanski.lineserver.server.LineServer;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
@@ -21,7 +20,7 @@ public class SingleCmdClient extends Client {
     }
 
     public static Client createShutdownClient(String name) {
-        return new SingleCmdClient(name, LineServer.SHUTDOWN_CMD, 0);
+        return new SingleCmdClient(name, "SHUTDOWN", 0);
     }
 
     public SingleCmdClient(String name, String cmd, long delay) {
