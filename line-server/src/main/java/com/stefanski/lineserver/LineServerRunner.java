@@ -21,7 +21,7 @@ public class LineServerRunner {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            StdLogger.error("File name not specified");
+            StdLogger.error(usage());
             System.exit(1);
         }
         String fileName = args[0];
@@ -33,5 +33,9 @@ public class LineServerRunner {
             StdLogger.error("Critical problem with line server: " + e);
             System.exit(1);
         }
+    }
+
+    private static String usage() {
+        return String.format("Usage: %s fileName", LineServerRunner.class.getSimpleName());
     }
 }
