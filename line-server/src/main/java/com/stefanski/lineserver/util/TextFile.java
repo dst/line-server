@@ -30,6 +30,8 @@ import com.stefanski.lineserver.index.TextFileIndexer;
  * @date Sep 1, 2013
  * 
  */
+// TODO(dst), Sep 16, 2013: move with exception to file package
+// TODO(dst), Sep 17, 2013: TextFile interface, IndexedTextFile class
 public class TextFile {
 
     /**

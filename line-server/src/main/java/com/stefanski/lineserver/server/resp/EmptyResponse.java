@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ * An empty response.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

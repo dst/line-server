@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * A response to client
+ * A response for a get command.
  * 
  * @author Dariusz Stefanski
  * @date Sep 7, 2013

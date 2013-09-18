@@ -6,6 +6,7 @@ package com.stefanski.lineserver.server;
  */
 public interface Server {
 
+    // TODO(dst), Sep 16, 2013: LineServerException in Server: bad
     /**
      * Runs server.
      * 

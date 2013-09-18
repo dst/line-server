@@ -1,11 +1,20 @@
 package com.stefanski.lineserver.index;
 
 /**
+ * A metadata of line.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */
 public class LineMetadata {
+    /**
+     * An offset from beginning of the file.
+     */
     public long offset;
+
+    /**
+     * Line's length without EOL.
+     */
     public int length;
 
     /**

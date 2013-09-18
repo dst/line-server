@@ -14,6 +14,8 @@ import com.stefanski.lineserver.server.resp.Response;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
+ * A communication is done via socket.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */
@@ -24,6 +26,7 @@ public class SocketCommunication implements Communication {
     private final BufferedReader reader;
     private final PrintWriter writer;
 
+    // TODO(dst), Sep 16, 2013: parser to constructor
     public SocketCommunication(Socket socket) throws IOException {
         parser = new CommandParser();
         this.socket = socket;

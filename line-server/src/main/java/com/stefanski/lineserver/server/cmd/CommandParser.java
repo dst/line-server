@@ -3,6 +3,8 @@ package com.stefanski.lineserver.server.cmd;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
+ * Parses commands from String.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

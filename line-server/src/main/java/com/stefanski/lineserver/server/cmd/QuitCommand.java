@@ -6,6 +6,8 @@ import com.stefanski.lineserver.server.resp.Response;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
+ * A request to disconnect client.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

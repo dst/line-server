@@ -1,6 +1,8 @@
 package com.stefanski.lineserver.server.cmd;
 
 /**
+ * An exception that is thrown whenever there are some problems during parsing commands.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

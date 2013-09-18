@@ -4,6 +4,8 @@ import com.stefanski.lineserver.server.ClientHandler;
 import com.stefanski.lineserver.server.resp.Response;
 
 /**
+ * A command.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

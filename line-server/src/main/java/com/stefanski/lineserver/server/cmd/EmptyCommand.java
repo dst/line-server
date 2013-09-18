@@ -5,6 +5,8 @@ import com.stefanski.lineserver.server.resp.EmptyResponse;
 import com.stefanski.lineserver.server.resp.Response;
 
 /**
+ * This command does nothing.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

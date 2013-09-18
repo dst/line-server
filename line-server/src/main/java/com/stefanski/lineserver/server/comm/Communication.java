@@ -6,6 +6,9 @@ import com.stefanski.lineserver.server.cmd.Command;
 import com.stefanski.lineserver.server.resp.Response;
 
 /**
+ * A communication channel between a server and clients. The server get requests via this channel
+ * and sends responses.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

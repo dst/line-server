@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ * A response from a server to a client.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */
