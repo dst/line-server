@@ -1,10 +1,10 @@
 package com.stefanski.lineserver.server;
 
+import com.stefanski.lineserver.file.TextFile;
+import com.stefanski.lineserver.file.TextFileException;
 import com.stefanski.lineserver.server.cmd.GetCommand;
 import com.stefanski.lineserver.server.resp.GetResponse;
 import com.stefanski.lineserver.util.StdLogger;
-import com.stefanski.lineserver.util.TextFile;
-import com.stefanski.lineserver.util.TextFileException;
 
 /**
  * A protocol of a line server.

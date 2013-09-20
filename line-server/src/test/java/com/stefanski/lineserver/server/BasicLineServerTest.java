@@ -1,11 +1,14 @@
 package com.stefanski.lineserver.server;
 
+import static org.mockito.Mockito.when;
 import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import com.stefanski.lineserver.file.TextFile;
 import com.stefanski.lineserver.server.client.Client;
 import com.stefanski.lineserver.server.client.SingleCmdClient;
 
@@ -19,7 +22,12 @@ public class BasicLineServerTest extends LineServerTest {
 
     @Before
     public void setUp() throws Exception {
-        serverThread = startServer("src/test/resources/com/stefanski/lineserver/fox.txt");
+        TextFile textFile = Mockito.mock(TextFile.class);
+        when(textFile.isLineNrValid(Mockito.anyLong())).thenReturn(true);
+        when(textFile.getLine(Mockito.anyLong())).thenReturn("line");
+
+        LineServer server = new LineServer(textFile);
+        serverThread = startServer(server);
     }
 
     @After

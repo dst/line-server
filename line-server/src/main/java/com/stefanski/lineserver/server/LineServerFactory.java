@@ -1,8 +1,8 @@
 package com.stefanski.lineserver.server;
 
-import java.io.IOException;
-
-import com.stefanski.lineserver.util.TextFile;
+import com.stefanski.lineserver.file.IndexedTextFile;
+import com.stefanski.lineserver.file.TextFile;
+import com.stefanski.lineserver.file.TextFileException;
 
 /**
  * A factory for creating line servers.
@@ -26,9 +26,9 @@ public class LineServerFactory {
      */
     public static LineServer createServer(String fileName) throws LineServerException {
         try {
-            TextFile textFile = new TextFile(fileName);
+            TextFile textFile = IndexedTextFile.createFromFile(fileName);
             return new LineServer(textFile);
-        } catch (IOException e) {
+        } catch (TextFileException e) {
             throw new LineServerException("Cannot create TextFile", e);
         }
     }

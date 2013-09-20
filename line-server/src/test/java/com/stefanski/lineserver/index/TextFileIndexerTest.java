@@ -1,15 +1,19 @@
 package com.stefanski.lineserver.index;
 
-import java.io.IOException;
-import java.net.URL;
+import static java.nio.file.StandardOpenOption.READ;
+import static java.nio.file.StandardOpenOption.WRITE;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.channels.FileChannel;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
-
-import com.stefanski.lineserver.util.TextFileTest;
+import org.junit.rules.TemporaryFolder;
 
 /**
  * @author Dariusz Stefanski
@@ -17,35 +21,48 @@ import com.stefanski.lineserver.util.TextFileTest;
  */
 public class TextFileIndexerTest {
 
+    @Rule
+    public final static TemporaryFolder folder = new TemporaryFolder();
+
     private static TextFileIndex index;
 
     @BeforeClass
-    public static void setUp() throws IOException {
-        URL foxUrl = TextFileTest.class.getResource("../fox.txt");
-        Path foxPath = FileSystems.getDefault().getPath(foxUrl.getPath());
-        TextFileIndexer indexer = TextFileIndexer.createIndexer(foxPath);
+    public static void setUp() throws Exception {
+        File file = folder.newFile("file.txt");
+        FileWriter out = new FileWriter(file);
+        out.write("line1\n");
+        out.write("line2\n");
+        out.close();
+
+        Path filePath = FileSystems.getDefault().getPath(file.getAbsolutePath());
+        FileChannel fileFC = FileChannel.open(filePath, READ);
+
+        File indexFile = folder.newFile("file.txt_lineServerIndex");
+        Path indexPath = FileSystems.getDefault().getPath(indexFile.getAbsolutePath());
+        FileChannel indexFC = FileChannel.open(indexPath, READ, WRITE);
+
+        TextFileIndexer indexer = new TextFileIndexer(fileFC, indexFC);
         index = indexer.buildIndex();
-        ;
     }
 
     @Test
     public void shouldLineCountBeCorrect() {
-        Assert.assertEquals(4, index.getLineCount());
+        Assert.assertEquals(2, index.getLineCount());
     }
 
     @Test
     public void shouldLineMetadataBeCorrectForLine1() throws IndexException {
-        // the
-        LineMetadata meta1 = index.getLineMetadata(1);
-        Assert.assertEquals(0, meta1.offset);
-        Assert.assertEquals(3, meta1.length);
+        // line1
+        LineMetadata meta = index.getLineMetadata(1);
+        Assert.assertEquals(0, meta.offset);
+        Assert.assertEquals(5, meta.length);
     }
 
     @Test
     public void shouldLineMetadataBeCorrectForLine2() throws IndexException {
-        // the
-        LineMetadata meta1 = index.getLineMetadata(2);
-        Assert.assertEquals(4, meta1.offset);
-        Assert.assertEquals(11, meta1.length);
+        // line2
+        LineMetadata meta = index.getLineMetadata(2);
+        Assert.assertEquals(6, meta.offset);
+        Assert.assertEquals(5, meta.length);
     }
 }

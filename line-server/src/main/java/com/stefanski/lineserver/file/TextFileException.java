@@ -1,4 +1,4 @@
-package com.stefanski.lineserver.util;
+package com.stefanski.lineserver.file;
 
 /**
  * This is an exception that is thrown whenever there are some problems with getting line from

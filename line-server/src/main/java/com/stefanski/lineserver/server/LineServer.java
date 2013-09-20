@@ -6,10 +6,10 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.stefanski.lineserver.file.TextFile;
 import com.stefanski.lineserver.server.comm.Communication;
 import com.stefanski.lineserver.server.comm.SocketCommunication;
 import com.stefanski.lineserver.util.StdLogger;
-import com.stefanski.lineserver.util.TextFile;
 
 /**
  * Network server that serves individual lines of an immutable text file over the network to clients

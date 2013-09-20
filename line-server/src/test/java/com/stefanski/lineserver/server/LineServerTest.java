@@ -13,9 +13,8 @@ import com.stefanski.lineserver.server.client.SingleCmdClient;
  */
 public class LineServerTest {
 
-    protected static Thread startServer(final String fileName) throws InterruptedException,
+    protected static Thread startServer(final LineServer server) throws InterruptedException,
             LineServerException {
-        final LineServer server = LineServerFactory.createServer(fileName);
 
         // start server
         Thread thread = new Thread(new Runnable() {
