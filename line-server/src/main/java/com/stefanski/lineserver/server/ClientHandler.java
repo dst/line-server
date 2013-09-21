@@ -2,7 +2,9 @@ package com.stefanski.lineserver.server;
 
 import java.io.IOException;
 
+import com.stefanski.lineserver.file.TextFile;
 import com.stefanski.lineserver.server.cmd.Command;
+import com.stefanski.lineserver.server.cmd.CommandContext;
 import com.stefanski.lineserver.server.comm.Communication;
 import com.stefanski.lineserver.server.resp.Response;
 import com.stefanski.lineserver.util.StdLogger;
@@ -17,17 +19,17 @@ public class ClientHandler implements Runnable {
 
     private final Server server;
     private final Communication communication;
-    private final LineServerProtocol protocol;
+    private final TextFile textFile;
     private boolean running;
 
     /**
      * @param socket
      * @param protocol
      */
-    public ClientHandler(Server server, Communication communication, LineServerProtocol protocol) {
+    public ClientHandler(Server server, Communication communication, TextFile textFile) {
         this.server = server;
         this.communication = communication;
-        this.protocol = protocol;
+        this.textFile = textFile;
         running = true;
     }
 
@@ -37,7 +39,8 @@ public class ClientHandler implements Runnable {
 
         while (isRunning()) {
             Command cmd = communication.receiveCommand();
-            Response resp = cmd.execute(this);
+            CommandContext ctx = new CommandContext(this, textFile);
+            Response resp = cmd.execute(ctx);
             try {
                 communication.sendResponse(resp);
             } catch (IOException e) {
@@ -69,10 +72,5 @@ public class ClientHandler implements Runnable {
             StdLogger.error("Failed closing communication channel: " + e);
             // Ignore, we are just finishing
         }
-    }
-
-    // TODO(dst), Sep 12, 2013: this shouldn't be needed
-    public LineServerProtocol getProtocol() {
-        return protocol;
     }
 }

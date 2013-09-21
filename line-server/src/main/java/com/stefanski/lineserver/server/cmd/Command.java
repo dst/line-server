@@ -1,6 +1,5 @@
 package com.stefanski.lineserver.server.cmd;
 
-import com.stefanski.lineserver.server.ClientHandler;
 import com.stefanski.lineserver.server.resp.Response;
 
 /**
@@ -11,5 +10,5 @@ import com.stefanski.lineserver.server.resp.Response;
  */
 public interface Command {
 
-    Response execute(ClientHandler handler);
+    Response execute(CommandContext ctx);
 }

@@ -1,6 +1,5 @@
 package com.stefanski.lineserver.server.cmd;
 
-import com.stefanski.lineserver.server.ClientHandler;
 import com.stefanski.lineserver.server.resp.EmptyResponse;
 import com.stefanski.lineserver.server.resp.Response;
 
@@ -25,8 +24,8 @@ public class ShutdownCommand implements Command {
      * {@inheritDoc}
      */
     @Override
-    public Response execute(ClientHandler handler) {
-        handler.shutdownServer();
+    public Response execute(CommandContext ctx) {
+        ctx.getClientHandler().shutdownServer();
         return EmptyResponse.getInstance();
     }
 

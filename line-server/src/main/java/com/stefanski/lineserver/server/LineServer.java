@@ -62,9 +62,9 @@ public class LineServer implements Server {
     private final ExecutorService executor;
 
     /**
-     * Protocol for serving GET requests.
+     * An immutable text file which is served by this server.
      */
-    private final LineServerProtocol protocol;
+    private final TextFile textFile;
 
     /**
      * Indicates whether server is listening for clients. The server stops listening after receiving
@@ -77,8 +77,8 @@ public class LineServer implements Server {
      *            An immutable text file
      */
     public LineServer(TextFile textFile) {
+        this.textFile = textFile;
         executor = Executors.newFixedThreadPool(SIMULTANEOUS_CLIENTS_LIMIT);
-        protocol = new LineServerProtocol(textFile);
         listening = true;
     }
 
@@ -126,7 +126,7 @@ public class LineServer implements Server {
             try {
                 Socket clientSocket = serverSocket.accept();
                 Communication communication = SocketCommunication.fromSocket(clientSocket);
-                ClientHandler handler = new ClientHandler(this, communication, protocol);
+                ClientHandler handler = new ClientHandler(this, communication, textFile);
                 executor.execute(handler);
             } catch (IOException e) {
                 StdLogger.error("I/O exception while handling client: " + e);

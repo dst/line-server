@@ -1,6 +1,7 @@
 package com.stefanski.lineserver.server.cmd;
 
-import com.stefanski.lineserver.server.ClientHandler;
+import com.stefanski.lineserver.file.TextFile;
+import com.stefanski.lineserver.file.TextFileException;
 import com.stefanski.lineserver.server.resp.GetResponse;
 import com.stefanski.lineserver.server.resp.Response;
 import com.stefanski.lineserver.util.StdLogger;
@@ -23,15 +24,14 @@ public class GetCommand implements Command {
      * {@inheritDoc}
      */
     @Override
-    public Response execute(ClientHandler handler) {
+    public Response execute(CommandContext ctx) {
         long start = 0;
 
         if (StdLogger.isTraceEnabled()) {
             start = System.currentTimeMillis();
         }
 
-        // // TODO(dst), Sep 12, 2013: protocol in this class?
-        GetResponse resp = handler.getProtocol().processGetCmd(this);
+        GetResponse resp = createResponse(ctx);
 
         if (StdLogger.isTraceEnabled()) {
             long elapsedTime = System.currentTimeMillis() - start;
@@ -41,8 +41,21 @@ public class GetCommand implements Command {
         return resp;
     }
 
-    public long getLineNr() {
-        return lineNr;
+    private GetResponse createResponse(CommandContext ctx) {
+        TextFile textFile = ctx.getTextFile();
+
+        if (!textFile.isLineNrValid(lineNr)) {
+            StdLogger.error("Invalid line nr: " + lineNr);
+            return GetResponse.createErrResp();
+        }
+
+        try {
+            String line = textFile.getLine(lineNr);
+            return GetResponse.createOkResp(line);
+        } catch (TextFileException e) {
+            StdLogger.error("Cannot get line: " + e);
+            return GetResponse.createErrResp();
+        }
     }
 
     @Override
