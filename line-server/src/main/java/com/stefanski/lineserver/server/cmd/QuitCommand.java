@@ -29,6 +29,6 @@ public class QuitCommand implements Command {
     public Response execute(ClientHandler handler) {
         StdLogger.info("Disconnecting client");
         handler.quit();
-        return new EmptyResponse();
+        return EmptyResponse.getInstance();
     }
 }

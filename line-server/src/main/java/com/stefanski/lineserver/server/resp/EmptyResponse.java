@@ -10,7 +10,15 @@ import java.io.PrintWriter;
  * @date Sep 12, 2013
  */
 public class EmptyResponse implements Response {
-    // TODO(dst), Sep 12, 2013: it can be singleton
+
+    private static EmptyResponse INSTANCE = new EmptyResponse();
+
+    public static EmptyResponse getInstance() {
+        return INSTANCE;
+    }
+
+    private EmptyResponse() {
+    }
 
     /**
      * {@inheritDoc}

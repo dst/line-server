@@ -27,7 +27,7 @@ public class ShutdownCommand implements Command {
     @Override
     public Response execute(ClientHandler handler) {
         handler.shutdownServer();
-        return new EmptyResponse();
+        return EmptyResponse.getInstance();
     }
 
 }

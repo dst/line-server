@@ -26,7 +26,7 @@ public class EmptyCommand implements Command {
      */
     @Override
     public Response execute(ClientHandler handler) {
-        return new EmptyResponse();
+        return EmptyResponse.getInstance();
     }
 
 }
