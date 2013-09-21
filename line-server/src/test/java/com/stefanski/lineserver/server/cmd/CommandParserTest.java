@@ -17,6 +17,16 @@ public class CommandParserTest {
         assertEquals(new GetCommand(123), parser.parseCmd("GET 123"));
     }
 
+    @Test(expected = CommandParserException.class)
+    public void shouldThrowExceptionForInvalidFormatOfGetCmd() throws CommandParserException {
+        parser.parseCmd("GET");
+    }
+
+    @Test(expected = CommandParserException.class)
+    public void shouldThrowExceptionForNotParsableLineNr() throws CommandParserException {
+        parser.parseCmd("GET a12a");
+    }
+
     @Test
     public void shouldParseQuitCommand() throws CommandParserException {
         assertEquals(QuitCommand.getInstance(), parser.parseCmd("QUIT"));
@@ -27,8 +37,8 @@ public class CommandParserTest {
         assertEquals(ShutdownCommand.getInstance(), parser.parseCmd("SHUTDOWN"));
     }
 
-    @Test
-    public void shouldReturnEmptyCommandForUnknownCommand() throws CommandParserException {
-        assertEquals(EmptyCommand.getInstance(), parser.parseCmd("aaaaaa"));
+    @Test(expected = CommandParserException.class)
+    public void shouldThrowExceptionForUnknownCommand() throws CommandParserException {
+        parser.parseCmd("aaaaaa");
     }
 }

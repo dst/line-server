@@ -1,6 +1,5 @@
 package com.stefanski.lineserver.server.cmd;
 
-import com.stefanski.lineserver.util.StdLogger;
 
 /**
  * Parses commands from String.
@@ -23,8 +22,7 @@ public class CommandParser {
         } else if (line.startsWith(SHUTDOWN_CMD)) {
             return ShutdownCommand.getInstance();
         } else {
-            StdLogger.error("Unknown command: " + line);
-            return EmptyCommand.getInstance();
+            throw new CommandParserException("Unknown command: " + line);
         }
     }
 

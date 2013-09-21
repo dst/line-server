@@ -40,19 +40,6 @@ public class LineServerProtocolTest {
         Assert.assertEquals(GetResponse.createOkResp(line), resp);
     }
 
-    // TODO(dst), Sep 12, 2013: logic moved to parser
-    // @Test
-    // public void shouldReturnErrorForInvalidFormatOfGetCmd() {
-    // GetResponse resp = createProtocolWithMockedTextFile().processGetCmd("GET");
-    // assertIsErrResp(resp);
-    // }
-    //
-    // @Test
-    // public void shouldReturnErrorForNotParsableLineNr() {
-    // GetResponse resp = createProtocolWithMockedTextFile().processGetCmd("GET a12a");
-    // assertIsErrResp(resp);
-    // }
-
     private void assertIsErrResp(GetResponse resp) {
         Assert.assertEquals(GetResponse.createErrResp(), resp);
     }
