@@ -60,10 +60,7 @@ public class TextFileIndexer implements AutoCloseable {
         FileProcessingProgressMonitor progressMonitor = new FileProcessingProgressMonitor(fileSize);
 
         long lineCount = 0;
-
         ByteBuffer indexBuf = ByteBuffer.allocate(INDEX_BUF_SIZE);
-
-        // TODO(dst), Sep 19, 2013: move to constructor
         LineOffsetFinder lineFinder = new LineOffsetFinder(fileFC);
 
         progressMonitor.start();
@@ -102,8 +99,7 @@ public class TextFileIndexer implements AutoCloseable {
      */
     @Override
     // TODO(dst), Sep 19, 2013: call it
-            public
-            void close() throws Exception {
+    public void close() throws Exception {
         fileFC.close();
         // Don't close index channel because it is passed to index
     }

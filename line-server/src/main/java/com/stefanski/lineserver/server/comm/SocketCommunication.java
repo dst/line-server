@@ -56,8 +56,12 @@ public class SocketCommunication implements Communication {
      * {@inheritDoc}
      */
     @Override
-    public void sendResponse(Response resp) throws IOException {
-        resp.write(writer);
+    public void sendResponse(Response resp) throws CommunicationException {
+        try {
+            resp.write(writer);
+        } catch (IOException e) {
+            throw new CommunicationException("Cannot write response", e);
+        }
     }
 
     /**

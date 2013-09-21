@@ -1,4 +1,4 @@
-package com.stefanski.lineserver.server.client;
+package com.stefanski.lineserver.server.perf;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import com.stefanski.lineserver.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
  */
-public class SingleCmdClient extends Client {
+class SingleCmdClient extends Client {
 
     private final String cmd;
     private final long delay;

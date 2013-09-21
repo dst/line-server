@@ -1,11 +1,10 @@
 package com.stefanski.lineserver.server;
 
-import java.io.IOException;
-
 import com.stefanski.lineserver.file.TextFile;
 import com.stefanski.lineserver.server.cmd.Command;
 import com.stefanski.lineserver.server.cmd.CommandContext;
 import com.stefanski.lineserver.server.comm.Communication;
+import com.stefanski.lineserver.server.comm.CommunicationException;
 import com.stefanski.lineserver.server.resp.Response;
 import com.stefanski.lineserver.util.StdLogger;
 
@@ -43,8 +42,8 @@ public class ClientHandler implements Runnable {
             Response resp = cmd.execute(ctx);
             try {
                 communication.sendResponse(resp);
-            } catch (IOException e) {
-                StdLogger.error("I/O error during sending response: " + e);
+            } catch (CommunicationException e) {
+                StdLogger.error("Cannot send response: " + e);
                 quit();
             }
         }

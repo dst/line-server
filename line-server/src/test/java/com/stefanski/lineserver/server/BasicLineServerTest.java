@@ -1,16 +1,25 @@
 package com.stefanski.lineserver.server;
 
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.stefanski.lineserver.file.TextFile;
-import com.stefanski.lineserver.server.client.Client;
-import com.stefanski.lineserver.server.client.SingleCmdClient;
+import com.stefanski.lineserver.file.TextFileException;
+import com.stefanski.lineserver.server.cmd.Command;
+import com.stefanski.lineserver.server.cmd.GetCommand;
+import com.stefanski.lineserver.server.cmd.ShutdownCommand;
+import com.stefanski.lineserver.server.comm.Communication;
+import com.stefanski.lineserver.server.comm.CommunicationDetector;
+import com.stefanski.lineserver.server.comm.CommunicationException;
+import com.stefanski.lineserver.server.resp.GetResponse;
+import com.stefanski.lineserver.server.resp.Response;
+import com.stefanski.lineserver.util.StdLogger;
 
 /**
  * @author Dariusz Stefanski
@@ -20,40 +29,88 @@ public class BasicLineServerTest extends LineServerTest {
 
     private Thread serverThread;
 
-    @Before
-    public void setUp() throws Exception {
-        TextFile textFile = Mockito.mock(TextFile.class);
-        when(textFile.isLineNrValid(Mockito.anyLong())).thenReturn(true);
-        when(textFile.getLine(Mockito.anyLong())).thenReturn("line");
-
-        LineServer server = new LineServer(textFile);
-        serverThread = startServer(server);
-    }
-
-    @After
-    public void cleanUp() throws Exception {
-        terminateServer(serverThread);
-    }
-
     @Test
     public void shouldServerStopAfterReceivingShutdownMsg() throws Exception {
-        terminateServer(serverThread);
+        Communication communication = mock(Communication.class);
+        when(communication.receiveCommand()).thenReturn(ShutdownCommand.getInstance());
+
+        int simultaneousClientsLimit = 1;
+        serverThread = startServer(createServer(simultaneousClientsLimit, communication));
+        serverThread.join();
+
         // Otherwise it will be still running and test will not finish
     }
 
     @Test
     public void shouldServerSupportMultipleSimultaneousClients() throws Exception {
-        Client client1 = SingleCmdClient.createSlowClient("Slow Client 1", 100);
-        Client client2 = SingleCmdClient.createSlowClient("Slow Client 2", 100);
+        class SlowCommunication implements Communication {
+            private final AtomicInteger responseCounter = new AtomicInteger(0);
 
-        Thread thread1 = startClient(client1);
-        Thread thread2 = startClient(client2);
+            private final AtomicInteger count = new AtomicInteger(0);
 
-        Thread.sleep(150);
+            @Override
+            public void close() throws Exception {
+            }
 
-        Assert.assertTrue("One of clients not finished", client1.isJobDone() && client2.isJobDone());
+            @Override
+            public void sendResponse(Response resp) throws CommunicationException {
+                if (resp instanceof GetResponse) {
+                    responseCounter.incrementAndGet();
+                }
+            }
 
-        thread1.join();
-        thread2.join();
+            @Override
+            public Command receiveCommand() {
+                int val = count.incrementAndGet();
+                if (val > 2) {
+                    return createSlowlyShutdownCommand();
+                } else {
+                    return createSlowlyGetCommand();
+                }
+            }
+
+            public int getResponseCount() {
+                return responseCounter.get();
+            }
+
+            private GetCommand createSlowlyGetCommand() {
+                sleep(200);
+                return new GetCommand(123L);
+            }
+
+            private ShutdownCommand createSlowlyShutdownCommand() {
+                sleep(300);
+                return ShutdownCommand.getInstance();
+            }
+
+            private void sleep(long delay) {
+                StdLogger.info("Waiting...");
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    throw new AssertionError("InterruptedException when sleeping: " + e);
+                }
+                StdLogger.info("Waiting finished");
+            }
+        }
+
+        int simultaneousClientsLimit = 3;
+        SlowCommunication communication = new SlowCommunication();
+        serverThread = startServer(createServer(simultaneousClientsLimit, communication));
+        serverThread.join();
+
+        assertEquals("Not all command were executed", 2, communication.getResponseCount());
+    }
+
+    private LineServer createServer(int simultaneousClientsLimit, Communication communication)
+            throws TextFileException, CommunicationException {
+        CommunicationDetector detector = mock(CommunicationDetector.class);
+        when(detector.acceptNextClient()).thenReturn(communication);
+
+        TextFile textFile = mock(TextFile.class);
+        when(textFile.isLineNrValid(Mockito.anyLong())).thenReturn(true);
+        when(textFile.getLine(Mockito.anyLong())).thenReturn("line");
+
+        return new LineServer(simultaneousClientsLimit, detector, textFile);
     }
 }

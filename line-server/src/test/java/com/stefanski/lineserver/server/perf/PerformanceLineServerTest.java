@@ -1,4 +1,4 @@
-package com.stefanski.lineserver.server;
+package com.stefanski.lineserver.server.perf;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,12 +11,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.stefanski.lineserver.server.client.Client;
-import com.stefanski.lineserver.server.client.FastClient;
+import com.stefanski.lineserver.server.LineServer;
+import com.stefanski.lineserver.server.LineServerFactory;
+import com.stefanski.lineserver.server.LineServerTest;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
  * Performance tests are run only if PerformanceTesting system variable is set.
+ * 
+ * It is not a unit test, it operates on real files and communicates using real sockets.
  * 
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
@@ -25,7 +28,7 @@ public class PerformanceLineServerTest extends LineServerTest {
 
     private static final long TIME_PER_TEST_MS = 1000;
 
-    // Only 1 instance of server because it is expensive to start it for big file
+    // Only 1 instance of a server because it is expensive to start it for a big file
     private static Thread serverThread;
 
     @BeforeClass
@@ -37,7 +40,7 @@ public class PerformanceLineServerTest extends LineServerTest {
     @AfterClass
     public static void cleanUp() throws Exception {
         if (isPerformanceTesting()) {
-            terminateServer(serverThread);
+            terminateServer();
         }
     }
 
@@ -83,6 +86,17 @@ public class PerformanceLineServerTest extends LineServerTest {
         }
 
         printStats("Client count: " + clientCount, Arrays.asList(clients));
+    }
+
+    private static void terminateServer() throws Exception {
+        startClient(SingleCmdClient.createShutdownClient("Terminator"));
+        serverThread.join();
+    }
+
+    private static Thread startClient(Client client) {
+        Thread clientThread = new Thread(client);
+        clientThread.start();
+        return clientThread;
     }
 
     private static boolean isPerformanceTesting() {

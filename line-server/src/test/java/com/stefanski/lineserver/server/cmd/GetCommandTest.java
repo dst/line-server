@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 
 import com.stefanski.lineserver.file.TextFile;
 import com.stefanski.lineserver.file.TextFileException;
-import com.stefanski.lineserver.server.LineServerException;
 import com.stefanski.lineserver.server.resp.GetResponse;
 import com.stefanski.lineserver.server.resp.Response;
 
@@ -19,7 +18,7 @@ import com.stefanski.lineserver.server.resp.Response;
 public class GetCommandTest {
 
     @Test
-    public void shouldReturnErrorForInvalidLineNr() throws LineServerException {
+    public void shouldReturnErrorForInvalidLineNr() {
         long lineNr = 123L;
         GetCommand cmd = new GetCommand(lineNr);
 

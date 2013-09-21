@@ -1,4 +1,6 @@
-package com.stefanski.lineserver.server.client;
+package com.stefanski.lineserver.server.perf;
+
+import static com.stefanski.lineserver.server.comm.TCPCommunicationDetector.TCP_PORT;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,13 +11,11 @@ import java.net.Socket;
 
 import junit.framework.Assert;
 
-import com.stefanski.lineserver.server.LineServer;
-
 /**
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
  */
-public abstract class Client implements Runnable {
+abstract class Client implements Runnable {
 
     private final String name;
     private boolean jobDone;
@@ -29,7 +29,7 @@ public abstract class Client implements Runnable {
 
     @Override
     public void run() {
-        try (Socket socket = new Socket(InetAddress.getLocalHost(), LineServer.TCP_PORT);
+        try (Socket socket = new Socket(InetAddress.getLocalHost(), TCP_PORT);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(
                         socket.getInputStream()));) {

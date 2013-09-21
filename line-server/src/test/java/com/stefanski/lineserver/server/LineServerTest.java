@@ -1,9 +1,6 @@
 package com.stefanski.lineserver.server;
 
-import junit.framework.Assert;
-
-import com.stefanski.lineserver.server.client.Client;
-import com.stefanski.lineserver.server.client.SingleCmdClient;
+import com.stefanski.lineserver.server.comm.CommunicationException;
 
 /**
  * Base class for Basic and Performance test classes.
@@ -13,8 +10,7 @@ import com.stefanski.lineserver.server.client.SingleCmdClient;
  */
 public class LineServerTest {
 
-    protected static Thread startServer(final LineServer server) throws InterruptedException,
-            LineServerException {
+    protected static Thread startServer(final LineServer server) throws InterruptedException {
 
         // start server
         Thread thread = new Thread(new Runnable() {
@@ -22,8 +18,8 @@ public class LineServerTest {
             public void run() {
                 try {
                     server.run();
-                } catch (LineServerException e) {
-                    Assert.fail("Starting server failed: " + e);
+                } catch (CommunicationException e) {
+                    throw new AssertionError("We have a problem. Starting server failed: " + e);
                 }
             }
         });
@@ -35,16 +31,4 @@ public class LineServerTest {
 
         return thread;
     }
-
-    protected static void terminateServer(Thread serverThread) throws Exception {
-        startClient(SingleCmdClient.createShutdownClient("Terminator"));
-        serverThread.join();
-    }
-
-    protected static Thread startClient(Client client) {
-        Thread clientThread = new Thread(client);
-        clientThread.start();
-        return clientThread;
-    }
-
 }

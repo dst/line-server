@@ -1,7 +1,5 @@
 package com.stefanski.lineserver.server.comm;
 
-import java.io.IOException;
-
 import com.stefanski.lineserver.server.cmd.Command;
 import com.stefanski.lineserver.server.resp.Response;
 
@@ -16,5 +14,5 @@ public interface Communication extends AutoCloseable {
 
     Command receiveCommand();
 
-    void sendResponse(Response resp) throws IOException;
+    void sendResponse(Response resp) throws CommunicationException;
 }
