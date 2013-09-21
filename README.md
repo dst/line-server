@@ -72,12 +72,12 @@ Insert all lines to the database and next query by nr.
 * Multiple instances of TextFile 
 
 ## On-line resources ##
-Java tutorials: http://docs.oracle.com/javase/tutorial
-Java 7 API Specification: http://docs.oracle.com/javase/7/docs/api
-http://nadeausoftware.com/articles/2008/02/java_tip_how_read_files_quickly
-stackoverflow.com
-google.com
-wikipedia.org
+* Java tutorials: http://docs.oracle.com/javase/tutorial
+* Java 7 API Specification: http://docs.oracle.com/javase/7/docs/api
+* http://nadeausoftware.com/articles/2008/02/java_tip_how_read_files_quickly
+* http://stackoverflow.com
+* http://google.com
+* http://wikipedia.org
 
 ## Libraries and tools ##
 * Java 7
