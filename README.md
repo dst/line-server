@@ -23,7 +23,7 @@ $ ./run.sh fileName
 $ nc localhost 10497
 
 ## Assumptions ##
-* Maximum line length is <# 2GB (Integer.MAX_VALUE)
+* Maximum line length is <= 2GB (Integer.MAX_VALUE)
 * There is enough free space on disk for an index file. The index file can be
   even bigger then original file in case of very short lines (like empty one).
 * Server start can be slow (the index is built before clients can connect)
@@ -87,3 +87,10 @@ wikipedia.org
 
 ## Man-hours ##
 The happy know no hours :)
+
+## TODO ##
+* logger: slf4j + log4j
+* DI (Juice or Spring)
+* consider using netty lib
+* lib for shorter equals and hash code
+* RAMTextFile for small files
