@@ -125,7 +125,7 @@ public class LineServer implements Server {
         while (isListening()) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                Communication communication = new SocketCommunication(clientSocket);
+                Communication communication = SocketCommunication.fromSocket(clientSocket);
                 ClientHandler handler = new ClientHandler(this, communication, protocol);
                 executor.execute(handler);
             } catch (IOException e) {

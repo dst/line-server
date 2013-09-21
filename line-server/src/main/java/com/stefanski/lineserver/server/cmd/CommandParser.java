@@ -19,12 +19,12 @@ public class CommandParser {
         if (line.startsWith(GET_CMD)) {
             return parseGetCmd(line);
         } else if (line.startsWith(QUIT_CMD)) {
-            return new QuitCommand();
+            return QuitCommand.getInstance();
         } else if (line.startsWith(SHUTDOWN_CMD)) {
-            return new ShutdownCommand();
+            return ShutdownCommand.getInstance();
         } else {
             StdLogger.error("Unknown command: " + line);
-            return new EmptyCommand();
+            return EmptyCommand.getInstance();
         }
     }
 

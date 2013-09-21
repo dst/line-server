@@ -15,7 +15,6 @@ import com.stefanski.lineserver.util.SeekableByteChannelReader;
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */
-// TODO(dst), Sep 19, 2013: move this package to file package
 public class OffsetIndex implements TextFileIndex {
     /**
      * A line count in the indexed file (not index).

@@ -13,6 +13,15 @@ import com.stefanski.lineserver.util.StdLogger;
  */
 public class QuitCommand implements Command {
 
+    private static QuitCommand INSTANCE = new QuitCommand();
+
+    public static QuitCommand getInstance() {
+        return INSTANCE;
+    }
+
+    private QuitCommand() {
+    }
+
     /**
      * {@inheritDoc}
      */

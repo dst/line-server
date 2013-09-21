@@ -12,6 +12,15 @@ import com.stefanski.lineserver.server.resp.Response;
  */
 public class EmptyCommand implements Command {
 
+    private static EmptyCommand INSTANCE = new EmptyCommand();
+
+    public static EmptyCommand getInstance() {
+        return INSTANCE;
+    }
+
+    private EmptyCommand() {
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -12,6 +12,15 @@ import com.stefanski.lineserver.server.resp.Response;
  */
 public class ShutdownCommand implements Command {
 
+    private static ShutdownCommand INSTANCE = new ShutdownCommand();
+
+    public static ShutdownCommand getInstance() {
+        return INSTANCE;
+    }
+
+    private ShutdownCommand() {
+    }
+
     /**
      * {@inheritDoc}
      */

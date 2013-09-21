@@ -21,15 +21,18 @@ import com.stefanski.lineserver.util.StdLogger;
  */
 public class SocketCommunication implements Communication {
 
-    private final CommandParser parser;
     private final Socket socket;
+    private final CommandParser parser;
     private final BufferedReader reader;
     private final PrintWriter writer;
 
-    // TODO(dst), Sep 16, 2013: parser to constructor
-    public SocketCommunication(Socket socket) throws IOException {
-        parser = new CommandParser();
+    public static SocketCommunication fromSocket(Socket socket) throws IOException {
+        return new SocketCommunication(socket, new CommandParser());
+    }
+
+    public SocketCommunication(Socket socket, CommandParser parser) throws IOException {
         this.socket = socket;
+        this.parser = parser;
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new PrintWriter(socket.getOutputStream(), true);
     }
@@ -44,7 +47,7 @@ public class SocketCommunication implements Communication {
             return parser.parseCmd(line);
         } catch (IOException | CommandParserException e) {
             StdLogger.error("Cannot create new command: " + e);
-            return new EmptyCommand();
+            return EmptyCommand.getInstance();
         }
 
     }
