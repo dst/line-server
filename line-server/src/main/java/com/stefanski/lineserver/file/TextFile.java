@@ -1,5 +1,6 @@
 package com.stefanski.lineserver.file;
 
+
 /**
  * Represents a text file from a file system.
  * 
@@ -13,7 +14,7 @@ package com.stefanski.lineserver.file;
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
-public interface TextFile {
+public interface TextFile extends AutoCloseable {
 
     /**
      * @param lineNr

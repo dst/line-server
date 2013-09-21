@@ -101,9 +101,10 @@ public class LineServer implements Server {
         listening = false;
         executor.shutdownNow();
         try {
+            textFile.close();
             detector.stop();
-        } catch (CommunicationException e) {
-            StdLogger.error("Error during stoping detector: " + e);
+        } catch (Exception e) {
+            StdLogger.error("Error during stoping server: " + e);
             // Ignore, we are just exiting
         }
 

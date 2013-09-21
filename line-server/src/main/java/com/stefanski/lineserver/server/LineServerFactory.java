@@ -1,8 +1,8 @@
 package com.stefanski.lineserver.server;
 
-import com.stefanski.lineserver.file.IndexedTextFile;
 import com.stefanski.lineserver.file.TextFile;
 import com.stefanski.lineserver.file.TextFileException;
+import com.stefanski.lineserver.file.TextFileFactory;
 import com.stefanski.lineserver.server.comm.CommunicationDetector;
 import com.stefanski.lineserver.server.comm.TCPCommunicationDetector;
 
@@ -33,7 +33,7 @@ public class LineServerFactory {
      */
     public static LineServer createServer(String fileName) throws TextFileException {
         CommunicationDetector detector = new TCPCommunicationDetector();
-        TextFile textFile = IndexedTextFile.createFromFile(fileName);
+        TextFile textFile = TextFileFactory.createFromFile(fileName);
 
         return new LineServer(SIMULTANEOUS_CLIENTS_LIMIT, detector, textFile);
     }

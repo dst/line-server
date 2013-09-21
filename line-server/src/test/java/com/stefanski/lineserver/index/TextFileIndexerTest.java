@@ -15,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-
 /**
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
@@ -44,6 +43,7 @@ public class TextFileIndexerTest {
 
         TextFileIndexer indexer = new TextFileIndexer(fileFC, indexFC);
         index = indexer.buildIndex();
+        indexer.close();
     }
 
     @Test

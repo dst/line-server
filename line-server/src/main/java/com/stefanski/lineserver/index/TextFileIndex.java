@@ -6,7 +6,7 @@ package com.stefanski.lineserver.index;
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
-public interface TextFileIndex {
+public interface TextFileIndex extends AutoCloseable {
 
     /**
      * Gets a metadata of specified line from the index.

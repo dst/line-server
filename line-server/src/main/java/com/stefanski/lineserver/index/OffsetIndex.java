@@ -50,6 +50,14 @@ public class OffsetIndex implements TextFileIndex {
         return lineCount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void close() throws IOException {
+        reader.close();
+    }
+
     private ByteBuffer readOffsets(long lineNr) throws IOException {
         return reader.read(getStartingPosOfLineMetadata(lineNr), OFFSET_SIZE * 2);
     }

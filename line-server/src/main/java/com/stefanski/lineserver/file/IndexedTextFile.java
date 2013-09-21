@@ -2,14 +2,10 @@ package com.stefanski.lineserver.file;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 
 import com.stefanski.lineserver.index.IndexException;
 import com.stefanski.lineserver.index.LineMetadata;
 import com.stefanski.lineserver.index.TextFileIndex;
-import com.stefanski.lineserver.index.TextFileIndexer;
-import com.stefanski.lineserver.index.TextFileIndexerFactory;
 import com.stefanski.lineserver.util.SeekableByteChannelReader;
 
 /**
@@ -34,29 +30,6 @@ public class IndexedTextFile implements TextFile {
      * A file index for faster line lookups.
      */
     private final TextFileIndex index;
-
-    /**
-     * Creates IndexedTextFile from a file.
-     * 
-     * @param fileName
-     * @return
-     * @throws IOException
-     *             If an I/O error occurs during processing file
-     * @throws IndexException
-     */
-    public static TextFile createFromFile(String fileName) throws TextFileException {
-        try {
-            Path path = FileSystems.getDefault().getPath(fileName);
-            SeekableByteChannelReader fileReader = SeekableByteChannelReader.fromFilePath(path);
-
-            TextFileIndexer indexer = TextFileIndexerFactory.createIndexer(path);
-            TextFileIndex index = indexer.buildIndex();
-
-            return new IndexedTextFile(fileReader, index);
-        } catch (IOException | IndexException e) {
-            throw new TextFileException("Error during creating TextFile", e);
-        }
-    }
 
     public IndexedTextFile(SeekableByteChannelReader fileReader, TextFileIndex index) {
         this.fileReader = fileReader;
@@ -98,5 +71,14 @@ public class IndexedTextFile implements TextFile {
 
     private long getLineCount() {
         return index.getLineCount();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void close() throws Exception {
+        fileReader.close();
+        index.close();
     }
 }

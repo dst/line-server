@@ -12,7 +12,7 @@ import java.nio.file.Path;
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
-public class SeekableByteChannelReader {
+public class SeekableByteChannelReader implements AutoCloseable {
 
     private final SeekableByteChannel channel;
 
@@ -30,6 +30,10 @@ public class SeekableByteChannelReader {
         ByteBuffer buf = ByteBuffer.allocate(length);
         fillBuffer(buf);
         return buf;
+    }
+
+    public void close() throws IOException {
+        channel.close();
     }
 
     private void seek(long pos) throws IOException {

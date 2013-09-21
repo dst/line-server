@@ -73,11 +73,7 @@ public class TextFileIndexer implements AutoCloseable {
 
             // Write only full buffer
             if (!indexBuf.hasRemaining()) {
-                // Write from buffer's begin
-                indexBuf.flip();
-                indexFC.write(indexBuf);
-                // Prepare for putting in next iteration
-                indexBuf.flip();
+                writeIndexBuf(indexBuf);
             }
         }
 
@@ -85,8 +81,7 @@ public class TextFileIndexer implements AutoCloseable {
         indexBuf.putLong(fileSize);
 
         // Write rest of index buffer
-        indexBuf.flip();
-        indexFC.write(indexBuf);
+        writeIndexBuf(indexBuf);
 
         progressMonitor.stop();
 
@@ -98,9 +93,19 @@ public class TextFileIndexer implements AutoCloseable {
      * {@inheritDoc}
      */
     @Override
-    // TODO(dst), Sep 19, 2013: call it
-    public void close() throws Exception {
+    public void close() throws IOException {
         fileFC.close();
         // Don't close index channel because it is passed to index
     }
+
+    private void writeIndexBuf(ByteBuffer buf) throws IOException {
+        // Write from buffer's begin
+        buf.flip();
+
+        indexFC.write(buf);
+
+        // Prepare for putting in next iteration
+        buf.flip();
+    }
+
 }
