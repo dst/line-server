@@ -37,13 +37,13 @@ public class ClientHandler implements Runnable {
         StdLogger.info("Handling new client");
 
         while (isRunning()) {
-            Command cmd = communication.receiveCommand();
-            CommandContext ctx = new CommandContext(this, textFile);
-            Response resp = cmd.execute(ctx);
             try {
+                Command cmd = communication.receiveCommand();
+                CommandContext ctx = new CommandContext(this, textFile);
+                Response resp = cmd.execute(ctx);
                 communication.sendResponse(resp);
             } catch (CommunicationException e) {
-                StdLogger.error("Cannot send response: " + e);
+                StdLogger.error("Problem with communication channel: " + e);
                 quit();
             }
         }

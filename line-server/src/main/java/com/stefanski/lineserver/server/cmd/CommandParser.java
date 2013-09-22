@@ -14,7 +14,16 @@ public class CommandParser {
     private static final String QUIT_CMD = "QUIT";
     private static final String SHUTDOWN_CMD = "SHUTDOWN";
 
+    /**
+     * Parses a given line to a command
+     *
+     * @param line
+     * @return
+     * @throws CommandParserException
+     */
     public Command parseCmd(String line) throws CommandParserException {
+        assert line != null;
+
         if (line.startsWith(GET_CMD)) {
             return parseGetCmd(line);
         } else if (line.startsWith(QUIT_CMD)) {

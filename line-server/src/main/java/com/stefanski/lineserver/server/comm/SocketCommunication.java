@@ -41,9 +41,12 @@ public class SocketCommunication implements Communication {
      * {@inheritDoc}
      */
     @Override
-    public Command receiveCommand() {
+    public Command receiveCommand() throws CommunicationException {
         try {
             String line = reader.readLine();
+            if (line == null) {
+                throw new CommunicationException("Communication channel was closed");
+            }
             return parser.parseCmd(line);
         } catch (IOException | CommandParserException e) {
             StdLogger.error("Cannot create new command: " + e);

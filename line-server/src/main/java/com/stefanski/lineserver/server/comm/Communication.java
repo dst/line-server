@@ -12,7 +12,19 @@ import com.stefanski.lineserver.server.resp.Response;
  */
 public interface Communication extends AutoCloseable {
 
-    Command receiveCommand();
+    /**
+     * Extracts next command from a communication channel.
+     *
+     * @return
+     * @throws CommunicationException
+     */
+    Command receiveCommand() throws CommunicationException;
 
+    /**
+     * Sends a response resp to a communication channel.
+     *
+     * @param resp
+     * @throws CommunicationException
+     */
     void sendResponse(Response resp) throws CommunicationException;
 }

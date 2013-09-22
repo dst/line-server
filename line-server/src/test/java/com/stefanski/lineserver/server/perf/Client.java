@@ -11,6 +11,8 @@ import java.net.Socket;
 
 import junit.framework.Assert;
 
+import com.stefanski.lineserver.util.StdLogger;
+
 /**
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
@@ -29,6 +31,8 @@ abstract class Client implements Runnable {
 
     @Override
     public void run() {
+        StdLogger.info("Starting client: " + name);
+
         try (Socket socket = new Socket(InetAddress.getLocalHost(), TCP_PORT);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -40,6 +44,8 @@ abstract class Client implements Runnable {
         } catch (Exception e) {
             Assert.fail("Exception: " + e);
         }
+
+        StdLogger.info("Stopping client: " + name);
     }
 
     public boolean isJobDone() {
