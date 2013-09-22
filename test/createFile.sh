@@ -25,6 +25,6 @@ then
   exit 1
 fi
 
-
+echo "Creating file..."
 time seq $lineCount | dd of=$file bs=1024 count=$lineCount
 
