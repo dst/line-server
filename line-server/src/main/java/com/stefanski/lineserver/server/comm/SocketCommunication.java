@@ -14,7 +14,7 @@ import com.stefanski.lineserver.server.resp.Response;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
- * A communication is done via socket.
+ * A communication is done via a socket.
  * 
  * @author Dariusz Stefanski
  * @date Sep 12, 2013

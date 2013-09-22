@@ -3,6 +3,8 @@ package com.stefanski.lineserver.util;
 import static com.stefanski.lineserver.LineServerConstants.HDD_MB;
 
 /**
+ * Reports progress of file processing.
+ * 
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
@@ -15,6 +17,11 @@ public class FileProcessingProgressMonitor {
     private long processedBytes = 0;
     private int chunkNr = 1;
 
+    /**
+     * 
+     * @param size
+     *            A size of a processed file
+     */
     public FileProcessingProgressMonitor(long size) {
         this.size = size;
         logFileSize();
@@ -28,6 +35,12 @@ public class FileProcessingProgressMonitor {
         logProcessingStats();
     }
 
+    /**
+     * This method should be called after processing each line.
+     * 
+     * @param startPos
+     *            A starting position of a processed line in file
+     */
     public void processedLine(long startPos) {
         processedLines++;
         processedBytes = startPos;

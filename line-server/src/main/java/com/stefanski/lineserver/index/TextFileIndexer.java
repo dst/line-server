@@ -11,7 +11,7 @@ import com.stefanski.lineserver.util.SeekableByteChannelReader;
 import com.stefanski.lineserver.util.StdLogger;
 
 /**
- * Builds index.
+ * Builds an index.
  * 
  * It should be done as fast as possible because it delays starting server.
  * 

@@ -16,15 +16,16 @@ import com.stefanski.lineserver.util.SeekableByteChannelReader;
  * @date Sep 4, 2013
  */
 public class OffsetIndex implements TextFileIndex {
-    /**
-     * A line count in the indexed file (not index).
-     */
-    private final long lineCount;
 
     /**
      * A reader for a random access to an index file.
      */
     private final SeekableByteChannelReader reader;
+
+    /**
+     * A line count in the indexed file (not index).
+     */
+    private final long lineCount;
 
     public OffsetIndex(SeekableByteChannelReader reader, long lineCount) throws IOException {
         this.reader = reader;

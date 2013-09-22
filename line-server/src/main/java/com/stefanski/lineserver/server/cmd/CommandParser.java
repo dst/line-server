@@ -1,6 +1,5 @@
 package com.stefanski.lineserver.server.cmd;
 
-
 /**
  * Parses commands from String.
  * 
@@ -16,7 +15,7 @@ public class CommandParser {
 
     /**
      * Parses a given line to a command
-     *
+     * 
      * @param line
      * @return
      * @throws CommandParserException

@@ -11,12 +11,12 @@ import java.io.PrintWriter;
  */
 public class GetResponse implements Response {
 
-    static final String RESP_END_OF_LINE = "\r\n";
+    private static final String RESP_END_OF_LINE = "\r\n";
     private static final String OK = "OK" + RESP_END_OF_LINE;
     private static final String ERROR = "ERR" + RESP_END_OF_LINE;
 
-    String status;
-    String line;
+    private final String status;
+    private final String line;
 
     public static GetResponse createOkResp(String line) {
         return new GetResponse(OK, line);
@@ -62,23 +62,30 @@ public class GetResponse implements Response {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         GetResponse other = (GetResponse) obj;
         if (line == null) {
-            if (other.line != null)
+            if (other.line != null) {
                 return false;
-        } else if (!line.equals(other.line))
+            }
+        } else if (!line.equals(other.line)) {
             return false;
+        }
         if (status == null) {
-            if (other.status != null)
+            if (other.status != null) {
                 return false;
-        } else if (!status.equals(other.status))
+            }
+        } else if (!status.equals(other.status)) {
             return false;
+        }
         return true;
     }
 }

@@ -60,6 +60,9 @@ public class LineServer implements Server {
 
     /**
      * @param simultaneousClientsLimit
+     *            How many simultaneous clients can be handled
+     * @param detector
+     *            Detects new clients
      * @param textFile
      *            An immutable text file
      */

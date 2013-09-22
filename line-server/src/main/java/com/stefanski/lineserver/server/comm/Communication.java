@@ -14,7 +14,7 @@ public interface Communication extends AutoCloseable {
 
     /**
      * Extracts next command from a communication channel.
-     *
+     * 
      * @return
      * @throws CommunicationException
      */
@@ -22,7 +22,7 @@ public interface Communication extends AutoCloseable {
 
     /**
      * Sends a response resp to a communication channel.
-     *
+     * 
      * @param resp
      * @throws CommunicationException
      */

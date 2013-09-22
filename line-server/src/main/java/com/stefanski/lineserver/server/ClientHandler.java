@@ -22,8 +22,10 @@ public class ClientHandler implements Runnable {
     private boolean running;
 
     /**
-     * @param socket
-     * @param protocol
+     * 
+     * @param server
+     * @param communication
+     * @param textFile
      */
     public ClientHandler(Server server, Communication communication, TextFile textFile) {
         this.server = server;

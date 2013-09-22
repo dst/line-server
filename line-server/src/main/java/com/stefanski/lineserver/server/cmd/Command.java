@@ -10,5 +10,12 @@ import com.stefanski.lineserver.server.resp.Response;
  */
 public interface Command {
 
+    /**
+     * Executes a command and returns a response.
+     * 
+     * @param ctx
+     *            A context needed to run a command
+     * @return
+     */
     Response execute(CommandContext ctx);
 }

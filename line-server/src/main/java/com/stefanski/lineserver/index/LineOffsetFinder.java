@@ -8,11 +8,12 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
 /**
- * Finds line offsets in a file channel (which represents text file).
+ * Finds line offsets in a file channel (which represents a text file).
  * 
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
+// It is not straightforward because of mapping usage.
 class LineOffsetFinder {
 
     private static final int FILE_BUF_SIZE = 256 * HDD_MB;
@@ -22,6 +23,7 @@ class LineOffsetFinder {
      */
     private final FileChannel fileChannel;
 
+    // TODO(dst), Sep 22, 2013: document it a little bit
     private final byte[] fileArr;
     private final long size;
     private long processed;

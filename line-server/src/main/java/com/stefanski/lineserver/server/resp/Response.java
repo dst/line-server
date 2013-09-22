@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 public interface Response {
 
     /**
-     * Writes response using writer.
+     * Writes a response using writer.
      * 
      * @param writer
      * @throws IOException
