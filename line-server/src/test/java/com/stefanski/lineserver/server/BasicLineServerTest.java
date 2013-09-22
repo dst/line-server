@@ -74,12 +74,12 @@ public class BasicLineServerTest extends LineServerTest {
             }
 
             private GetCommand createSlowlyGetCommand() {
-                sleep(200);
+                sleep(100);
                 return new GetCommand(123L);
             }
 
             private ShutdownCommand createSlowlyShutdownCommand() {
-                sleep(300);
+                sleep(150);
                 return ShutdownCommand.getInstance();
             }
 
@@ -88,7 +88,7 @@ public class BasicLineServerTest extends LineServerTest {
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
-                    throw new AssertionError("InterruptedException when sleeping: " + e);
+                    StdLogger.info("InterruptedException when sleeping: " + e);
                 }
                 StdLogger.info("Waiting finished");
             }

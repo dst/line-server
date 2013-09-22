@@ -33,8 +33,10 @@ public class PerformanceLineServerTest extends LineServerTest {
 
     @BeforeClass
     public static void startServer() throws Exception {
-        final LineServer server = LineServerFactory.createServer(getTestFile());
-        serverThread = startServer(server);
+        if (isPerformanceTesting()) {
+            final LineServer server = LineServerFactory.createServer(getTestFile());
+            serverThread = startServer(server);
+        }
     }
 
     @AfterClass
