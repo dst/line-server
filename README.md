@@ -94,3 +94,5 @@ The happy know no hours :)
 * consider using netty lib
 * lib for shorter equals and hash code
 * RAMTextFile for small files
+* improve tests
+* improve javadocs
