@@ -2,13 +2,7 @@
 Author: Dariusz Stefanski
 
 ## Description ##
-The server processes a specified file during start and creates an index as
-binary file with offsets to each line of the original file. The index size is
-8 B x line count. Then it starts handling clients in parallel using a thread
-pool. One thread is used to serve one client. Getting a line is done in 2 steps
-and requires 2 disk read for short lines (finding a line in an index and reading
-a line from the file). For bigger lines an operating system must make multiple
-reads.
+A server that can serve very fast a specidied line from a huge file.
 
 ## Example usage ##
 1. Configure system.properties if you wish.
@@ -21,6 +15,15 @@ $ ./run.sh fileName
 
 4. Run a test client:
 $ nc localhost 10497
+
+## Implementation details ##
+The server processes a specified file during start and creates an index as
+binary file with offsets to each line of the original file. The index size is
+8 bytes x line count. Then it starts handling clients in parallel using a thread
+pool. One thread is used to serve one client. Getting a line is done in 2 steps
+and requires 2 disk read for short lines (finding a line in an index and reading
+a line from the file). For bigger lines an operating system must make multiple
+reads.
 
 ## Assumptions ##
 * Maximum line length is <= 2GB (Integer.MAX_VALUE)
@@ -73,20 +76,13 @@ Insert all lines to the database and next query by nr.
 
 ## On-line resources ##
 * Java tutorials: http://docs.oracle.com/javase/tutorial
-* Java 7 API Specification: http://docs.oracle.com/javase/7/docs/api
 * http://nadeausoftware.com/articles/2008/02/java_tip_how_read_files_quickly
-* http://stackoverflow.com
-* http://google.com
-* http://wikipedia.org
 
 ## Libraries and tools ##
 * Java 7
 * Maven 3
 * Junit 4
 * Mockito
-
-## Man-hours ##
-The happy know no hours :)
 
 ## TODO ##
 * logger: slf4j + log4j
