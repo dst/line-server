@@ -75,7 +75,6 @@ Insert all lines to the database and next query by nr.
 * Multiple instances of TextFile 
 
 ## On-line resources ##
-* Java tutorials: http://docs.oracle.com/javase/tutorial
 * http://nadeausoftware.com/articles/2008/02/java_tip_how_read_files_quickly
 
 ## Libraries and tools ##
