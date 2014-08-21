@@ -28,5 +28,4 @@ public class ShutdownCommand implements Command {
         ctx.getClientHandler().shutdownServer();
         return EmptyResponse.getInstance();
     }
-
 }

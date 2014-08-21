@@ -27,5 +27,4 @@ public class EmptyCommand implements Command {
     public Response execute(CommandContext ctx) {
         return EmptyResponse.getInstance();
     }
-
 }
