@@ -1,11 +1,15 @@
 # Maven output directory
 line-server/target/
 
-# Eclipse dirs
+# Eclipse stuff
 .classpath
 .project
 .settings
 .checkstyle
+
+# Intellij stuff
+.idea
+*.iml
 
 # Testing files and indexes:
 file*.txt
