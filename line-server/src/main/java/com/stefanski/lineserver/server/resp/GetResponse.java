@@ -5,13 +5,13 @@ import java.io.PrintWriter;
 
 /**
  * A response for a get command.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 7, 2013
  */
 public class GetResponse implements Response {
 
-    private static final String RESP_END_OF_LINE = "\r\n";
+    private static final String RESP_END_OF_LINE = "\n";
     private static final String OK = "OK" + RESP_END_OF_LINE;
     private static final String ERROR = "ERR" + RESP_END_OF_LINE;
 

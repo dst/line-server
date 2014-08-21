@@ -13,14 +13,14 @@ import com.stefanski.lineserver.util.StdLogger;
  * A server that serves individual lines of an immutable text file to clients using the following
  * protocol:
  * 
- * - GET nnnn
+ * - GET n
  * 
- * If nnnn is a valid line number for the given text file, return "OK\r\n" and then the nnnn-th line
+ * If n is a valid line number for the given text file, return "OK\n" and then the n-th line
  * of the specified text file.
+ *
+ * If n is not a valid line number for the given text file, return "ERR\n".
  * 
- * If nnnn is not a valid line number for the given text file, return "ERR\r\n".
- * 
- * The first line of the file is line 1 (not line 0).
+ * Lines are numbered from 1.
  * 
  * - QUIT
  * 
