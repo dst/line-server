@@ -7,7 +7,7 @@ import java.net.Socket;
 import com.stefanski.liner.util.StdLogger;
 
 /**
- * *It listens for TCP connections on port 10497.
+ * *It listens for TCP connections on specified port.
  * 
  * @author Dariusz Stefanski
  * @date Sep 21, 2013
@@ -16,7 +16,7 @@ public class TCPCommunicationDetector implements CommunicationDetector {
     /**
      * Detector listens for connections on this port.
      */
-    public static final int TCP_PORT = 10497;
+    public static final int TCP_PORT = 6789;
 
     /**
      * Socket for accepting clients.

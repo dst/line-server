@@ -21,7 +21,7 @@ $ ./build.sh
 $ ./run.sh fileName
 
 4. Run a test client:
-$ nc localhost 10497
+$ nc localhost 6789
 
 ## Implementation details ##
 The server processes a specified file during start and creates an index as
