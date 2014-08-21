@@ -5,5 +5,4 @@
 #
 # It builds LineServer application.
 
-setup-ubuntu.sh
 mvn compile  -f line-server/pom.xml
