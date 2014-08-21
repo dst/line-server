@@ -40,14 +40,15 @@ public class CommandParser {
             throw new CommandParserException("Invalid format of get command: " + line);
         }
 
-        long lineNr;
-        try {
-            lineNr = Long.valueOf(tokens[1]);
-        } catch (NumberFormatException e) {
-            throw new CommandParserException("Cannot parse line number: " + tokens[1], e);
-        }
-
+        long lineNr = getLineNr(tokens[1]);
         return new GetCommand(lineNr);
     }
 
+    private long getLineNr(String str) throws CommandParserException {
+        try {
+            return Long.valueOf(str);
+        } catch (NumberFormatException e) {
+            throw new CommandParserException("Cannot parse line number: " + str, e);
+        }
+    }
 }
