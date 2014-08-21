@@ -3,11 +3,11 @@
 # Date: 31.08.2013
 # Author: Dariusz Stefanski
 #
-# It starts LineServer application.
+# It starts Liner server.
 # Argument: name of the file to serve
 
-SERVER_CLASS="com.stefanski.lineserver.LineServerRunner"
-SERVER_CLASSPATH="line-server/target/classes/"
+SERVER_CLASS="com.stefanski.liner.ServerRunner"
+SERVER_CLASSPATH="liner/target/classes/"
 
 if [ $# -ne 1 ]
 then

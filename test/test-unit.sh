@@ -3,6 +3,6 @@
 # Date: 02.09.2013
 # Author: Dariusz Stefanski
 #
-# It runs unit tests of LineServer application.
+# It runs unit tests of Liner application.
 
-mvn test  -f ../line-server/pom.xml
+mvn test  -f ../liner/pom.xml

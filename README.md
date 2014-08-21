@@ -1,8 +1,15 @@
-# LineServer #
+# Liner #
 Author: Dariusz Stefanski
 
 ## Description ##
-A server that can serve very fast a specidied line from a huge file.
+A server that can serve very fast a specified line from a huge file.
+
+## Protocol ##
+- LINE n : returns specified line (lines are numbered from 1) from a file in the given format:
+    * if n is a valid line number: "OK\n" and then n-th line
+    * otherwise: "ERROR\n"
+- QUIT: disconnect client
+- SHUTDOWN: shutdown the server
 
 ## Example usage ##
 1. Configure system.properties if you wish.
@@ -42,7 +49,7 @@ by up to 100 simultaneous running client threads.
 ### Requests per second ###
 Even a huge number of requests per second doesn't break a performance of the system.
 A performance degradation is prevented by a limited thread pool.
-For details and measurements please look at test-performance.sh and PerformanceLineServerTest.
+For details and measurements please look at test-performance.sh and PerformanceLinerTest.
 
 ### Size of file ###
 The system is scalable for a growing file size. In theory, it can handle a file

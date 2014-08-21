@@ -3,6 +3,6 @@
 # Date: 31.08.2013
 # Author: Dariusz Stefanski
 #
-# It builds LineServer application.
+# It builds Liner application.
 
-mvn compile  -f line-server/pom.xml
+mvn compile  -f liner/pom.xml

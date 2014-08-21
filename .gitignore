@@ -1,5 +1,5 @@
 # Maven output directory
-line-server/target/
+target/
 
 # Eclipse stuff
 .classpath
@@ -13,7 +13,7 @@ line-server/target/
 
 # Testing files and indexes:
 file*.txt
-*_lineServerIndex
+*_linerServerIndex
 
 # vim temporary files
 *~
