@@ -5,4 +5,4 @@
 #
 # It runs unit tests of Liner application.
 
-mvn test  -f ../liner/pom.xml
+mvn test  -f ../pom.xml
