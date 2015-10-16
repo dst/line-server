@@ -19,4 +19,4 @@ export PerformanceTesting="true"
 export TestFile=`pwd`/$FILE
 export MaxLineNr=$MAX_LINE_NR
 
-mvn test  -f ../liner/pom.xml
+mvn test  -f ../pom.xml
