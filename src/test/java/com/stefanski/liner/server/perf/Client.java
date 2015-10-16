@@ -52,12 +52,12 @@ abstract class Client implements Runnable {
         return jobDone;
     }
 
-    public long getReqestCount() {
+    public long getRequestCount() {
         return reqCount;
     }
 
     /**
-     * After any successful request to server, the registerReqest method must be called
+     * After any successful request to server, the registerRequest method must be called
      * 
      * @param in
      * @param out
@@ -67,7 +67,7 @@ abstract class Client implements Runnable {
     protected abstract void doJob(BufferedReader in, PrintWriter out) throws IOException,
             InterruptedException;
 
-    protected void registerReqest() {
+    protected void registerRequest() {
         reqCount++;
     }
 

@@ -1,6 +1,6 @@
 package com.stefanski.liner.server.perf;
 
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -64,26 +64,26 @@ public class PerformanceLinerTest extends LinerTest {
     }
 
     private void runSimultaneousClients(int clientCount) throws InterruptedException {
-        Client[] clients = new Client[clientCount];
-        Thread[] threads = new Thread[clientCount];
+        List<Client> clients = new LinkedList<>();
+        List<Thread> threads = new LinkedList<>();
 
         for (int i = 0; i < clientCount; i++) {
             String name = "Fast Guy " + i;
             long runningTime = TIME_PER_TEST_MS;
             Client client = new FastClient(name, runningTime, getMaxLineNr());
-            clients[i] = client;
-            threads[i] = startClient(client);
+            clients.add(client);
+            threads.add(startClient(client));
         }
 
-        for (Thread thread : threads) {
+        for (Thread thread: threads) {
             thread.join();
         }
 
-        for (Client client : clients) {
+        clients.forEach(client-> {
             Assert.assertTrue(client.getName() + " didn't finish", client.isJobDone());
-        }
+        });
 
-        printStats("Client count: " + clientCount, Arrays.asList(clients));
+        printStats("Client count: " + clientCount, clients);
     }
 
     private static void terminateServer() throws Exception {
@@ -122,11 +122,7 @@ public class PerformanceLinerTest extends LinerTest {
     }
 
     private void printStats(String scenario, List<Client> clients) {
-        long reqSum = 0;
-        for (Client client : clients) {
-            reqSum += client.getReqestCount();
-        }
-
+        long reqSum = clients.stream().mapToLong(Client::getRequestCount).sum();
         long reqPerSec = reqSum / (TIME_PER_TEST_MS / 1000);
         log.info("{}, handled {} requests in {} ms ({} req/s)",
                 scenario, reqSum, TIME_PER_TEST_MS, reqPerSec);

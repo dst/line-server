@@ -23,7 +23,7 @@ import static com.stefanski.liner.LinerConstants.HDD_MB;
 public class TextFileIndexer implements AutoCloseable {
 
     // offset has type long
-    static final int OFFSET_SIZE = Long.SIZE / 8;
+    static final int OFFSET_SIZE = Long.BYTES;
 
     private static final int INDEX_BUF_SIZE = 20 * OFFSET_SIZE * HDD_MB;
 

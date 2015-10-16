@@ -1,7 +1,5 @@
 package com.stefanski.liner.file;
 
-import static org.mockito.Mockito.when;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -16,6 +14,9 @@ import com.stefanski.liner.index.IndexException;
 import com.stefanski.liner.index.LineMetadata;
 import com.stefanski.liner.index.TextFileIndex;
 import com.stefanski.liner.util.SeekableByteChannelReader;
+
+import static java.util.Arrays.asList;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Dariusz Stefanski
@@ -99,17 +100,15 @@ public class TextFileTest {
 
     @Test
     public void shouldDetectValidLinesNr() {
-        List<Integer> validLineNrs = Arrays.asList(1, 2, 3, 4);
-        for (int lineNr : validLineNrs) {
-            Assert.assertTrue(textFile.isLineNrValid(lineNr));
-        }
+        asList(1, 2, 3, 4).forEach(validLineNr -> {
+            Assert.assertTrue(textFile.isLineNrValid(validLineNr));
+        });
     }
 
     @Test
     public void shouldDetectInvalidLinesNr() {
-        List<Integer> invalidLineNrs = Arrays.asList(-5, -1, 0, 5, 10);
-        for (int lineNr : invalidLineNrs) {
-            Assert.assertFalse(textFile.isLineNrValid(lineNr));
-        }
+        asList(-5, -1, 0, 5, 10).forEach(invalidLineNr -> {
+            Assert.assertFalse(textFile.isLineNrValid(invalidLineNr));
+        });
     }
 }

@@ -45,9 +45,9 @@ class FastClient extends Client {
                         + resp);
             }
 
-            registerReqest();
+            registerRequest();
         }
 
-        log.info("{} did {} requests in {} ms", getName(), getReqestCount(), time);
+        log.info("{} did {} requests in {} ms", getName(), getRequestCount(), time);
     }
 }
