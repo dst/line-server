@@ -1,5 +1,6 @@
 package com.stefanski.liner.server.cmd;
 
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 import com.stefanski.liner.file.TextFile;
@@ -14,6 +15,7 @@ import com.stefanski.liner.server.resp.Response;
  * @date Sep 12, 2013
  */
 @Slf4j
+@EqualsAndHashCode
 public class LineCommand implements Command {
 
     private final long lineNr;
@@ -58,31 +60,5 @@ public class LineCommand implements Command {
             log.error("Cannot get line: ", e);
             return LineResponse.createErrResp();
         }
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (lineNr ^ (lineNr >>> 32));
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        LineCommand other = (LineCommand) obj;
-        if (lineNr != other.lineNr) {
-            return false;
-        }
-        return true;
     }
 }

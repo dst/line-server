@@ -88,7 +88,6 @@ Insert all lines to the database and next query by nr.
 ## TODO ##
 * DI (Juice or Spring)
 * consider using netty lib
-* lib for shorter equals and hash code
 * RAMTextFile for small files
 * improve tests
 * improve javadocs

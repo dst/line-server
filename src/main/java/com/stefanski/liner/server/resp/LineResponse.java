@@ -3,12 +3,15 @@ package com.stefanski.liner.server.resp;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * A response for a line command.
  * 
  * @author Dariusz Stefanski
  * @date Sep 7, 2013
  */
+@EqualsAndHashCode
 public class LineResponse implements Response {
 
     private static final String RESP_END_OF_LINE = "\n";
@@ -49,43 +52,5 @@ public class LineResponse implements Response {
     @Override
     public String toString() {
         return "LineResponse [status=" + status + ", line=" + line + "]";
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((line == null) ? 0 : line.hashCode());
-        result = prime * result + ((status == null) ? 0 : status.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        LineResponse other = (LineResponse) obj;
-        if (line == null) {
-            if (other.line != null) {
-                return false;
-            }
-        } else if (!line.equals(other.line)) {
-            return false;
-        }
-        if (status == null) {
-            if (other.status != null) {
-                return false;
-            }
-        } else if (!status.equals(other.status)) {
-            return false;
-        }
-        return true;
     }
 }
