@@ -1,5 +1,7 @@
 package com.stefanski.liner.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import static com.stefanski.liner.LinerConstants.HDD_MB;
 
 /**
@@ -8,6 +10,7 @@ import static com.stefanski.liner.LinerConstants.HDD_MB;
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
+@Slf4j
 public class FileProcessingProgressMonitor {
     private static final long CHUNK_SIZE = 100 * HDD_MB;
 
@@ -52,21 +55,20 @@ public class FileProcessingProgressMonitor {
     }
 
     private void logFileSize() {
-        StdLogger.info(String.format("File size to process: %s MB", byte2MB(size)));
+        log.info("File size to process: {} MB", byte2MB(size));
     }
 
     private void logProgress() {
         long elapsedTime = System.currentTimeMillis() - start;
         long percent = (100 * processedBytes) / size;
-        StdLogger.info(String.format("Processed %d MB in %d ms (%d %%)", byte2MB(processedBytes),
-                elapsedTime, percent));
+        log.info("Processed {} MB in {} ms ({} %)", byte2MB(processedBytes), elapsedTime, percent);
     }
 
     private void logProcessingStats() {
         long elapsedTime = System.currentTimeMillis() - start;
 
-        StdLogger.info(String.format("Index build in %s ms", elapsedTime));
-        StdLogger.info(String.format("Lines: %d, size: %d MB", processedLines, size / HDD_MB));
+        log.info("Index build in {} ms", elapsedTime);
+        log.info("Lines: {}, size: {} MB", processedLines, size / HDD_MB);
     }
 
     private long byte2MB(long b) {

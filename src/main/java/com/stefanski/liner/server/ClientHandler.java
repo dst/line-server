@@ -1,12 +1,13 @@
 package com.stefanski.liner.server;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.server.cmd.Command;
 import com.stefanski.liner.server.cmd.CommandContext;
 import com.stefanski.liner.server.comm.Communication;
 import com.stefanski.liner.server.comm.CommunicationException;
 import com.stefanski.liner.server.resp.Response;
-import com.stefanski.liner.util.StdLogger;
 
 /**
  * Handles interaction with one client using socket and protocol.
@@ -14,6 +15,7 @@ import com.stefanski.liner.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 11, 2013
  */
+@Slf4j
 public class ClientHandler implements Runnable {
 
     private final Server server;
@@ -36,7 +38,7 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        StdLogger.info("Handling new client");
+        log.info("Handling new client");
 
         while (isRunning()) {
             try {
@@ -45,7 +47,7 @@ public class ClientHandler implements Runnable {
                 Response resp = cmd.execute(ctx);
                 communication.sendResponse(resp);
             } catch (CommunicationException e) {
-                StdLogger.error("Problem with communication channel: " + e);
+                log.error("Problem with communication channel: " + e);
                 quit();
             }
         }
@@ -70,7 +72,7 @@ public class ClientHandler implements Runnable {
         try {
             communication.close();
         } catch (Exception e) {
-            StdLogger.error("Failed closing communication channel: " + e);
+            log.error("Failed closing communication channel: " + e);
             // Ignore, we are just finishing
         }
     }

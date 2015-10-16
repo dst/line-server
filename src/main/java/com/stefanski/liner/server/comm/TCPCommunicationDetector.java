@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.stefanski.liner.util.StdLogger;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * *It listens for TCP connections on specified port.
@@ -12,6 +12,7 @@ import com.stefanski.liner.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 21, 2013
  */
+@Slf4j
 public class TCPCommunicationDetector implements CommunicationDetector {
     /**
      * Detector listens for connections on this port.
@@ -28,7 +29,7 @@ public class TCPCommunicationDetector implements CommunicationDetector {
      */
     @Override
     public void start() throws CommunicationException {
-        StdLogger.info(String.format("Start detecting clients on port %s...", TCP_PORT));
+        log.info("Start detecting clients on port {}", TCP_PORT);
 
         try {
             serverSocket = new ServerSocket(TCP_PORT);

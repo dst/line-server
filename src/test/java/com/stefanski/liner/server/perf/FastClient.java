@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
-import com.stefanski.liner.util.StdLogger;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Client sending next random request immediately after receiving response from server.
@@ -16,6 +16,7 @@ import com.stefanski.liner.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
  */
+@Slf4j
 class FastClient extends Client {
     private final long time;
     private final int maxLineNr;
@@ -47,7 +48,6 @@ class FastClient extends Client {
             registerReqest();
         }
 
-        StdLogger.info(String.format("%s did %d requests in %d ms", getName(), getReqestCount(),
-                time));
+        log.info("{} did {} requests in {} ms", getName(), getReqestCount(), time);
     }
 }

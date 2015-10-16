@@ -1,11 +1,8 @@
 package com.stefanski.liner.server;
 
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -19,12 +16,16 @@ import com.stefanski.liner.server.comm.CommunicationDetector;
 import com.stefanski.liner.server.comm.CommunicationException;
 import com.stefanski.liner.server.resp.LineResponse;
 import com.stefanski.liner.server.resp.Response;
-import com.stefanski.liner.util.StdLogger;
+
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */
+@Slf4j
 public class BasicLinerTest extends LinerTest {
 
     private Thread serverThread;
@@ -84,13 +85,13 @@ public class BasicLinerTest extends LinerTest {
             }
 
             private void sleep(long delay) {
-                StdLogger.info("Waiting...");
+                log.info("Waiting...");
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
-                    StdLogger.info("InterruptedException when sleeping: " + e);
+                    log.info("InterruptedException when sleeping: ", e);
                 }
-                StdLogger.info("Waiting finished");
+                log.info("Waiting finished");
             }
         }
 

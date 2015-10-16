@@ -86,7 +86,6 @@ Insert all lines to the database and next query by nr.
 * Mockito
 
 ## TODO ##
-* logger: slf4j + log4j
 * DI (Juice or Spring)
 * consider using netty lib
 * lib for shorter equals and hash code

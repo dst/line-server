@@ -4,17 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
-
-import org.junit.AfterClass;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.*;
 
 import com.stefanski.liner.server.LinerServer;
 import com.stefanski.liner.server.LinerServerFactory;
 import com.stefanski.liner.server.LinerTest;
-import com.stefanski.liner.util.StdLogger;
 
 /**
  * Performance tests are run only if PerformanceTesting system variable is set.
@@ -24,6 +19,7 @@ import com.stefanski.liner.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
  */
+@Slf4j
 public class PerformanceLinerTest extends LinerTest {
 
     private static final long TIME_PER_TEST_MS = 1000;
@@ -104,7 +100,7 @@ public class PerformanceLinerTest extends LinerTest {
     private static boolean isPerformanceTesting() {
         boolean flag = System.getenv("PerformanceTesting") != null;
         if (!flag) {
-            StdLogger.info("Ignoring performance test");
+            log.info("Ignoring performance test");
         }
         return flag;
     }
@@ -132,7 +128,7 @@ public class PerformanceLinerTest extends LinerTest {
         }
 
         long reqPerSec = reqSum / (TIME_PER_TEST_MS / 1000);
-        StdLogger.info(String.format("%s, handled %d requests in %d ms (%d req/s)", scenario,
-                reqSum, TIME_PER_TEST_MS, reqPerSec));
+        log.info("{}, handled {} requests in {} ms ({} req/s)",
+                scenario, reqSum, TIME_PER_TEST_MS, reqPerSec);
     }
 }

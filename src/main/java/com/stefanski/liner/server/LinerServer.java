@@ -3,11 +3,12 @@ package com.stefanski.liner.server;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.server.comm.Communication;
 import com.stefanski.liner.server.comm.CommunicationDetector;
 import com.stefanski.liner.server.comm.CommunicationException;
-import com.stefanski.liner.util.StdLogger;
 
 /**
  * A server that serves specified lines of an immutable text file.
@@ -16,6 +17,7 @@ import com.stefanski.liner.util.StdLogger;
  * @date Sep 1, 2013
  * 
  */
+@Slf4j
 public class LinerServer implements Server {
 
     /**
@@ -59,7 +61,7 @@ public class LinerServer implements Server {
      * {@inheritDoc}
      */
     public void run() throws CommunicationException {
-        StdLogger.info("Running server.");
+        log.info("Running server.");
 
         detector.start();
 
@@ -69,7 +71,7 @@ public class LinerServer implements Server {
                 ClientHandler handler = new ClientHandler(this, communication, textFile);
                 executor.execute(handler);
             } catch (CommunicationException e) {
-                StdLogger.error("Exception while handling client: " + e);
+                log.error("Exception while handling client: ", e);
                 // Try to handle next client
                 continue;
             }
@@ -80,7 +82,7 @@ public class LinerServer implements Server {
      * {@inheritDoc}
      */
     public void shutdown() {
-        StdLogger.info("Stopping a server...");
+        log.info("Stopping a server...");
 
         listening = false;
         executor.shutdownNow();
@@ -88,11 +90,11 @@ public class LinerServer implements Server {
             textFile.close();
             detector.stop();
         } catch (Exception e) {
-            StdLogger.error("Error during stopping server: " + e);
+            log.error("Error during stopping server: ", e);
             // Ignore, we are just exiting
         }
 
-        StdLogger.info("Server stopped");
+        log.info("Server stopped");
     }
 
     private boolean isListening() {

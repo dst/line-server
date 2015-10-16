@@ -1,20 +1,21 @@
 package com.stefanski.liner.index;
 
-import static java.nio.file.StandardOpenOption.READ;
-import static java.nio.file.StandardOpenOption.WRITE;
-
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.stefanski.liner.util.StdLogger;
+import lombok.extern.slf4j.Slf4j;
+
+import static java.nio.file.StandardOpenOption.READ;
+import static java.nio.file.StandardOpenOption.WRITE;
 
 /**
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
+@Slf4j
 public class TextFileIndexerFactory {
 
     private TextFileIndexerFactory() {
@@ -39,7 +40,7 @@ public class TextFileIndexerFactory {
 
         // Delete if exists
         if (Files.exists(indexPath)) {
-            StdLogger.info(String.format("Index file ('%s') exists. Removing", indexPath));
+            log.info("Index file {} exists. Removing", indexPath);
             Files.delete(indexPath);
         }
 

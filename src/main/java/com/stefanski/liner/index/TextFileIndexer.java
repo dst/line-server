@@ -1,14 +1,15 @@
 package com.stefanski.liner.index;
 
-import static com.stefanski.liner.LinerConstants.HDD_MB;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.stefanski.liner.util.FileProcessingProgressMonitor;
 import com.stefanski.liner.util.SeekableByteChannelReader;
-import com.stefanski.liner.util.StdLogger;
+
+import static com.stefanski.liner.LinerConstants.HDD_MB;
 
 /**
  * Builds an index.
@@ -18,6 +19,7 @@ import com.stefanski.liner.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 3, 2013
  */
+@Slf4j
 public class TextFileIndexer implements AutoCloseable {
 
     // offset has type long
@@ -54,7 +56,7 @@ public class TextFileIndexer implements AutoCloseable {
      * @throws IOException
      */
     public TextFileIndex buildIndex() throws IOException {
-        StdLogger.info("Indexing file...");
+        log.info("Indexing file...");
 
         long fileSize = fileFC.size();
         FileProcessingProgressMonitor progressMonitor = new FileProcessingProgressMonitor(fileSize);

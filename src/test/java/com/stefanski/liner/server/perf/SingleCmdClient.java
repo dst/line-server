@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.stefanski.liner.util.StdLogger;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
  */
+@Slf4j
 class SingleCmdClient extends Client {
 
     private final String cmd;
@@ -34,12 +35,12 @@ class SingleCmdClient extends Client {
             InterruptedException {
         out.println(cmd);
         String resp = in.readLine();
-        StdLogger.info("Cmd done by " + getName() + ", resp: " + resp);
+        log.info("Cmd done by {}, resp: {}", getName(), resp);
 
         if (delay != 0) {
-            StdLogger.info("Waiting by " + getName());
+            log.info("Waiting by {}", getName());
             Thread.sleep(delay);
-            StdLogger.info("Waiting done by " + getName());
+            log.info("Waiting done by {}", getName());
         }
     }
 

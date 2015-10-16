@@ -1,7 +1,5 @@
 package com.stefanski.liner.server.perf;
 
-import static com.stefanski.liner.server.comm.TCPCommunicationDetector.TCP_PORT;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,13 +8,15 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 import junit.framework.Assert;
+import lombok.extern.slf4j.Slf4j;
 
-import com.stefanski.liner.util.StdLogger;
+import static com.stefanski.liner.server.comm.TCPCommunicationDetector.TCP_PORT;
 
 /**
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
  */
+@Slf4j
 abstract class Client implements Runnable {
 
     private final String name;
@@ -31,7 +31,7 @@ abstract class Client implements Runnable {
 
     @Override
     public void run() {
-        StdLogger.info("Starting client: " + name);
+        log.info("Starting client: {}", name);
 
         try (Socket socket = new Socket(InetAddress.getLocalHost(), TCP_PORT);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -45,7 +45,7 @@ abstract class Client implements Runnable {
             Assert.fail("Exception: " + e);
         }
 
-        StdLogger.info("Stopping client: " + name);
+        log.info("Stopping client: ", name);
     }
 
     public boolean isJobDone() {

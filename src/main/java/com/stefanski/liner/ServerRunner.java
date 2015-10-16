@@ -1,10 +1,11 @@
 package com.stefanski.liner;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.LinerServer;
 import com.stefanski.liner.server.LinerServerFactory;
 import com.stefanski.liner.server.comm.CommunicationException;
-import com.stefanski.liner.util.StdLogger;
 
 /**
  * Starts server.
@@ -15,6 +16,7 @@ import com.stefanski.liner.util.StdLogger;
  * @date Sep 1, 2013
  * 
  */
+@Slf4j
 public class ServerRunner {
 
     private ServerRunner() {
@@ -27,7 +29,7 @@ public class ServerRunner {
 
     private static String getFileName(String[] args) {
         if (args.length != 1) {
-            StdLogger.error(usage());
+            log.error(usage());
             System.exit(1);
         }
         return args[0];
@@ -38,7 +40,7 @@ public class ServerRunner {
             LinerServer server = LinerServerFactory.createServer(fileName);
             server.run();
         } catch (TextFileException | CommunicationException e) {
-            StdLogger.error("Cannot run server: " + e);
+            log.error("Cannot run server: ", e);
             System.exit(1);
         }
     }

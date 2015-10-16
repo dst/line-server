@@ -6,12 +6,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.stefanski.liner.server.cmd.Command;
 import com.stefanski.liner.server.cmd.CommandParser;
 import com.stefanski.liner.server.cmd.CommandParserException;
 import com.stefanski.liner.server.cmd.EmptyCommand;
 import com.stefanski.liner.server.resp.Response;
-import com.stefanski.liner.util.StdLogger;
 
 /**
  * A communication is done via a socket.
@@ -19,6 +20,7 @@ import com.stefanski.liner.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */
+@Slf4j
 public class SocketCommunication implements Communication {
 
     private final Socket socket;
@@ -49,7 +51,7 @@ public class SocketCommunication implements Communication {
             }
             return parser.parseCmd(line);
         } catch (IOException | CommandParserException e) {
-            StdLogger.error("Cannot create new command: " + e);
+            log.error("Cannot create new command: ", e);
             return EmptyCommand.getInstance();
         }
 

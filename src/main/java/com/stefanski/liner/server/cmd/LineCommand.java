@@ -1,10 +1,11 @@
 package com.stefanski.liner.server.cmd;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.resp.LineResponse;
 import com.stefanski.liner.server.resp.Response;
-import com.stefanski.liner.util.StdLogger;
 
 /**
  * A request to send specified line from a file.
@@ -12,6 +13,7 @@ import com.stefanski.liner.util.StdLogger;
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */
+@Slf4j
 public class LineCommand implements Command {
 
     private final long lineNr;
@@ -27,15 +29,15 @@ public class LineCommand implements Command {
     public Response execute(CommandContext ctx) {
         long start = 0;
 
-        if (StdLogger.isTraceEnabled()) {
+        if (log.isTraceEnabled()) {
             start = System.currentTimeMillis();
         }
 
         LineResponse resp = createResponse(ctx);
 
-        if (StdLogger.isTraceEnabled()) {
+        if (log.isTraceEnabled()) {
             long elapsedTime = System.currentTimeMillis() - start;
-            StdLogger.trace("Get request responded in " + elapsedTime);
+            log.trace("Get request responded in {}", elapsedTime);
         }
 
         return resp;
@@ -45,7 +47,7 @@ public class LineCommand implements Command {
         TextFile textFile = ctx.getTextFile();
 
         if (!textFile.isLineNrValid(lineNr)) {
-            StdLogger.error("Invalid line nr: " + lineNr);
+            log.error("Invalid line nr: {}", lineNr);
             return LineResponse.createErrResp();
         }
 
@@ -53,7 +55,7 @@ public class LineCommand implements Command {
             String line = textFile.getLine(lineNr);
             return LineResponse.createOkResp(line);
         } catch (TextFileException e) {
-            StdLogger.error("Cannot get line: " + e);
+            log.error("Cannot get line: ", e);
             return LineResponse.createErrResp();
         }
     }
