@@ -5,4 +5,4 @@
 #
 # It builds Liner application.
 
-mvn compile  -f ../pom.xml
+mvn clean compile assembly:single -f ../pom.xml
