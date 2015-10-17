@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * A response for a line command.
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
  * @date Sep 7, 2013
  */
 @EqualsAndHashCode
+@ToString
 public class LineResponse implements Response {
 
     private static final String RESP_END_OF_LINE = "\n";
@@ -47,10 +49,5 @@ public class LineResponse implements Response {
         if (line != null) {
             writer.println(line);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "LineResponse [status=" + status + ", line=" + line + "]";
     }
 }

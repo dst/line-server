@@ -1,11 +1,14 @@
 package com.stefanski.liner.index;
 
+import lombok.ToString;
+
 /**
  * A metadata of line.
  * 
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */
+@ToString
 public class LineMetadata {
     /**
      * An offset from beginning of the file.
@@ -24,10 +27,5 @@ public class LineMetadata {
     public LineMetadata(long begin, int length) {
         this.offset = begin;
         this.length = length;
-    }
-
-    @Override
-    public String toString() {
-        return "LineMetadata [offset=" + offset + " , length=" + length + "]";
     }
 }

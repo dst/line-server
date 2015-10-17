@@ -17,9 +17,4 @@ public class CommandParserException extends Exception {
     public CommandParserException(String message, Throwable cause) {
         super(message, cause);
     }
-
-    @Override
-    public String toString() {
-        return "CommandParserException [message=" + getMessage() + ", cause=" + getCause() + "]";
-    }
 }
