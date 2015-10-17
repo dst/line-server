@@ -16,7 +16,7 @@ import com.stefanski.liner.server.resp.Response;
  * @author Dariusz Stefanski
  * @date Sep 21, 2013
  */
-public class GetCommandTest {
+public class LineCommandTest {
 
     @Test
     public void shouldReturnErrorForInvalidLineNr() {

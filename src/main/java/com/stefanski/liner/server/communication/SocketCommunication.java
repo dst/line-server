@@ -7,9 +7,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.stefanski.liner.server.cmd.Command;
-import com.stefanski.liner.server.cmd.CommandParser;
+import com.stefanski.liner.server.cmd.CommandParserService;
 import com.stefanski.liner.server.cmd.CommandParserException;
 import com.stefanski.liner.server.cmd.EmptyCommand;
 import com.stefanski.liner.server.resp.Response;
@@ -24,15 +26,11 @@ import com.stefanski.liner.server.resp.Response;
 public class SocketCommunication implements Communication {
 
     private final Socket socket;
-    private final CommandParser parser;
+    private final CommandParserService parser;
     private final BufferedReader reader;
     private final PrintWriter writer;
 
-    public static SocketCommunication fromSocket(Socket socket) throws IOException {
-        return new SocketCommunication(socket, new CommandParser());
-    }
-
-    public SocketCommunication(Socket socket, CommandParser parser) throws IOException {
+    public SocketCommunication(Socket socket, CommandParserService parser) throws IOException {
         this.socket = socket;
         this.parser = parser;
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));

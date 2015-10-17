@@ -5,7 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.stefanski.liner.server.cmd.CommandParserService;
 
 /**
  * *It listens for TCP connections on specified port.
@@ -25,6 +28,13 @@ public class TCPCommunicationDetector implements CommunicationDetector {
      * Socket for accepting clients.
      */
     private ServerSocket serverSocket;
+
+    private final CommandParserService parser;
+
+    @Autowired
+    public TCPCommunicationDetector(CommandParserService parser) {
+        this.parser = parser;
+    }
 
     @Override
     public void start() throws CommunicationException {
@@ -50,7 +60,7 @@ public class TCPCommunicationDetector implements CommunicationDetector {
     public Communication acceptNextClient() throws CommunicationException {
         try {
             Socket clientSocket = serverSocket.accept();
-            return SocketCommunication.fromSocket(clientSocket);
+            return new SocketCommunication(clientSocket, parser);
         } catch (IOException e) {
             throw new CommunicationException("Cannot accept next client", e);
         }

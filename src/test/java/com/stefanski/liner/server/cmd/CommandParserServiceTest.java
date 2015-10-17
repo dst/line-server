@@ -2,15 +2,19 @@ package com.stefanski.liner.server.cmd;
 
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Dariusz Stefanski
  * @date Sep 21, 2013
  */
-public class CommandParserTest {
+public class CommandParserServiceTest {
 
-    private final CommandParser parser = new CommandParser();
+    //TODO(dst), 18.10.15: move these tests to parser specific tests
+    private final CommandParserService parser = new CommandParserService(
+            asList(new LineCommandParser(), new QuitCommandParser(), new ShutdownCommandParser())
+    );
 
     @Test
     public void shouldParseGetCommand() {
@@ -23,7 +27,7 @@ public class CommandParserTest {
     }
 
     @Test(expected = CommandParserException.class)
-    public void shouldThrowExceptionForNotParsableLineNr() {
+    public void shouldThrowExceptionForNotValidLineNr() {
         parser.parseCmd("LINE a12a");
     }
 

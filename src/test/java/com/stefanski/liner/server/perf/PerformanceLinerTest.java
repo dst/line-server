@@ -10,7 +10,13 @@ import org.junit.*;
 import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.server.LinerServer;
 import com.stefanski.liner.server.LinerTest;
+import com.stefanski.liner.server.cmd.CommandParserService;
+import com.stefanski.liner.server.cmd.LineCommandParser;
+import com.stefanski.liner.server.cmd.QuitCommandParser;
+import com.stefanski.liner.server.cmd.ShutdownCommandParser;
 import com.stefanski.liner.server.communication.TCPCommunicationDetector;
+
+import static java.util.Arrays.asList;
 
 /**
  * Performance tests are run only if PerformanceTesting system variable is set.
@@ -31,8 +37,13 @@ public class PerformanceLinerTest extends LinerTest {
     @BeforeClass
     public static void startServer() throws Exception {
         if (isPerformanceTesting()) {
+            //TODO(dst), 18.10.15: integration test
             final LinerServer server = new LinerServer(100,
-                    new TCPCommunicationDetector(), new TextFileFactory());
+                    new TCPCommunicationDetector(
+                            new CommandParserService(
+                                    asList(new LineCommandParser(), new QuitCommandParser(), new ShutdownCommandParser())
+                            )
+                    ), new TextFileFactory());
             serverThread = startServer(server, getTestFile());
         }
     }
