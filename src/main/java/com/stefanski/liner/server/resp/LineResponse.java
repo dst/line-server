@@ -31,18 +31,11 @@ public class LineResponse implements Response {
         return new LineResponse(ERROR, null);
     }
 
-    /**
-     * @param status
-     * @param line
-     */
     public LineResponse(String status, String line) {
         this.status = status;
         this.line = line;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void write(PrintWriter writer) throws IOException {
         writer.print(status);

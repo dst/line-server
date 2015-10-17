@@ -26,9 +26,6 @@ public class TCPCommunicationDetector implements CommunicationDetector {
      */
     private ServerSocket serverSocket;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void start() throws CommunicationException {
         log.info("Start detecting clients on port {}", TCP_PORT);
@@ -40,9 +37,6 @@ public class TCPCommunicationDetector implements CommunicationDetector {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void stop() throws CommunicationException {
         try {
@@ -52,9 +46,6 @@ public class TCPCommunicationDetector implements CommunicationDetector {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Communication acceptNextClient() throws CommunicationException {
         try {

@@ -20,9 +20,6 @@ public class EmptyResponse implements Response {
     private EmptyResponse() {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void write(PrintWriter writer) throws IOException {
         // Do nothing

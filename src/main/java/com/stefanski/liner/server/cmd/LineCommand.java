@@ -24,9 +24,6 @@ public class LineCommand implements Command {
         this.lineNr = lineNr;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Response execute(CommandContext ctx) {
         long start = 0;

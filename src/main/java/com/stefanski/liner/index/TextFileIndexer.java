@@ -91,9 +91,6 @@ public class TextFileIndexer implements AutoCloseable {
         return new OffsetIndex(indexReader, lineCount);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void close() throws IOException {
         fileFC.close();

@@ -39,9 +39,6 @@ public class SocketCommunication implements Communication {
         writer = new PrintWriter(socket.getOutputStream(), true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Command receiveCommand() throws CommunicationException {
         try {
@@ -57,9 +54,6 @@ public class SocketCommunication implements Communication {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void sendResponse(Response resp) throws CommunicationException {
         try {
@@ -69,11 +63,7 @@ public class SocketCommunication implements Communication {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @throws IOException
-     */
+
     @Override
     public void close() throws IOException {
         reader.close();

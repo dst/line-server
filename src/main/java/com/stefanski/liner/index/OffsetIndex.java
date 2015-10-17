@@ -32,9 +32,6 @@ public class OffsetIndex implements TextFileIndex {
         this.lineCount = lineCount;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public LineMetadata getLineMetadata(long lineNr) throws IndexException {
         try {
             ByteBuffer buf = readOffsets(lineNr);
@@ -44,16 +41,10 @@ public class OffsetIndex implements TextFileIndex {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public long getLineCount() {
         return lineCount;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void close() throws IOException {
         reader.close();

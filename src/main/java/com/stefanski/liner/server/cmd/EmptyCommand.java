@@ -20,9 +20,6 @@ public class EmptyCommand implements Command {
     private EmptyCommand() {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Response execute(CommandContext ctx) {
         return EmptyResponse.getInstance();

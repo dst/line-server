@@ -22,9 +22,6 @@ public class QuitCommand implements Command {
     private QuitCommand() {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Response execute(CommandContext ctx) {
         log.info("Disconnecting client");

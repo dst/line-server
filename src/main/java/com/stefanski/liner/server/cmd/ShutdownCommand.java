@@ -20,9 +20,6 @@ public class ShutdownCommand implements Command {
     private ShutdownCommand() {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Response execute(CommandContext ctx) {
         ctx.getClientHandler().shutdownServer();

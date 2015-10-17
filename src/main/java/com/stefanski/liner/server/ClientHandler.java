@@ -10,7 +10,7 @@ import com.stefanski.liner.server.communication.CommunicationException;
 import com.stefanski.liner.server.resp.Response;
 
 /**
- * Handles interaction with one client using socket and protocol.
+ * Handles interaction with one client
  * 
  * @author Dariusz Stefanski
  * @date Sep 11, 2013
@@ -23,12 +23,6 @@ public class ClientHandler implements Runnable {
     private final TextFile textFile;
     private boolean running;
 
-    /**
-     * 
-     * @param server
-     * @param communication
-     * @param textFile
-     */
     public ClientHandler(Server server, Communication communication, TextFile textFile) {
         this.server = server;
         this.communication = communication;

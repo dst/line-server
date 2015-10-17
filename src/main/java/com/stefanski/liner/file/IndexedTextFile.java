@@ -36,16 +36,10 @@ public class IndexedTextFile implements TextFile {
         this.index = index;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public boolean isLineNrValid(long lineNr) {
         return lineNr >= 1 && lineNr <= getLineCount();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public synchronized String getLine(long lineNr) throws TextFileException {
         if (lineNr < 1 || lineNr > getLineCount()) {
             throw new IllegalArgumentException("Invalid line number: " + lineNr);
@@ -73,9 +67,6 @@ public class IndexedTextFile implements TextFile {
         return index.getLineCount();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void close() throws Exception {
         fileReader.close();
