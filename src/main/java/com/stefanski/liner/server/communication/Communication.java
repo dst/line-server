@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.comm;
+package com.stefanski.liner.server.communication;
 
 import com.stefanski.liner.server.cmd.Command;
 import com.stefanski.liner.server.resp.Response;

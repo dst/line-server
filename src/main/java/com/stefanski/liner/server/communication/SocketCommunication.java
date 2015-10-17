@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.comm;
+package com.stefanski.liner.server.communication;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -6,9 +6,9 @@ import java.util.concurrent.Executors;
 import lombok.extern.slf4j.Slf4j;
 
 import com.stefanski.liner.file.TextFile;
-import com.stefanski.liner.server.comm.Communication;
-import com.stefanski.liner.server.comm.CommunicationDetector;
-import com.stefanski.liner.server.comm.CommunicationException;
+import com.stefanski.liner.server.communication.Communication;
+import com.stefanski.liner.server.communication.CommunicationDetector;
+import com.stefanski.liner.server.communication.CommunicationException;
 
 /**
  * A server that serves specified lines of an immutable text file.

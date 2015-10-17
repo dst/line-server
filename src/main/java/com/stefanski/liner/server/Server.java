@@ -1,6 +1,6 @@
 package com.stefanski.liner.server;
 
-import com.stefanski.liner.server.comm.CommunicationException;
+import com.stefanski.liner.server.communication.CommunicationException;
 
 /**
  * @author Dariusz Stefanski

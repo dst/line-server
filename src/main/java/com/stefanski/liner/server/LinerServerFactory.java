@@ -3,8 +3,8 @@ package com.stefanski.liner.server;
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.file.TextFileFactory;
-import com.stefanski.liner.server.comm.CommunicationDetector;
-import com.stefanski.liner.server.comm.TCPCommunicationDetector;
+import com.stefanski.liner.server.communication.CommunicationDetector;
+import com.stefanski.liner.server.communication.TCPCommunicationDetector;
 
 /**
  * A factory for creating servers.

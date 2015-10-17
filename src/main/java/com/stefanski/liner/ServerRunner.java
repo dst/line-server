@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.LinerServer;
 import com.stefanski.liner.server.LinerServerFactory;
-import com.stefanski.liner.server.comm.CommunicationException;
+import com.stefanski.liner.server.communication.CommunicationException;
 
 /**
  * Starts server.

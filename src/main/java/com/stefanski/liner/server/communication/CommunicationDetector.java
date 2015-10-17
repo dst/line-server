@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.comm;
+package com.stefanski.liner.server.communication;
 
 /**
  * It listens (detects) for new clients.

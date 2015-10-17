@@ -10,7 +10,7 @@ import java.net.Socket;
 import junit.framework.Assert;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.stefanski.liner.server.comm.TCPCommunicationDetector.TCP_PORT;
+import static com.stefanski.liner.server.communication.TCPCommunicationDetector.TCP_PORT;
 
 /**
  * @author Dariusz Stefanski

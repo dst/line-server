@@ -11,9 +11,9 @@ import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.cmd.Command;
 import com.stefanski.liner.server.cmd.LineCommand;
 import com.stefanski.liner.server.cmd.ShutdownCommand;
-import com.stefanski.liner.server.comm.Communication;
-import com.stefanski.liner.server.comm.CommunicationDetector;
-import com.stefanski.liner.server.comm.CommunicationException;
+import com.stefanski.liner.server.communication.Communication;
+import com.stefanski.liner.server.communication.CommunicationDetector;
+import com.stefanski.liner.server.communication.CommunicationException;
 import com.stefanski.liner.server.resp.LineResponse;
 import com.stefanski.liner.server.resp.Response;
 
