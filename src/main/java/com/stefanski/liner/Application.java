@@ -1,10 +1,13 @@
 package com.stefanski.liner;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.stefanski.liner.file.TextFileException;
-import com.stefanski.liner.server.LinerServer;
-import com.stefanski.liner.server.LinerServerFactory;
+import com.stefanski.liner.server.Server;
 import com.stefanski.liner.server.communication.CommunicationException;
 
 /**
@@ -17,17 +20,23 @@ import com.stefanski.liner.server.communication.CommunicationException;
  * 
  */
 @Slf4j
-public class ServerRunner {
+@SpringBootApplication
+public class Application implements CommandLineRunner {
 
-    private ServerRunner() {
-    }
+    @Autowired
+    Server server;
 
     public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
         String fileName = getFileName(args);
         runServer(fileName);
     }
 
-    private static String getFileName(String[] args) {
+    private String getFileName(String... args) {
         if (args.length != 1) {
             log.error(usage());
             System.exit(1);
@@ -35,10 +44,9 @@ public class ServerRunner {
         return args[0];
     }
 
-    private static void runServer(String fileName) {
+    private void runServer(String fileName) {
         try {
-            LinerServer server = LinerServerFactory.createServer(fileName);
-            server.run();
+            server.run(fileName);
         } catch (TextFileException | CommunicationException e) {
             log.error("Cannot run server: ", e);
             System.exit(1);
@@ -46,6 +54,6 @@ public class ServerRunner {
     }
 
     private static String usage() {
-        return String.format("Usage: %s fileName", ServerRunner.class.getSimpleName());
+        return String.format("Usage: %s fileName", Application.class.getSimpleName());
     }
 }

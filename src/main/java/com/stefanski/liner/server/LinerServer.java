@@ -4,8 +4,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.stefanski.liner.file.TextFile;
+import com.stefanski.liner.file.TextFileException;
+import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.server.communication.Communication;
 import com.stefanski.liner.server.communication.CommunicationDetector;
 import com.stefanski.liner.server.communication.CommunicationException;
@@ -18,6 +23,7 @@ import com.stefanski.liner.server.communication.CommunicationException;
  * 
  */
 @Slf4j
+@Component
 public class LinerServer implements Server {
 
     /**
@@ -25,15 +31,17 @@ public class LinerServer implements Server {
      */
     private final CommunicationDetector detector;
 
+    private final TextFileFactory textFileFactory;
+
     /**
      * An immutable text file which is served by this server.
      */
-    private final TextFile textFile;
+    private TextFile textFile;
 
     /**
      * It gives us support for multiple simultaneous clients.
      */
-    private final ExecutorService executor;
+    private ExecutorService executor;
 
     /**
      * Indicates whether server is listening for clients. The server stops listening after receiving
@@ -41,30 +49,24 @@ public class LinerServer implements Server {
      */
     private volatile boolean listening;
 
-    /**
-     * @param simultaneousClientsLimit
-     *            How many simultaneous clients can be handled
-     * @param detector
-     *            Detects new clients
-     * @param textFile
-     *            An immutable text file
-     */
-    public LinerServer(int simultaneousClientsLimit, CommunicationDetector detector,
-            TextFile textFile) {
+    @Autowired
+    public LinerServer(@Value("${server.simultaneous.clients.limit:100}") int simultaneousClientsLimit,
+                       CommunicationDetector detector, TextFileFactory textFileFactory) {
         this.detector = detector;
-        this.textFile = textFile;
-        executor = Executors.newFixedThreadPool(simultaneousClientsLimit);
-        listening = true;
+        this.textFileFactory = textFileFactory;
+        this.listening = true;
+        createExecutor(simultaneousClientsLimit);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void run() throws CommunicationException {
+    private void createExecutor(int count) {
+        log.info("Creating thread pool with {} threads", count);
+        this.executor = Executors.newFixedThreadPool(count);
+    }
+
+    public void run(String fileName) throws CommunicationException, TextFileException {
         log.info("Running server.");
-
         detector.start();
-
+        createTextFile(fileName);
         while (isListening()) {
             try {
                 Communication communication = detector.acceptNextClient();
@@ -78,9 +80,10 @@ public class LinerServer implements Server {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    private void createTextFile(String fileName) throws TextFileException {
+        this.textFile = textFileFactory.createFromFile(fileName);
+    }
+
     public void shutdown() {
         log.info("Stopping a server...");
 

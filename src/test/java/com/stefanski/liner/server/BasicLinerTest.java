@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.stefanski.liner.file.TextFile;
+import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.cmd.Command;
 import com.stefanski.liner.server.cmd.LineCommand;
@@ -18,6 +19,7 @@ import com.stefanski.liner.server.resp.LineResponse;
 import com.stefanski.liner.server.resp.Response;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,7 +38,8 @@ public class BasicLinerTest extends LinerTest {
         when(communication.receiveCommand()).thenReturn(ShutdownCommand.getInstance());
 
         int simultaneousClientsLimit = 1;
-        serverThread = startServer(createServer(simultaneousClientsLimit, communication));
+        LinerServer server = createServer(simultaneousClientsLimit, communication);
+        serverThread = startServer(server, "filename.txt");
         serverThread.join();
 
         // Otherwise it will be still running and test will not finish
@@ -97,7 +100,8 @@ public class BasicLinerTest extends LinerTest {
 
         int simultaneousClientsLimit = 3;
         SlowCommunication communication = new SlowCommunication();
-        serverThread = startServer(createServer(simultaneousClientsLimit, communication));
+        LinerServer server = createServer(simultaneousClientsLimit, communication);
+        serverThread = startServer(server, "filename.txt");
         serverThread.join();
 
         assertEquals("Not all command were executed", 2, communication.getResponseCount());
@@ -112,6 +116,9 @@ public class BasicLinerTest extends LinerTest {
         when(textFile.isLineNrValid(Mockito.anyLong())).thenReturn(true);
         when(textFile.getLine(Mockito.anyLong())).thenReturn("line");
 
-        return new LinerServer(simultaneousClientsLimit, detector, textFile);
+        TextFileFactory textFileFactory = mock(TextFileFactory.class);
+        when(textFileFactory.createFromFile(anyString())).thenReturn(textFile);
+
+        return new LinerServer(simultaneousClientsLimit, detector, textFileFactory);
     }
 }

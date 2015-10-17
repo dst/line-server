@@ -1,5 +1,6 @@
 package com.stefanski.liner.server;
 
+import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.communication.CommunicationException;
 
 /**
@@ -10,17 +11,15 @@ import com.stefanski.liner.server.communication.CommunicationException;
  */
 public class LinerTest {
 
-    protected static Thread startServer(final LinerServer server) throws InterruptedException {
+    protected static Thread startServer(LinerServer server, String fileName)
+            throws InterruptedException {
 
         // start server
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    server.run();
-                } catch (CommunicationException e) {
-                    throw new AssertionError("We have a problem. Starting server failed: " + e);
-                }
+        Thread thread = new Thread(() -> {
+            try {
+                server.run(fileName);
+            } catch (TextFileException | CommunicationException e) {
+                throw new AssertionError("We have a problem. Starting server failed: " + e);
             }
         });
 

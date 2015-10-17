@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * *It listens for TCP connections on specified port.
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date Sep 21, 2013
  */
 @Slf4j
+@Component
 public class TCPCommunicationDetector implements CommunicationDetector {
     /**
      * Detector listens for connections on this port.

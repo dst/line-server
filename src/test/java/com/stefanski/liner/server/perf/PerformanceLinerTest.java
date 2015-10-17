@@ -7,9 +7,10 @@ import junit.framework.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 
+import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.server.LinerServer;
-import com.stefanski.liner.server.LinerServerFactory;
 import com.stefanski.liner.server.LinerTest;
+import com.stefanski.liner.server.communication.TCPCommunicationDetector;
 
 /**
  * Performance tests are run only if PerformanceTesting system variable is set.
@@ -30,8 +31,9 @@ public class PerformanceLinerTest extends LinerTest {
     @BeforeClass
     public static void startServer() throws Exception {
         if (isPerformanceTesting()) {
-            final LinerServer server = LinerServerFactory.createServer(getTestFile());
-            serverThread = startServer(server);
+            final LinerServer server = new LinerServer(100,
+                    new TCPCommunicationDetector(), new TextFileFactory());
+            serverThread = startServer(server, getTestFile());
         }
     }
 

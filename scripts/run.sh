@@ -22,4 +22,4 @@ fi
 # read properties
 . ../system.properties
 
-java -Xms$ms -Xmx$mx  -jar ../target/*.jar $file
+java -Xms$ms -Xmx$mx -jar ../target/*.jar $file
