@@ -15,12 +15,10 @@ public class CommandParser {
 
     /**
      * Parses a given line to a command
-     * 
-     * @param line
-     * @return
+     *
      * @throws CommandParserException
      */
-    public Command parseCmd(String line) throws CommandParserException {
+    public Command parseCmd(String line) {
         assert line != null;
 
         if (line.startsWith(LINE_CMD)) {
@@ -34,7 +32,7 @@ public class CommandParser {
         }
     }
 
-    private Command parseLineCmd(String line) throws CommandParserException {
+    private Command parseLineCmd(String line) {
         String[] tokens = line.split(" ");
         if (tokens.length != 2) {
             throw new CommandParserException("Invalid format of get command: " + line);
@@ -44,7 +42,7 @@ public class CommandParser {
         return new LineCommand(lineNr);
     }
 
-    private long getLineNr(String str) throws CommandParserException {
+    private long getLineNr(String str) {
         try {
             return Long.valueOf(str);
         } catch (NumberFormatException e) {

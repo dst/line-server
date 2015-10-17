@@ -6,7 +6,7 @@ package com.stefanski.liner.server.cmd;
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */
-public class CommandParserException extends Exception {
+public class CommandParserException extends RuntimeException {
 
     private static final long serialVersionUID = -7127267099487369234L;
 

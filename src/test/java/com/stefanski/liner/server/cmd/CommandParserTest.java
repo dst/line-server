@@ -13,32 +13,32 @@ public class CommandParserTest {
     private final CommandParser parser = new CommandParser();
 
     @Test
-    public void shouldParseGetCommand() throws CommandParserException {
+    public void shouldParseGetCommand() {
         assertEquals(new LineCommand(123), parser.parseCmd("LINE 123"));
     }
 
     @Test(expected = CommandParserException.class)
-    public void shouldThrowExceptionForInvalidFormatOfGetCmd() throws CommandParserException {
+    public void shouldThrowExceptionForInvalidFormatOfGetCmd() {
         parser.parseCmd("LINE");
     }
 
     @Test(expected = CommandParserException.class)
-    public void shouldThrowExceptionForNotParsableLineNr() throws CommandParserException {
+    public void shouldThrowExceptionForNotParsableLineNr() {
         parser.parseCmd("LINE a12a");
     }
 
     @Test
-    public void shouldParseQuitCommand() throws CommandParserException {
+    public void shouldParseQuitCommand() {
         assertEquals(QuitCommand.getInstance(), parser.parseCmd("QUIT"));
     }
 
     @Test
-    public void shouldParseShutdownCommand() throws CommandParserException {
+    public void shouldParseShutdownCommand() {
         assertEquals(ShutdownCommand.getInstance(), parser.parseCmd("SHUTDOWN"));
     }
 
     @Test(expected = CommandParserException.class)
-    public void shouldThrowExceptionForUnknownCommand() throws CommandParserException {
+    public void shouldThrowExceptionForUnknownCommand() {
         parser.parseCmd("aaaaaa");
     }
 }
