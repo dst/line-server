@@ -11,7 +11,7 @@ import com.stefanski.liner.server.communication.CommunicationException;
  */
 public class LinerTest {
 
-    protected static Thread startServer(LinerServer server, String fileName)
+    protected static Thread startServer(Server server, String fileName)
             throws InterruptedException {
 
         // start server

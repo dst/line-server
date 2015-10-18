@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @date 18 Oct 2015
  */
 @Component
-public class ShutdownCommandParser implements CommandParser {
+class ShutdownCommandParser implements CommandParser {
 
     private static final String SHUTDOWN_CMD = "SHUTDOWN";
 

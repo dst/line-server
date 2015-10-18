@@ -1,50 +1,51 @@
-package com.stefanski.liner.server.perf;
+package com.stefanski.liner.server;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.stefanski.liner.file.TextFileFactory;
-import com.stefanski.liner.server.LinerServer;
-import com.stefanski.liner.server.LinerTest;
-import com.stefanski.liner.server.cmd.CommandParserService;
-import com.stefanski.liner.server.cmd.LineCommandParser;
-import com.stefanski.liner.server.cmd.QuitCommandParser;
-import com.stefanski.liner.server.cmd.ShutdownCommandParser;
-import com.stefanski.liner.server.communication.TCPCommunicationDetector;
-
-import static java.util.Arrays.asList;
+import com.stefanski.liner.Application;
+import com.stefanski.liner.server.client.Client;
+import com.stefanski.liner.server.client.FastClient;
+import com.stefanski.liner.server.client.SingleCmdClient;
 
 /**
  * Performance tests are run only if PerformanceTesting system variable is set.
- * 
+ *
  * It is not a unit test, it operates on real files and communicates using real sockets.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 6, 2013
  */
 @Slf4j
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
 public class PerformanceLinerTest extends LinerTest {
 
     private static final long TIME_PER_TEST_MS = 1000;
 
+    @Autowired
+    private LinerServer server;
+
     // Only 1 instance of a server because it is expensive to start it for a big file
     private static Thread serverThread;
 
-    @BeforeClass
-    public static void startServer() throws Exception {
+    @Before
+    public void startServer() throws Exception {
         if (isPerformanceTesting()) {
-            //TODO(dst), 18.10.15: integration test
-            final LinerServer server = new LinerServer(100,
-                    new TCPCommunicationDetector(
-                            new CommandParserService(
-                                    asList(new LineCommandParser(), new QuitCommandParser(), new ShutdownCommandParser())
-                            )
-                    ), new TextFileFactory());
-            serverThread = startServer(server, getTestFile());
+            if (serverThread == null) {
+                serverThread = startServer(server, getTestFile());
+            }
         }
     }
 

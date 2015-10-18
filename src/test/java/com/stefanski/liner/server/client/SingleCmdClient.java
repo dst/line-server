@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.perf;
+package com.stefanski.liner.server.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date Sep 6, 2013
  */
 @Slf4j
-class SingleCmdClient extends Client {
+public class SingleCmdClient extends Client {
 
     private final String cmd;
     private final long delay;

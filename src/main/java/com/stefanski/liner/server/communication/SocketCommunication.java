@@ -7,12 +7,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.stefanski.liner.server.cmd.Command;
-import com.stefanski.liner.server.cmd.CommandParserService;
 import com.stefanski.liner.server.cmd.CommandParserException;
+import com.stefanski.liner.server.cmd.CommandParserService;
 import com.stefanski.liner.server.cmd.EmptyCommand;
 import com.stefanski.liner.server.resp.Response;
 

@@ -24,7 +24,7 @@ import com.stefanski.liner.server.communication.CommunicationException;
  */
 @Slf4j
 @Component
-public class LinerServer implements Server {
+class LinerServer implements Server {
 
     /**
      * Detects new clients.

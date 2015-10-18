@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.perf;
+package com.stefanski.liner.server.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static com.stefanski.liner.server.communication.TCPCommunicationDetector.
  * @date Sep 6, 2013
  */
 @Slf4j
-abstract class Client implements Runnable {
+public abstract class Client implements Runnable {
 
     private final String name;
     private boolean jobDone;

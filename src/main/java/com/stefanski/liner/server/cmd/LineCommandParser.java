@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @date 18 Oct 2015
  */
 @Component
-public class LineCommandParser implements CommandParser {
+class LineCommandParser implements CommandParser {
 
     private static final String LINE_CMD = "LINE";
 

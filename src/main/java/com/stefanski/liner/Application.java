@@ -1,5 +1,7 @@
 package com.stefanski.liner;
 
+import java.util.Optional;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.Server;
 import com.stefanski.liner.server.communication.CommunicationException;
+
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 
 /**
  * Starts server.
@@ -32,16 +37,17 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String fileName = getFileName(args);
-        runServer(fileName);
+        getFileName(args).ifPresent(
+                fileName -> runServer(fileName)
+        );
     }
 
-    private String getFileName(String... args) {
+    private Optional<String> getFileName(String... args) {
         if (args.length != 1) {
             log.error(usage());
-            System.exit(1);
+            return empty();
         }
-        return args[0];
+        return of(args[0]);
     }
 
     private void runServer(String fileName) {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @date 18 Oct 2015
  */
 @Component
-public class QuitCommandParser implements CommandParser {
+class QuitCommandParser implements CommandParser {
 
     private static final String QUIT_CMD = "QUIT";
 
