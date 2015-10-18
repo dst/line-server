@@ -11,7 +11,6 @@ class LineCommandParser implements CommandParser {
 
     private static final String LINE_CMD = "LINE";
 
-
     @Override
     public boolean isApplicableTo(String line) {
         return line.startsWith(LINE_CMD);

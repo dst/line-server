@@ -3,6 +3,7 @@ package com.stefanski.liner.server.cmd;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -11,38 +12,22 @@ import static junit.framework.Assert.assertEquals;
  */
 public class CommandParserServiceTest {
 
-    //TODO(dst), 18.10.15: move these tests to parser specific tests
-    private final CommandParserService parser = new CommandParserService(
-            asList(new LineCommandParser(), new QuitCommandParser(), new ShutdownCommandParser())
-    );
-
     @Test
-    public void shouldParseGetCommand() {
-        assertEquals(new LineCommand(123), parser.parseCmd("LINE 123"));
-    }
+    public void shouldParseCorrectCommand() {
+        // given:
+        CommandParserService parserService = new CommandParserService(asList(new QuitCommandParser()));
 
-    @Test(expected = CommandParserException.class)
-    public void shouldThrowExceptionForInvalidFormatOfGetCmd() {
-        parser.parseCmd("LINE");
-    }
+        // when:
+        Command command = parserService.parseCmd("QUIT");
 
-    @Test(expected = CommandParserException.class)
-    public void shouldThrowExceptionForNotValidLineNr() {
-        parser.parseCmd("LINE a12a");
-    }
-
-    @Test
-    public void shouldParseQuitCommand() {
-        assertEquals(QuitCommand.getInstance(), parser.parseCmd("QUIT"));
-    }
-
-    @Test
-    public void shouldParseShutdownCommand() {
-        assertEquals(ShutdownCommand.getInstance(), parser.parseCmd("SHUTDOWN"));
+        // then:
+        assertEquals(QuitCommand.getInstance(), command);
     }
 
     @Test(expected = CommandParserException.class)
     public void shouldThrowExceptionForUnknownCommand() {
-        parser.parseCmd("aaaaaa");
+        // given:
+        CommandParserService parserService = new CommandParserService(emptyList());
+        parserService.parseCmd("aaaaaa");
     }
 }
