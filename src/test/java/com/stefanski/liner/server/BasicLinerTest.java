@@ -47,57 +47,6 @@ public class BasicLinerTest extends LinerTest {
 
     @Test
     public void shouldServerSupportMultipleSimultaneousClients() throws Exception {
-        class SlowCommunication implements Communication {
-            private final AtomicInteger responseCounter = new AtomicInteger(0);
-
-            private final AtomicInteger count = new AtomicInteger(0);
-
-            @Override
-            public void close() throws Exception {
-            }
-
-            @Override
-            public void sendResponse(Response resp) throws CommunicationException {
-                if (resp instanceof LineResponse) {
-                    responseCounter.incrementAndGet();
-                }
-            }
-
-            @Override
-            public Command receiveCommand() {
-                int val = count.incrementAndGet();
-                if (val > 2) {
-                    return createSlowlyShutdownCommand();
-                } else {
-                    return createSlowlyGetCommand();
-                }
-            }
-
-            public int getResponseCount() {
-                return responseCounter.get();
-            }
-
-            private LineCommand createSlowlyGetCommand() {
-                sleep(100);
-                return new LineCommand(123L);
-            }
-
-            private ShutdownCommand createSlowlyShutdownCommand() {
-                sleep(150);
-                return ShutdownCommand.getInstance();
-            }
-
-            private void sleep(long delay) {
-                log.info("Waiting...");
-                try {
-                    Thread.sleep(delay);
-                } catch (InterruptedException e) {
-                    log.info("InterruptedException when sleeping: ", e);
-                }
-                log.info("Waiting finished");
-            }
-        }
-
         int simultaneousClientsLimit = 3;
         SlowCommunication communication = new SlowCommunication();
         LinerServer server = createServer(simultaneousClientsLimit, communication);
@@ -120,5 +69,56 @@ public class BasicLinerTest extends LinerTest {
         when(textFileFactory.createFromFile(anyString())).thenReturn(textFile);
 
         return new LinerServer(simultaneousClientsLimit, detector, textFileFactory);
+    }
+
+    class SlowCommunication implements Communication {
+        private final AtomicInteger responseCounter = new AtomicInteger(0);
+
+        private final AtomicInteger count = new AtomicInteger(0);
+
+        @Override
+        public void close() throws Exception {
+        }
+
+        @Override
+        public void sendResponse(Response resp) throws CommunicationException {
+            if (resp instanceof LineResponse) {
+                responseCounter.incrementAndGet();
+            }
+        }
+
+        @Override
+        public Command receiveCommand() {
+            int val = count.incrementAndGet();
+            if (val > 2) {
+                return createSlowlyShutdownCommand();
+            } else {
+                return createSlowlyLineCommand();
+            }
+        }
+
+        public int getResponseCount() {
+            return responseCounter.get();
+        }
+
+        private LineCommand createSlowlyLineCommand() {
+            sleep(100);
+            return new LineCommand(123L);
+        }
+
+        private ShutdownCommand createSlowlyShutdownCommand() {
+            sleep(150);
+            return ShutdownCommand.getInstance();
+        }
+
+        private void sleep(long delay) {
+            log.info("Waiting...");
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                log.info("InterruptedException when sleeping: ", e);
+            }
+            log.info("Waiting finished");
+        }
     }
 }
