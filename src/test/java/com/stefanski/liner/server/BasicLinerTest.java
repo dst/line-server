@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.stefanski.liner.file.TextFile;
-import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.file.TextFileException;
+import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.server.cmd.Command;
 import com.stefanski.liner.server.cmd.LineCommand;
 import com.stefanski.liner.server.cmd.ShutdownCommand;
@@ -72,28 +72,30 @@ public class BasicLinerTest extends LinerTest {
     }
 
     class SlowCommunication implements Communication {
-        private final AtomicInteger responseCounter = new AtomicInteger(0);
 
-        private final AtomicInteger count = new AtomicInteger(0);
+        private final AtomicInteger responseCounter = new AtomicInteger();
+        private final AtomicInteger count = new AtomicInteger();
 
         @Override
-        public void close() throws Exception {
+        public void close() {
         }
 
         @Override
         public void sendResponse(Response resp) throws CommunicationException {
             if (resp instanceof LineResponse) {
+                log.debug("Sending response {}", resp);
                 responseCounter.incrementAndGet();
             }
         }
 
         @Override
-        public Command receiveCommand() {
-            int val = count.incrementAndGet();
-            if (val > 2) {
-                return createSlowlyShutdownCommand();
-            } else {
+        public Command receiveCommand() throws CommunicationException {
+            // Line, Line, Shutdown
+            int val = count.getAndIncrement();
+            if (val < 2) {
                 return createSlowlyLineCommand();
+            } else {
+                return createSlowlyShutdownCommand();
             }
         }
 
@@ -102,23 +104,25 @@ public class BasicLinerTest extends LinerTest {
         }
 
         private LineCommand createSlowlyLineCommand() {
-            sleep(100);
+            log.debug("Creating slowly line command");
+            sleep(200);
             return new LineCommand(123L);
         }
 
         private ShutdownCommand createSlowlyShutdownCommand() {
-            sleep(150);
+            log.debug("Creating slowly shutdown command");
+            sleep(300);
             return ShutdownCommand.getInstance();
         }
 
         private void sleep(long delay) {
-            log.info("Waiting...");
+            log.debug("Waiting...");
             try {
                 Thread.sleep(delay);
             } catch (InterruptedException e) {
                 log.info("InterruptedException when sleeping: ", e);
             }
-            log.info("Waiting finished");
+            log.debug("Waiting finished");
         }
     }
 }
