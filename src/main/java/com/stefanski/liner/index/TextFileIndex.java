@@ -15,7 +15,7 @@ public interface TextFileIndex extends AutoCloseable {
      * @return
      * @throws IndexException
      */
-    LineMetadata getLineMetadata(long lineNr) throws IndexException;
+    LineMetadata getLineMetadata(long lineNr) ;
 
     /**
      * @return A line count in a file which was indexed

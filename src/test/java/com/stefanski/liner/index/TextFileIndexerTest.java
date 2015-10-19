@@ -1,8 +1,5 @@
 package com.stefanski.liner.index;
 
-import static java.nio.file.StandardOpenOption.READ;
-import static java.nio.file.StandardOpenOption.WRITE;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.channels.FileChannel;
@@ -14,6 +11,9 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import static java.nio.file.StandardOpenOption.READ;
+import static java.nio.file.StandardOpenOption.WRITE;
 
 /**
  * @author Dariusz Stefanski
@@ -52,7 +52,7 @@ public class TextFileIndexerTest {
     }
 
     @Test
-    public void shouldLineMetadataBeCorrectForLine1() throws IndexException {
+    public void shouldLineMetadataBeCorrectForLine1() {
         // line1
         LineMetadata meta = index.getLineMetadata(1);
         Assert.assertEquals(0, meta.offset);
@@ -60,7 +60,7 @@ public class TextFileIndexerTest {
     }
 
     @Test
-    public void shouldLineMetadataBeCorrectForLine2() throws IndexException {
+    public void shouldLineMetadataBeCorrectForLine2() {
         // line2
         LineMetadata meta = index.getLineMetadata(2);
         Assert.assertEquals(6, meta.offset);

@@ -32,7 +32,7 @@ public class OffsetIndex implements TextFileIndex {
         this.lineCount = lineCount;
     }
 
-    public LineMetadata getLineMetadata(long lineNr) throws IndexException {
+    public LineMetadata getLineMetadata(long lineNr) {
         try {
             ByteBuffer buf = readOffsets(lineNr);
             return offsets2metadata(buf);

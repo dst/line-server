@@ -23,7 +23,7 @@ public class TextFileIndexerFactory {
     private TextFileIndexerFactory() {
     }
 
-    public static TextFileIndexer createIndexer(Path filePath) throws IndexException {
+    public static TextFileIndexer createIndexer(Path filePath) {
         try {
             FileChannel fileFC = FileChannel.open(filePath, READ);
             Path indexPath = createIndexFile(filePath);

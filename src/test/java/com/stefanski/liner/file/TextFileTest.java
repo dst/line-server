@@ -56,7 +56,7 @@ public class TextFileTest {
             reader = Mockito.mock(SeekableByteChannelReader.class);
         }
 
-        void addLine(String line) throws IndexException, IOException {
+        void addLine(String line) throws IOException {
             int len = line.length();
             when(index.getLineMetadata(lineNr)).thenReturn(new LineMetadata(offset, len));
             when(reader.read(offset, len)).thenReturn(ByteBuffer.wrap(line.getBytes()));
