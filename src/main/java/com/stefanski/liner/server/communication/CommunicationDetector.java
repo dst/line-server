@@ -13,14 +13,14 @@ public interface CommunicationDetector {
      * 
      * @throws CommunicationException
      */
-    void start() throws CommunicationException;
+    void start();
 
     /**
      * Stops a detection.
      * 
      * @throws CommunicationException
      */
-    void stop() throws CommunicationException;
+    void stop();
 
     /**
      * After accepting the next client, it returns a communication channel to this client.
@@ -28,5 +28,5 @@ public interface CommunicationDetector {
      * @return
      * @throws CommunicationException
      */
-    Communication acceptNextClient() throws CommunicationException;
+    Communication acceptNextClient();
 }

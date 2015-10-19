@@ -14,7 +14,7 @@ public interface Server {
      * @throws CommunicationException
      *             If critical exception occurs during starting server.
      */
-    void run(String fileName) throws CommunicationException;
+    void run(String fileName);
 
     /**
      * Terminates server.

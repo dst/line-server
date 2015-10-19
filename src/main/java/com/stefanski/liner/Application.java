@@ -9,7 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.stefanski.liner.server.Server;
-import com.stefanski.liner.server.communication.CommunicationException;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -52,7 +51,7 @@ public class Application implements CommandLineRunner {
     private void runServer(String fileName) {
         try {
             server.run(fileName);
-        } catch (CommunicationException e) {
+        } catch (Exception e) {
             log.error("Cannot run server: ", e);
             System.exit(1);
         }

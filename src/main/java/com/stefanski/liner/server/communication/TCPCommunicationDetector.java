@@ -37,7 +37,7 @@ class TCPCommunicationDetector implements CommunicationDetector {
     }
 
     @Override
-    public void start() throws CommunicationException {
+    public void start() {
         log.info("Start detecting clients on port {}", port);
 
         try {
@@ -48,7 +48,7 @@ class TCPCommunicationDetector implements CommunicationDetector {
     }
 
     @Override
-    public void stop() throws CommunicationException {
+    public void stop() {
         try {
             serverSocket.close();
         } catch (IOException e) {
@@ -57,7 +57,7 @@ class TCPCommunicationDetector implements CommunicationDetector {
     }
 
     @Override
-    public Communication acceptNextClient() throws CommunicationException {
+    public Communication acceptNextClient() {
         try {
             Socket clientSocket = serverSocket.accept();
             return new SocketCommunication(clientSocket, parser);

@@ -18,7 +18,7 @@ public interface Communication extends AutoCloseable {
      * @return
      * @throws CommunicationException
      */
-    Command receiveCommand() throws CommunicationException;
+    Command receiveCommand();
 
     /**
      * Sends a response resp to a communication channel.
@@ -26,5 +26,5 @@ public interface Communication extends AutoCloseable {
      * @param resp
      * @throws CommunicationException
      */
-    void sendResponse(Response resp) throws CommunicationException;
+    void sendResponse(Response resp);
 }

@@ -13,7 +13,6 @@ import com.stefanski.liner.server.cmd.LineCommand;
 import com.stefanski.liner.server.cmd.ShutdownCommand;
 import com.stefanski.liner.server.communication.Communication;
 import com.stefanski.liner.server.communication.CommunicationDetector;
-import com.stefanski.liner.server.communication.CommunicationException;
 import com.stefanski.liner.server.resp.LineResponse;
 import com.stefanski.liner.server.resp.Response;
 
@@ -55,8 +54,7 @@ public class BasicLinerTest extends LinerTest {
         assertEquals("Not all command were executed", 2, communication.getResponseCount());
     }
 
-    private LinerServer createServer(int simultaneousClientsLimit, Communication communication)
-            throws CommunicationException {
+    private LinerServer createServer(int simultaneousClientsLimit, Communication communication) {
         CommunicationDetector detector = mock(CommunicationDetector.class);
         when(detector.acceptNextClient()).thenReturn(communication);
 
@@ -80,7 +78,7 @@ public class BasicLinerTest extends LinerTest {
         }
 
         @Override
-        public void sendResponse(Response resp) throws CommunicationException {
+        public void sendResponse(Response resp) {
             if (resp instanceof LineResponse) {
                 log.debug("Sending response {}", resp);
                 responseCounter.incrementAndGet();
@@ -88,7 +86,7 @@ public class BasicLinerTest extends LinerTest {
         }
 
         @Override
-        public Command receiveCommand() throws CommunicationException {
+        public Command receiveCommand() {
             // Line, Line, Shutdown
             int val = count.getAndIncrement();
             if (val < 2) {

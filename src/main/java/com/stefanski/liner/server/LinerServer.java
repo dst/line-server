@@ -62,7 +62,7 @@ class LinerServer implements Server {
         this.executor = Executors.newFixedThreadPool(count);
     }
 
-    public void run(String fileName) throws CommunicationException {
+    public void run(String fileName) {
         log.info("Running server.");
         detector.start();
         createTextFile(fileName);

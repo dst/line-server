@@ -36,7 +36,7 @@ public class SocketCommunication implements Communication {
     }
 
     @Override
-    public Command receiveCommand() throws CommunicationException {
+    public Command receiveCommand() {
         try {
             String line = reader.readLine();
             if (line == null) {
@@ -51,7 +51,7 @@ public class SocketCommunication implements Communication {
     }
 
     @Override
-    public void sendResponse(Response resp) throws CommunicationException {
+    public void sendResponse(Response resp) {
         try {
             resp.write(writer);
         } catch (IOException e) {
