@@ -88,7 +88,7 @@ public class TextFileIndexer implements AutoCloseable {
         progressMonitor.stop();
 
         SeekableByteChannelReader indexReader = new SeekableByteChannelReader(indexFC);
-        return new OffsetIndex(indexReader, lineCount);
+        return new TextFileIndex(indexReader, lineCount);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.stefanski.liner.index;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -11,6 +12,7 @@ import lombok.ToString;
  */
 @ToString
 @Getter
+@RequiredArgsConstructor
 public class LineMetadata {
     /**
      * An offset from beginning of the file.
@@ -21,13 +23,4 @@ public class LineMetadata {
      * Line's length without EOL.
      */
     private final int length;
-
-    /**
-     * @param begin
-     * @param length
-     */
-    public LineMetadata(long begin, int length) {
-        this.offset = begin;
-        this.length = length;
-    }
 }
