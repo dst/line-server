@@ -18,16 +18,16 @@ import static java.nio.file.StandardOpenOption.WRITE;
 @Slf4j
 public class TextFileIndexerFactory {
 
+    private static final String INDEX_SUFFIX = "_index";
+
     private TextFileIndexerFactory() {
     }
 
     public static TextFileIndexer createIndexer(Path filePath) throws IndexException {
         try {
             FileChannel fileFC = FileChannel.open(filePath, READ);
-
             Path indexPath = createIndexFile(filePath);
             FileChannel indexFC = FileChannel.open(indexPath, READ, WRITE);
-
             return new TextFileIndexer(fileFC, indexFC);
         } catch (IOException e) {
             throw new IndexException("Cannot create indexer", e);
@@ -35,18 +35,20 @@ public class TextFileIndexerFactory {
     }
 
     private static Path createIndexFile(Path filePath) throws IOException {
-        String indexFileName = filePath.toString() + "_linerServerIndex";
-        Path indexPath = FileSystems.getDefault().getPath(indexFileName);
+        Path indexPath = getIndexPath(filePath);
+        deleteIfExists(indexPath);
+        return Files.createFile(indexPath);
+    }
 
-        // Delete if exists
+    private static Path getIndexPath(Path filePath) {
+        String indexFileName = filePath.toString() + INDEX_SUFFIX;
+        return FileSystems.getDefault().getPath(indexFileName);
+    }
+
+    private static void deleteIfExists(Path indexPath) throws IOException {
         if (Files.exists(indexPath)) {
             log.info("Index file {} exists. Removing", indexPath);
             Files.delete(indexPath);
         }
-
-        // and create
-        indexPath = Files.createFile(indexPath);
-
-        return indexPath;
     }
 }

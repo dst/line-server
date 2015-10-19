@@ -37,7 +37,7 @@ public class TextFileIndexerTest {
         Path filePath = FileSystems.getDefault().getPath(file.getAbsolutePath());
         FileChannel fileFC = FileChannel.open(filePath, READ);
 
-        File indexFile = folder.newFile("file.txt_linerServerIndex");
+        File indexFile = folder.newFile("file.txt_index");
         Path indexPath = FileSystems.getDefault().getPath(indexFile.getAbsolutePath());
         FileChannel indexFC = FileChannel.open(indexPath, READ, WRITE);
 
