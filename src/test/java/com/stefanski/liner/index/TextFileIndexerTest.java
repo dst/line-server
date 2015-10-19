@@ -55,15 +55,15 @@ public class TextFileIndexerTest {
     public void shouldLineMetadataBeCorrectForLine1() {
         // line1
         LineMetadata meta = index.getLineMetadata(1);
-        Assert.assertEquals(0, meta.offset);
-        Assert.assertEquals(5, meta.length);
+        Assert.assertEquals(0, meta.getOffset());
+        Assert.assertEquals(5, meta.getLength());
     }
 
     @Test
     public void shouldLineMetadataBeCorrectForLine2() {
         // line2
         LineMetadata meta = index.getLineMetadata(2);
-        Assert.assertEquals(6, meta.offset);
-        Assert.assertEquals(5, meta.length);
+        Assert.assertEquals(6, meta.getOffset());
+        Assert.assertEquals(5, meta.getLength());
     }
 }

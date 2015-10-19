@@ -53,7 +53,7 @@ public class IndexedTextFile implements TextFile {
         }
 
         try {
-            ByteBuffer line = fileReader.read(lineMetadata.offset, lineMetadata.length);
+            ByteBuffer line = fileReader.read(lineMetadata.getOffset(), lineMetadata.getLength());
 
             // TODO(dst), Sep 2, 2013: creating String is not a good idea here (memory + coping). It
             // would be better to use byte[]
