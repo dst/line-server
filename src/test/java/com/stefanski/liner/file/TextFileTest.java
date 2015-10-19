@@ -2,8 +2,6 @@ package com.stefanski.liner.file;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -77,24 +75,24 @@ public class TextFileTest {
     }
 
     @Test
-    public void shouldReturnTextForCorrectLineNr() throws TextFileException {
+    public void shouldReturnTextForCorrectLineNr() {
         for (int i = 1; i <= 4; i++) {
             Assert.assertEquals("line" + i, textFile.getLine(i));
         }
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForNegativeLineNr() throws TextFileException {
+    public void shouldThrowExceptionForNegativeLineNr() {
         textFile.getLine(-1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForZeroLineNr() throws TextFileException {
+    public void shouldThrowExceptionForZeroLineNr() {
         textFile.getLine(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionForTooBigLineNr() throws TextFileException {
+    public void shouldThrowExceptionForTooBigLineNr() {
         textFile.getLine(5);
     }
 

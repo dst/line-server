@@ -1,6 +1,5 @@
 package com.stefanski.liner.server;
 
-import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.communication.CommunicationException;
 
 /**
@@ -15,7 +14,7 @@ public interface Server {
      * @throws CommunicationException
      *             If critical exception occurs during starting server.
      */
-    void run(String fileName) throws CommunicationException, TextFileException;
+    void run(String fileName) throws CommunicationException;
 
     /**
      * Terminates server.

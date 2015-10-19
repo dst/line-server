@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.stefanski.liner.file.TextFile;
-import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.server.communication.Communication;
 import com.stefanski.liner.server.communication.CommunicationDetector;
@@ -63,7 +62,7 @@ class LinerServer implements Server {
         this.executor = Executors.newFixedThreadPool(count);
     }
 
-    public void run(String fileName) throws CommunicationException, TextFileException {
+    public void run(String fileName) throws CommunicationException {
         log.info("Running server.");
         detector.start();
         createTextFile(fileName);
@@ -80,7 +79,7 @@ class LinerServer implements Server {
         }
     }
 
-    private void createTextFile(String fileName) throws TextFileException {
+    private void createTextFile(String fileName) {
         this.textFile = textFileFactory.createFromFile(fileName);
     }
 

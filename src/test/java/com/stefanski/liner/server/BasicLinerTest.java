@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.stefanski.liner.file.TextFile;
-import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.server.cmd.Command;
 import com.stefanski.liner.server.cmd.LineCommand;
@@ -57,7 +56,7 @@ public class BasicLinerTest extends LinerTest {
     }
 
     private LinerServer createServer(int simultaneousClientsLimit, Communication communication)
-            throws TextFileException, CommunicationException {
+            throws CommunicationException {
         CommunicationDetector detector = mock(CommunicationDetector.class);
         when(detector.acceptNextClient()).thenReturn(communication);
 

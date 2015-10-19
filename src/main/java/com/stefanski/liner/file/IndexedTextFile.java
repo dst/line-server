@@ -40,7 +40,7 @@ public class IndexedTextFile implements TextFile {
         return lineNr >= 1 && lineNr <= getLineCount();
     }
 
-    public synchronized String getLine(long lineNr) throws TextFileException {
+    public synchronized String getLine(long lineNr) {
         if (lineNr < 1 || lineNr > getLineCount()) {
             throw new IllegalArgumentException("Invalid line number: " + lineNr);
         }

@@ -21,12 +21,10 @@ public class TextFileFactory {
 
     /**
      * Creates TextFile from a file.
-     * 
-     * @param fileName
-     * @return
+     *
      * @throws TextFileException
      */
-    public TextFile createFromFile(String fileName) throws TextFileException {
+    public TextFile createFromFile(String fileName) {
         try {
             Path path = FileSystems.getDefault().getPath(fileName);
             SeekableByteChannelReader fileReader = SeekableByteChannelReader.fromFilePath(path);

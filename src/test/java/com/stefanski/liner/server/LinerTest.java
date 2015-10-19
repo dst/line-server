@@ -1,8 +1,5 @@
 package com.stefanski.liner.server;
 
-import com.stefanski.liner.file.TextFileException;
-import com.stefanski.liner.server.communication.CommunicationException;
-
 /**
  * Base class for Basic and Performance test classes.
  * 
@@ -18,7 +15,7 @@ public class LinerTest {
         Thread thread = new Thread(() -> {
             try {
                 server.run(fileName);
-            } catch (TextFileException | CommunicationException e) {
+            } catch (Exception e) {
                 throw new AssertionError("We have a problem. Starting server failed: " + e);
             }
         });

@@ -7,7 +7,7 @@ package com.stefanski.liner.file;
  * @author Dariusz Stefanski
  * @date Sep 7, 2013
  */
-public class TextFileException extends Exception {
+public class TextFileException extends RuntimeException {
 
     private static final long serialVersionUID = 2687756341553547329L;
 

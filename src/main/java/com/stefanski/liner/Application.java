@@ -8,7 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.Server;
 import com.stefanski.liner.server.communication.CommunicationException;
 
@@ -53,7 +52,7 @@ public class Application implements CommandLineRunner {
     private void runServer(String fileName) {
         try {
             server.run(fileName);
-        } catch (TextFileException | CommunicationException e) {
+        } catch (CommunicationException e) {
             log.error("Cannot run server: ", e);
             System.exit(1);
         }
