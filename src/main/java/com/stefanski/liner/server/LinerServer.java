@@ -50,7 +50,7 @@ class LinerServer implements Server {
     private volatile boolean listening;
 
     @Autowired
-    public LinerServer(@Value("${server.simultaneous.clients.limit:100}") int simultaneousClientsLimit,
+    public LinerServer(@Value("${server.simultaneous.clients.limit}") int simultaneousClientsLimit,
                        CommunicationDetector detector, TextFileFactory textFileFactory) {
         this.detector = detector;
         this.textFileFactory = textFileFactory;

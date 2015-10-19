@@ -10,7 +10,6 @@ import java.net.Socket;
 import junit.framework.Assert;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.stefanski.liner.server.communication.TCPCommunicationDetector.TCP_PORT;
 
 /**
  * @author Dariusz Stefanski
@@ -20,11 +19,13 @@ import static com.stefanski.liner.server.communication.TCPCommunicationDetector.
 public abstract class Client implements Runnable {
 
     private final String name;
+    private final int port;
     private boolean jobDone;
     private long reqCount;
 
-    public Client(String name) {
+    public Client(String name, int port) {
         this.name = name;
+        this.port = port;
         jobDone = false;
         reqCount = 0;
     }
@@ -33,7 +34,7 @@ public abstract class Client implements Runnable {
     public void run() {
         log.info("Starting client: {}", name);
 
-        try (Socket socket = new Socket(InetAddress.getLocalHost(), TCP_PORT);
+        try (Socket socket = new Socket(InetAddress.getLocalHost(), port);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(
                         socket.getInputStream()));) {

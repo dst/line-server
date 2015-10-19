@@ -21,8 +21,8 @@ public class FastClient extends Client {
     private final long time;
     private final int maxLineNr;
 
-    public FastClient(String name, long time, int maxLineNr) {
-        super(name);
+    public FastClient(String name, int port, long time, int maxLineNr) {
+        super(name, port);
         this.time = time;
         this.maxLineNr = maxLineNr;
     }

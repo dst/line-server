@@ -5,12 +5,10 @@ import java.util.List;
 
 import junit.framework.Assert;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.AfterClass;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -33,6 +31,7 @@ import com.stefanski.liner.server.client.SingleCmdClient;
 public class PerformanceLinerTest extends LinerTest {
 
     private static final long TIME_PER_TEST_MS = 1000;
+    private static final int PORT = 6789;
 
     @Autowired
     private LinerServer server;
@@ -84,7 +83,7 @@ public class PerformanceLinerTest extends LinerTest {
         for (int i = 0; i < clientCount; i++) {
             String name = "Fast Guy " + i;
             long runningTime = TIME_PER_TEST_MS;
-            Client client = new FastClient(name, runningTime, getMaxLineNr());
+            Client client = new FastClient(name, PORT, runningTime, getMaxLineNr());
             clients.add(client);
             threads.add(startClient(client));
         }
@@ -101,7 +100,7 @@ public class PerformanceLinerTest extends LinerTest {
     }
 
     private static void terminateServer() throws Exception {
-        startClient(SingleCmdClient.createShutdownClient("Terminator"));
+        startClient(SingleCmdClient.createShutdownClient("Terminator", PORT));
         serverThread.join();
     }
 

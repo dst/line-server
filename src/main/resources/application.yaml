@@ -1,2 +1,4 @@
-# Determines how many simultaneous clients the server can handle
-server.simultaneous.clients.limit: 100
+server:
+  portNr: 6789
+  # Determines how many simultaneous clients the server can handle
+  simultaneous.clients.limit: 100

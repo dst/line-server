@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.stefanski.liner.server.cmd.CommandParserService;
@@ -18,32 +19,31 @@ import com.stefanski.liner.server.cmd.CommandParserService;
  */
 @Slf4j
 @Component
-public class TCPCommunicationDetector implements CommunicationDetector {
-    /**
-     * Detector listens for connections on this port.
-     */
-    public static final int TCP_PORT = 6789;
+class TCPCommunicationDetector implements CommunicationDetector {
+
+    private final int port;
+    private final CommandParserService parser;
 
     /**
      * Socket for accepting clients.
      */
     private ServerSocket serverSocket;
 
-    private final CommandParserService parser;
-
     @Autowired
-    public TCPCommunicationDetector(CommandParserService parser) {
+    public TCPCommunicationDetector(@Value("${server.portNr}") int port,
+                                    CommandParserService parser) {
+        this.port = port;
         this.parser = parser;
     }
 
     @Override
     public void start() throws CommunicationException {
-        log.info("Start detecting clients on port {}", TCP_PORT);
+        log.info("Start detecting clients on port {}", port);
 
         try {
-            serverSocket = new ServerSocket(TCP_PORT);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            throw new CommunicationException("Could not listen on port: " + TCP_PORT, e);
+            throw new CommunicationException("Could not listen on port: " + port, e);
         }
     }
 

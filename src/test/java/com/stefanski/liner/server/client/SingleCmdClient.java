@@ -16,16 +16,16 @@ public class SingleCmdClient extends Client {
     private final String cmd;
     private final long delay;
 
-    public static Client createSlowClient(String name, long delay) {
-        return new SingleCmdClient(name, "LINE 1", delay);
+    public static Client createSlowClient(String name, int port, long delay) {
+        return new SingleCmdClient(name, port, "LINE 1", delay);
     }
 
-    public static Client createShutdownClient(String name) {
-        return new SingleCmdClient(name, "SHUTDOWN", 0);
+    public static Client createShutdownClient(String name, int port) {
+        return new SingleCmdClient(name, port, "SHUTDOWN", 0);
     }
 
-    public SingleCmdClient(String name, String cmd, long delay) {
-        super(name);
+    private SingleCmdClient(String name, int port, String cmd, long delay) {
+        super(name, port);
         this.cmd = cmd;
         this.delay = delay;
     }
