@@ -14,7 +14,7 @@ import com.stefanski.liner.server.resp.Response;
 @Slf4j
 public class QuitCommand implements Command {
 
-    private static QuitCommand INSTANCE = new QuitCommand();
+    private static final QuitCommand INSTANCE = new QuitCommand();
 
     public static QuitCommand getInstance() {
         return INSTANCE;

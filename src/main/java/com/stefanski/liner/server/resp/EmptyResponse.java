@@ -11,7 +11,7 @@ import java.io.PrintWriter;
  */
 public class EmptyResponse implements Response {
 
-    private static EmptyResponse INSTANCE = new EmptyResponse();
+    private static final EmptyResponse INSTANCE = new EmptyResponse();
 
     public static EmptyResponse getInstance() {
         return INSTANCE;

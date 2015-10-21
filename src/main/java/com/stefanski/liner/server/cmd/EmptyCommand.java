@@ -11,7 +11,7 @@ import com.stefanski.liner.server.resp.Response;
  */
 public class EmptyCommand implements Command {
 
-    private static EmptyCommand INSTANCE = new EmptyCommand();
+    private static final EmptyCommand INSTANCE = new EmptyCommand();
 
     public static EmptyCommand getInstance() {
         return INSTANCE;

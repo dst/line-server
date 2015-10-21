@@ -24,7 +24,7 @@ public class CommandParserService {
     }
 
     /**
-     * Parses a given line to a command
+     * Parses a given line to a command.
      *
      * @throws CommandParserException
      */

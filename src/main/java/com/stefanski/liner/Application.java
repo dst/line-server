@@ -27,7 +27,7 @@ import static java.util.Optional.of;
 public class Application implements CommandLineRunner {
 
     @Autowired
-    Server server;
+    private Server server;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
