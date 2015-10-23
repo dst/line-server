@@ -40,7 +40,7 @@ public class FileProcessingProgressMonitor {
 
     /**
      * This method should be called after processing each line.
-     * 
+     *
      * @param startPos
      *            A starting position of a processed line in file
      */
