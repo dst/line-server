@@ -30,8 +30,8 @@ class TCPCommunicationDetector implements CommunicationDetector {
     private ServerSocket serverSocket;
 
     @Autowired
-    public TCPCommunicationDetector(@Value("${server.portNr}") int port,
-                                    CommandParserService parser) {
+    TCPCommunicationDetector(@Value("${server.portNr}") int port,
+                             CommandParserService parser) {
         this.port = port;
         this.parser = parser;
     }

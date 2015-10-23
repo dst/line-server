@@ -31,7 +31,7 @@ class LineOffsetFinder {
     private long mappedBytes;
     private int arrPos;
 
-    public LineOffsetFinder(FileChannel fileChannel) throws IOException {
+    LineOffsetFinder(FileChannel fileChannel) throws IOException {
         this.fileChannel = fileChannel;
         fileArr = new byte[FILE_BUF_SIZE];
         size = fileChannel.size();

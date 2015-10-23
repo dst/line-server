@@ -1,7 +1,5 @@
 package com.stefanski.liner.server;
 
-import com.stefanski.liner.server.communication.CommunicationException;
-
 /**
  * @author Dariusz Stefanski
  * @date Sep 12, 2013

@@ -35,5 +35,5 @@ public interface TextFile extends AutoCloseable {
      * @throws IllegalArgumentException
      *             If lineNr is invalid
      */
-    String getLine(long lineNr) ;
+    String getLine(long lineNr);
 }
