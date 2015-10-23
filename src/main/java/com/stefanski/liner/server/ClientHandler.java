@@ -18,12 +18,12 @@ import com.stefanski.liner.server.resp.Response;
 @Slf4j
 public class ClientHandler implements Runnable {
 
-    private final Server server;
+    private final LinerServer server;
     private final Communication communication;
     private final TextFile textFile;
     private boolean running;
 
-    public ClientHandler(Server server, Communication communication, TextFile textFile) {
+    public ClientHandler(LinerServer server, Communication communication, TextFile textFile) {
         this.server = server;
         this.communication = communication;
         this.textFile = textFile;

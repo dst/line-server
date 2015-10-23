@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.stefanski.liner.server.Server;
+import com.stefanski.liner.server.LinerServer;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -27,7 +27,7 @@ import static java.util.Optional.of;
 public class Application implements CommandLineRunner {
 
     @Autowired
-    private Server server;
+    private LinerServer server;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

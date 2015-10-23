@@ -22,7 +22,7 @@ import com.stefanski.liner.server.communication.CommunicationException;
  */
 @Slf4j
 @Component
-class LinerServer implements Server {
+public class LinerServer {
 
     /**
      * Detects new clients.
@@ -61,6 +61,11 @@ class LinerServer implements Server {
         this.executor = Executors.newFixedThreadPool(count);
     }
 
+    /**
+     * Runs server.
+     *
+     * @throws CommunicationException If critical exception occurs during starting server.
+     */
     public void run(String fileName) {
         log.info("Running server.");
         detector.start();
@@ -82,6 +87,9 @@ class LinerServer implements Server {
         this.textFile = textFileFactory.createFromFile(fileName);
     }
 
+    /**
+     * Terminates server.
+     */
     public void shutdown() {
         log.info("Stopping a server...");
 
