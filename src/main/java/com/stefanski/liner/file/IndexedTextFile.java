@@ -10,14 +10,14 @@ import com.stefanski.liner.util.SeekableByteChannelReader;
 
 /**
  * A text file with an index to speed up reading specified lines.
- * 
+ *
  * The file is pre-processed at the beginning for a future good performance.
  * 
  * It is thread-safe.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 1, 2013
- * 
+ *
  */
 public class IndexedTextFile implements TextFile {
 

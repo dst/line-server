@@ -9,9 +9,9 @@ import static com.stefanski.liner.index.TextFileIndexer.OFFSET_SIZE;
 
 /**
  * The index is kept in a binary file with offsets to lines.
- * 
+ *
  * It is not thread-safe.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */

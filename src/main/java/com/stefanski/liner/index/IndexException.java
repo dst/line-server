@@ -2,7 +2,7 @@ package com.stefanski.liner.index;
 
 /**
  * An exception that is thrown whenever there are some problems with an index.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */

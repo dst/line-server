@@ -12,7 +12,7 @@ import static java.util.Optional.of;
 
 /**
  * A response for a line command.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 7, 2013
  */

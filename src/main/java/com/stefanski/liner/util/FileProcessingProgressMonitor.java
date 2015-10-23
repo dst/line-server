@@ -6,7 +6,7 @@ import static com.stefanski.liner.LinerConstants.HDD_MB;
 
 /**
  * Reports progress of file processing.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 19, 2013
  */
@@ -21,7 +21,7 @@ public class FileProcessingProgressMonitor {
     private int chunkNr = 1;
 
     /**
-     * 
+     *
      * @param size
      *            A size of a processed file
      */

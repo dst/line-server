@@ -16,10 +16,9 @@ import com.stefanski.liner.server.communication.CommunicationException;
 
 /**
  * A server that serves specified lines of an immutable text file.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 1, 2013
- * 
  */
 @Slf4j
 @Component

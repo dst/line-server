@@ -8,7 +8,7 @@ public interface Server {
 
     /**
      * Runs server.
-     * 
+     *
      * @throws CommunicationException
      *             If critical exception occurs during starting server.
      */

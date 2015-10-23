@@ -15,12 +15,12 @@ import static java.util.Optional.of;
 
 /**
  * Starts server.
- * 
+ *
  * It takes a single command-line parameter which is the name of the file to serve
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 1, 2013
- * 
+ *
  */
 @Slf4j
 @SpringBootApplication

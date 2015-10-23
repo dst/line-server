@@ -13,7 +13,7 @@ import com.stefanski.liner.server.cmd.CommandParserService;
 
 /**
  * *It listens for TCP connections on specified port.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 21, 2013
  */

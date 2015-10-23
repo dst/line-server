@@ -10,7 +10,7 @@ import com.stefanski.liner.server.resp.Response;
 
 /**
  * A request to send specified line from a file.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 12, 2013
  */

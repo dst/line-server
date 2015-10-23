@@ -13,9 +13,9 @@ import static com.stefanski.liner.LinerConstants.HDD_MB;
 
 /**
  * Builds an index.
- * 
+ *
  * It should be done as fast as possible because it delays starting server.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 3, 2013
  */
@@ -39,7 +39,7 @@ public class TextFileIndexer implements AutoCloseable {
 
     /**
      * Reads file using fileFC and write index using indexFC.
-     * 
+     *
      * @param fileFC
      * @param indexFC
      */
@@ -51,7 +51,7 @@ public class TextFileIndexer implements AutoCloseable {
     /**
      * Builds an index as a binary file with offsets to each line of the original file. The index
      * size is 8B * line count.
-     * 
+     *
      * @return
      * @throws IOException
      */

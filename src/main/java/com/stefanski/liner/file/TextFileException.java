@@ -3,7 +3,7 @@ package com.stefanski.liner.file;
 /**
  * This is an exception that is thrown whenever there are some problems with getting line from
  * TextFile.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 7, 2013
  */

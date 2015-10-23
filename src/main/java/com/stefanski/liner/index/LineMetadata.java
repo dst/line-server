@@ -6,7 +6,7 @@ import lombok.ToString;
 
 /**
  * A metadata of line.
- * 
+ *
  * @author Dariusz Stefanski
  * @date Sep 4, 2013
  */
