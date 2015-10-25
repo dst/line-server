@@ -23,6 +23,11 @@ public class LineCommandParserTest {
         assertEquals(new LineCommand(123), parser.parse("LINE 123"));
     }
 
+    @Test
+    public void shouldParseBigLineNumber() {
+        assertEquals(new LineCommand(123456789123L), parser.parse("LINE 123456789123"));
+    }
+
     @Test(expected = CommandParserException.class)
     public void shouldThrowExceptionForMissingLineNr() {
         parser.parse("LINE");
