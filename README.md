@@ -11,7 +11,7 @@ A server that can serve very fast a specified line from a huge file.
 - SHUTDOWN: shutdown the server
 
 ## Example usage ##
-1. Configure system.properties if you wish.
+1. Configure system.properties if you wish
 
 2. Build (and install needed software):
 $ ./build.sh
