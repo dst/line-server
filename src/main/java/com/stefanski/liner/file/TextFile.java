@@ -17,12 +17,6 @@ package com.stefanski.liner.file;
 public interface TextFile extends AutoCloseable {
 
     /**
-     * @param lineNr
-     * @return true if there is such line number in the file
-     */
-    boolean isLineNrValid(long lineNr);
-
-    /**
      * Returns specified line from a file.
      *
      * The first line of the file is line 1 (not line 0).

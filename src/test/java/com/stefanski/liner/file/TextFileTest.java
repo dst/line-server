@@ -81,32 +81,19 @@ public class TextFileTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = TextFileException.class)
     public void shouldThrowExceptionForNegativeLineNr() {
         textFile.getLine(-1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = TextFileException.class)
     public void shouldThrowExceptionForZeroLineNr() {
         textFile.getLine(0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = TextFileException.class)
     public void shouldThrowExceptionForTooBigLineNr() {
         textFile.getLine(5);
     }
 
-    @Test
-    public void shouldDetectValidLinesNr() {
-        asList(1, 2, 3, 4).forEach(validLineNr -> {
-            Assert.assertTrue(textFile.isLineNrValid(validLineNr));
-        });
-    }
-
-    @Test
-    public void shouldDetectInvalidLinesNr() {
-        asList(-5, -1, 0, 5, 10).forEach(invalidLineNr -> {
-            Assert.assertFalse(textFile.isLineNrValid(invalidLineNr));
-        });
-    }
 }

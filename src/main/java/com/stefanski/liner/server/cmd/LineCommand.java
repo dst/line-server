@@ -44,12 +44,6 @@ public class LineCommand implements Command {
 
     private LineResponse createResponse(CommandContext ctx) {
         TextFile textFile = ctx.getTextFile();
-
-        if (!textFile.isLineNrValid(lineNr)) {
-            log.error("Invalid line nr: {}", lineNr);
-            return LineResponse.createErrResp();
-        }
-
         try {
             String line = textFile.getLine(lineNr);
             return LineResponse.createOkResp(line);

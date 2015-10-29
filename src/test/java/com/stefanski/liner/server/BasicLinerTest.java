@@ -59,7 +59,6 @@ public class BasicLinerTest extends LinerTest {
         when(detector.acceptNextClient()).thenReturn(communication);
 
         TextFile textFile = mock(TextFile.class);
-        when(textFile.isLineNrValid(Mockito.anyLong())).thenReturn(true);
         when(textFile.getLine(Mockito.anyLong())).thenReturn("line");
 
         TextFileFactory textFileFactory = mock(TextFileFactory.class);

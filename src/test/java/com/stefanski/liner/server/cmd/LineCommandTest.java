@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.stefanski.liner.file.TextFile;
+import com.stefanski.liner.file.TextFileException;
 import com.stefanski.liner.server.resp.LineResponse;
 import com.stefanski.liner.server.resp.Response;
 
@@ -22,7 +23,7 @@ public class LineCommandTest {
         LineCommand cmd = new LineCommand(lineNr);
 
         TextFile textFile = Mockito.mock(TextFile.class);
-        when(textFile.isLineNrValid(lineNr)).thenReturn(false);
+        when(textFile.getLine(lineNr)).thenThrow(TextFileException.class);
         CommandContext ctx = new CommandContext(null, textFile);
 
         Response resp = cmd.execute(ctx);
@@ -36,7 +37,6 @@ public class LineCommandTest {
         LineCommand cmd = new LineCommand(lineNr);
 
         TextFile textFile = Mockito.mock(TextFile.class);
-        when(textFile.isLineNrValid(lineNr)).thenReturn(true);
         when(textFile.getLine(lineNr)).thenReturn(line);
         CommandContext ctx = new CommandContext(null, textFile);
 

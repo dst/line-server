@@ -36,31 +36,27 @@ public class IndexedTextFile implements TextFile {
         this.index = index;
     }
 
-    public boolean isLineNrValid(long lineNr) {
-        return lineNr >= 1 && lineNr <= getLineCount();
+    public synchronized String getLine(long lineNr) {
+        if (!isLineNrValid(lineNr)) {
+            throw new TextFileException("Invalid line number: " + lineNr);
+        }
+        LineMetadata lineMetadata = index.getLineMetadata(lineNr);
+        return getLine(lineMetadata);
     }
 
-    public synchronized String getLine(long lineNr) {
-        if (lineNr < 1 || lineNr > getLineCount()) {
-            throw new IllegalArgumentException("Invalid line number: " + lineNr);
-        }
-
-        LineMetadata lineMetadata;
-        try {
-            lineMetadata = index.getLineMetadata(lineNr);
-        } catch (IndexException e) {
-            throw new TextFileException("Error when getting line metadata nr " + lineNr, e);
-        }
-
+    private String getLine(LineMetadata lineMetadata) {
         try {
             ByteBuffer line = fileReader.read(lineMetadata.getOffset(), lineMetadata.getLength());
-
             // TODO(dst), Sep 2, 2013: creating String is not a good idea here (memory + coping). It
             // would be better to use byte[]
             return new String(line.array(), "ASCII");
         } catch (IOException e) {
-            throw new TextFileException("Error when reading line: " + lineNr, e);
+            throw new TextFileException("Error when reading line from metadata: " + lineMetadata, e);
         }
+    }
+
+    private boolean isLineNrValid(long lineNr) {
+        return lineNr >= 1 && lineNr <= getLineCount();
     }
 
     private long getLineCount() {

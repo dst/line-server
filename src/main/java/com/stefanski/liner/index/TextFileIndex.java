@@ -44,7 +44,7 @@ public class TextFileIndex implements AutoCloseable {
             ByteBuffer buf = readOffsets(lineNr);
             return offsets2metadata(buf);
         } catch (IOException e) {
-            throw new IndexException("I/O exception during reading index", e);
+            throw new IndexException("I/O exception during reading index of line " + lineNr, e);
         }
     }
 
