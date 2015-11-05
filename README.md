@@ -80,7 +80,7 @@ Insert all lines to the database and next query by nr.
 * http://nadeausoftware.com/articles/2008/02/java_tip_how_read_files_quickly
 
 ## Libraries and tools ##
-* Java 7
+* Java 8
 * Maven 3
 * Junit 4
 * Mockito
