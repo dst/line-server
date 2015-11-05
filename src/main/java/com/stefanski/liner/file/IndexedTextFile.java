@@ -3,7 +3,6 @@ package com.stefanski.liner.file;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import com.stefanski.liner.index.IndexException;
 import com.stefanski.liner.index.LineMetadata;
 import com.stefanski.liner.index.TextFileIndex;
 import com.stefanski.liner.util.SeekableByteChannelReader;
@@ -12,7 +11,7 @@ import com.stefanski.liner.util.SeekableByteChannelReader;
  * A text file with an index to speed up reading specified lines.
  *
  * The file is pre-processed at the beginning for a future good performance.
- * 
+ *
  * It is thread-safe.
  *
  * @author Dariusz Stefanski

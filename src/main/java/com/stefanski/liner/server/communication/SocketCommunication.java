@@ -59,7 +59,6 @@ public class SocketCommunication implements Communication {
         }
     }
 
-
     @Override
     public void close() throws IOException {
         reader.close();

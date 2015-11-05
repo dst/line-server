@@ -24,5 +24,4 @@ public class EmptyResponse implements Response {
     public void write(PrintWriter writer) throws IOException {
         // Do nothing
     }
-
 }

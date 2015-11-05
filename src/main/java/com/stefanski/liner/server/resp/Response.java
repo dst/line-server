@@ -18,5 +18,4 @@ public interface Response {
      * @throws IOException
      */
     void write(PrintWriter writer) throws IOException;
-
 }
