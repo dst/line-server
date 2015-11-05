@@ -86,8 +86,6 @@ Insert all lines to the database and next query by nr.
 * Mockito
 
 ## TODO ##
-* DI (Juice or Spring)
 * consider using netty lib
 * RAMTextFile for small files
 * improve tests
-* improve javadocs
