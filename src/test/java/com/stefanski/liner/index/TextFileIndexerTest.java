@@ -6,10 +6,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TemporaryFolder;
 
 import static java.nio.file.StandardOpenOption.READ;
@@ -21,7 +18,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
  */
 public class TextFileIndexerTest {
 
-    @Rule
+    @ClassRule
     public final static TemporaryFolder folder = new TemporaryFolder();
 
     private static TextFileIndex index;
