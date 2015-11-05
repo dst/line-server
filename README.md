@@ -82,10 +82,15 @@ Insert all lines to the database and next query by nr.
 ## Libraries and tools ##
 * Java 8
 * Maven 3
-* Junit 4
-* Mockito
+* Junit 4, Mockito
 
 ## TODO ##
 * consider using netty lib
 * RAMTextFile for small files
 * improve tests
+
+## Development ##
+
+### Check newer versions of dependencies
+
+    $ mvn versions:display-dependency-updates
