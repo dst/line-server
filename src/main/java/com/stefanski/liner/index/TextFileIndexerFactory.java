@@ -13,7 +13,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
 
 /**
  * @author Dariusz Stefanski
- * @date Sep 19, 2013
+ * @since Sep 19, 2013
  */
 @Slf4j
 public class TextFileIndexerFactory {

@@ -5,7 +5,7 @@ package com.stefanski.liner.file;
  * TextFile.
  *
  * @author Dariusz Stefanski
- * @date Sep 7, 2013
+ * @since Sep 7, 2013
  */
 public class TextFileException extends RuntimeException {
 

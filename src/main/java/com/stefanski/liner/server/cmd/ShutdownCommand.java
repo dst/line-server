@@ -7,7 +7,7 @@ import com.stefanski.liner.server.resp.Response;
  * A request to shutdown a server.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 public class ShutdownCommand implements Command {
 

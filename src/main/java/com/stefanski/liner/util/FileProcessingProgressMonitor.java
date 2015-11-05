@@ -8,7 +8,7 @@ import static com.stefanski.liner.LinerConstants.HDD_MB;
  * Reports progress of file processing.
  *
  * @author Dariusz Stefanski
- * @date Sep 19, 2013
+ * @since Sep 19, 2013
  */
 @Slf4j
 public class FileProcessingProgressMonitor {

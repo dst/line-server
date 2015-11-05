@@ -7,7 +7,7 @@ import com.stefanski.liner.server.ClientHandler;
  * A context needed to execute commands.
  *
  * @author Dariusz Stefanski
- * @date Sep 21, 2013
+ * @since Sep 21, 2013
  */
 public class CommandContext {
 

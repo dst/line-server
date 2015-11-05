@@ -9,7 +9,7 @@ import com.stefanski.liner.server.resp.Response;
  * A request to disconnect client.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 @Slf4j
 public class QuitCommand implements Command {

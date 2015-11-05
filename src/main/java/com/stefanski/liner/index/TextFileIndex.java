@@ -13,7 +13,7 @@ import static com.stefanski.liner.index.TextFileIndexer.OFFSET_SIZE;
  * It is not thread-safe.
  *
  * @author Dariusz Stefanski
- * @date Sep 4, 2013
+ * @since Sep 4, 2013
  */
 public class TextFileIndex implements AutoCloseable {
 

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author Dariusz Stefanski
- * @date Sep 1, 2013
+ * @since Sep 1, 2013
  */
 public class TextFileTest {
 

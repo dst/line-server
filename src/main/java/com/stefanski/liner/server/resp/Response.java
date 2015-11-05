@@ -7,7 +7,7 @@ import java.io.PrintWriter;
  * A response from a server to a client.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 public interface Response {
 

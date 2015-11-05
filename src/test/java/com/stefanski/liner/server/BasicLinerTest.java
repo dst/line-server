@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author Dariusz Stefanski
- * @date Sep 4, 2013
+ * @since Sep 4, 2013
  */
 @Slf4j
 public class BasicLinerTest extends LinerTest {

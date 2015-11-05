@@ -8,7 +8,7 @@ import com.stefanski.liner.server.resp.Response;
  * and sends responses.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 public interface Communication extends AutoCloseable {
 

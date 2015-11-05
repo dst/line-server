@@ -7,7 +7,7 @@ import static junit.framework.Assert.assertTrue;
 
 /**
  * @author Dariusz Stefanski
- * @date 18 Oct 2015
+ * @since 18 Oct 2015
  */
 public class LineCommandParserTest {
 

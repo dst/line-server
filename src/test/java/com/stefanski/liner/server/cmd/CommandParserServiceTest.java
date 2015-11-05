@@ -8,7 +8,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Dariusz Stefanski
- * @date Sep 21, 2013
+ * @since Sep 21, 2013
  */
 public class CommandParserServiceTest {
 

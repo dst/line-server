@@ -16,7 +16,7 @@ import com.stefanski.liner.util.SeekableByteChannelReader;
  * It is thread-safe.
  *
  * @author Dariusz Stefanski
- * @date Sep 1, 2013
+ * @since Sep 1, 2013
  *
  */
 public class IndexedTextFile implements TextFile {

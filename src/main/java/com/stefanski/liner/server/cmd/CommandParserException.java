@@ -4,7 +4,7 @@ package com.stefanski.liner.server.cmd;
  * An exception that is thrown whenever there are some problems during parsing commands.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 public class CommandParserException extends RuntimeException {
 

@@ -12,7 +12,7 @@ package com.stefanski.liner.file;
  * </ul>
  *
  * @author Dariusz Stefanski
- * @date Sep 19, 2013
+ * @since Sep 19, 2013
  */
 public interface TextFile extends AutoCloseable {
 

@@ -19,7 +19,7 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * @author Dariusz Stefanski
- * @date Sep 19, 2013
+ * @since Sep 19, 2013
  */
 public class LineOfffsetFinderTest {
 

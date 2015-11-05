@@ -4,7 +4,7 @@ package com.stefanski.liner.server.communication;
  * It listens (detects) for new clients.
  *
  * @author Dariusz Stefanski
- * @date Sep 21, 2013
+ * @since Sep 21, 2013
  */
 public interface CommunicationDetector {
 

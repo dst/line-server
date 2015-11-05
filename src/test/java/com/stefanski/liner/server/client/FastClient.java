@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * 
  * @author Dariusz Stefanski
- * @date Sep 6, 2013
+ * @since Sep 6, 2013
  */
 @Slf4j
 public class FastClient extends Client {

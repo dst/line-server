@@ -7,7 +7,7 @@ import java.io.PrintWriter;
  * An empty response.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 public class EmptyResponse implements Response {
 

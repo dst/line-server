@@ -23,7 +23,7 @@ import com.stefanski.liner.server.client.SingleCmdClient;
  * It is not a unit test, it operates on real files and communicates using real sockets.
  *
  * @author Dariusz Stefanski
- * @date Sep 6, 2013
+ * @since Sep 6, 2013
  */
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)

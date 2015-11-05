@@ -11,7 +11,7 @@ import java.nio.channels.FileChannel.MapMode;
  * Finds line offsets in a file channel (which represents a text file).
  *
  * @author Dariusz Stefanski
- * @date Sep 19, 2013
+ * @since Sep 19, 2013
  */
 // It is not straightforward because of mapping usage.
 class LineOffsetFinder {

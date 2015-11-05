@@ -2,7 +2,7 @@ package com.stefanski.liner;
 
 /**
  * @author Dariusz Stefanski
- * @date Sep 19, 2013
+ * @since Sep 19, 2013
  */
 public class LinerConstants {
 

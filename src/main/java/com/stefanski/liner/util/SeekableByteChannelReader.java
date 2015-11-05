@@ -12,7 +12,7 @@ import java.nio.file.Path;
  * A wrapper for SeekableByteChannel for a more convenient use
  *
  * @author Dariusz Stefanski
- * @date Sep 19, 2013
+ * @since Sep 19, 2013
  */
 public class SeekableByteChannelReader implements AutoCloseable {
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Parses commands from String.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 @Service
 @Slf4j

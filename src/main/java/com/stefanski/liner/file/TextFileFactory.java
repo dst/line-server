@@ -14,7 +14,7 @@ import com.stefanski.liner.util.SeekableByteChannelReader;
 
 /**
  * @author Dariusz Stefanski
- * @date Sep 21, 2013
+ * @since Sep 21, 2013
  */
 @Component
 public class TextFileFactory {

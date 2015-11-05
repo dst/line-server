@@ -17,7 +17,7 @@ import static com.stefanski.liner.LinerConstants.HDD_MB;
  * It should be done as fast as possible because it delays starting server.
  *
  * @author Dariusz Stefanski
- * @date Sep 3, 2013
+ * @since Sep 3, 2013
  */
 @Slf4j
 public class TextFileIndexer implements AutoCloseable {

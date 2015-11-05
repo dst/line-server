@@ -12,7 +12,7 @@ import com.stefanski.liner.server.resp.Response;
  * A request to send specified line from a file.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 @Slf4j
 @EqualsAndHashCode

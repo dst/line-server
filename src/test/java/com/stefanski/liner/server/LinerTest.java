@@ -4,7 +4,7 @@ package com.stefanski.liner.server;
  * Base class for Basic and Performance test classes.
  * 
  * @author Dariusz Stefanski
- * @date Sep 6, 2013
+ * @since Sep 6, 2013
  */
 public class LinerTest {
 

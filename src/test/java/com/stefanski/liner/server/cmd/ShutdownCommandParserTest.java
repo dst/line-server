@@ -6,7 +6,7 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Dariusz Stefanski
- * @date 18 Oct 2015
+ * @since 18 Oct 2015
  */
 public class ShutdownCommandParserTest {
 

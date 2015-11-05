@@ -13,7 +13,7 @@ import com.stefanski.liner.server.resp.Response;
  * Handles interaction with one client.
  *
  * @author Dariusz Stefanski
- * @date Sep 11, 2013
+ * @since Sep 11, 2013
  */
 @Slf4j
 public class ClientHandler implements Runnable {

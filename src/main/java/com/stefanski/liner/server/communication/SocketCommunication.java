@@ -18,7 +18,7 @@ import com.stefanski.liner.server.resp.Response;
  * A communication is done via a socket.
  *
  * @author Dariusz Stefanski
- * @date Sep 12, 2013
+ * @since Sep 12, 2013
  */
 @Slf4j
 public class SocketCommunication implements Communication {
