@@ -1,6 +1,6 @@
 package com.stefanski.liner.server.communication;
 
-import com.stefanski.liner.server.cmd.Command;
+import com.stefanski.liner.server.command.Command;
 import com.stefanski.liner.server.resp.Response;
 
 /**

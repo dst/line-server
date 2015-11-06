@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.cmd;
+package com.stefanski.liner.server.command;
 
 import org.springframework.stereotype.Component;
 
@@ -7,17 +7,17 @@ import org.springframework.stereotype.Component;
  * @since 18 Oct 2015
  */
 @Component
-class QuitCommandParser implements CommandParser {
+class ShutdownCommandParser implements CommandParser {
 
-    private static final String QUIT_CMD = "QUIT";
+    private static final String SHUTDOWN_CMD = "SHUTDOWN";
 
     @Override
     public boolean isApplicableTo(String line) {
-        return line.startsWith(QUIT_CMD);
+        return line.startsWith(SHUTDOWN_CMD);
     }
 
     @Override
     public Command parse(String line) {
-        return QuitCommand.getInstance();
+        return ShutdownCommand.getInstance();
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.stefanski.liner.server.cmd.CommandParserService;
+import com.stefanski.liner.server.command.CommandParserService;
 
 /**
  * *It listens for TCP connections on specified port.

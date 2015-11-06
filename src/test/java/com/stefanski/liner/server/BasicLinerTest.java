@@ -8,9 +8,9 @@ import org.mockito.Mockito;
 
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.file.TextFileFactory;
-import com.stefanski.liner.server.cmd.Command;
-import com.stefanski.liner.server.cmd.LineCommand;
-import com.stefanski.liner.server.cmd.ShutdownCommand;
+import com.stefanski.liner.server.command.Command;
+import com.stefanski.liner.server.command.LineCommand;
+import com.stefanski.liner.server.command.ShutdownCommand;
 import com.stefanski.liner.server.communication.Communication;
 import com.stefanski.liner.server.communication.CommunicationDetector;
 import com.stefanski.liner.server.resp.LineResponse;

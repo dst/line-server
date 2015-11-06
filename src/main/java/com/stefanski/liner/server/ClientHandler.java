@@ -3,8 +3,8 @@ package com.stefanski.liner.server;
 import lombok.extern.slf4j.Slf4j;
 
 import com.stefanski.liner.file.TextFile;
-import com.stefanski.liner.server.cmd.Command;
-import com.stefanski.liner.server.cmd.CommandContext;
+import com.stefanski.liner.server.command.Command;
+import com.stefanski.liner.server.command.CommandContext;
 import com.stefanski.liner.server.communication.Communication;
 import com.stefanski.liner.server.communication.CommunicationException;
 import com.stefanski.liner.server.resp.Response;

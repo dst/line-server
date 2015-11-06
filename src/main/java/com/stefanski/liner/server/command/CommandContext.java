@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.cmd;
+package com.stefanski.liner.server.command;
 
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.server.ClientHandler;

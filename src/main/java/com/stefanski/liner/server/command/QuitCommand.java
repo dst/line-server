@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.cmd;
+package com.stefanski.liner.server.command;
 
 import lombok.extern.slf4j.Slf4j;
 

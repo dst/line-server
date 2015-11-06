@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.cmd;
+package com.stefanski.liner.server.command;
 
 import java.util.List;
 
