@@ -1,17 +1,17 @@
-package com.stefanski.liner.util;
+package com.stefanski.liner.index;
 
 import lombok.extern.slf4j.Slf4j;
 
 import static com.stefanski.liner.LinerConstants.HDD_MB;
 
 /**
- * Reports progress of file processing.
+ * Reports progress of indexing a file.
  *
  * @author Dariusz Stefanski
  * @since Sep 19, 2013
  */
 @Slf4j
-public class FileProcessingProgressMonitor {
+public class IndexingProgressMonitor {
     private static final long CHUNK_SIZE = 100 * HDD_MB;
 
     private final long size;
@@ -25,7 +25,7 @@ public class FileProcessingProgressMonitor {
      * @param size
      *            A size of a processed file
      */
-    public FileProcessingProgressMonitor(long size) {
+    public IndexingProgressMonitor(long size) {
         this.size = size;
         logFileSize();
     }

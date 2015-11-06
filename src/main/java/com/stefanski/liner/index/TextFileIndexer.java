@@ -6,7 +6,6 @@ import java.nio.channels.FileChannel;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.stefanski.liner.util.FileProcessingProgressMonitor;
 import com.stefanski.liner.util.SeekableByteChannelReader;
 
 import static com.stefanski.liner.LinerConstants.HDD_MB;
@@ -59,7 +58,7 @@ public class TextFileIndexer implements AutoCloseable {
         log.info("Indexing file...");
 
         long fileSize = fileFC.size();
-        FileProcessingProgressMonitor progressMonitor = new FileProcessingProgressMonitor(fileSize);
+        IndexingProgressMonitor progressMonitor = new IndexingProgressMonitor(fileSize);
 
         long lineCount = 0;
         ByteBuffer indexBuf = ByteBuffer.allocate(INDEX_BUF_SIZE);
