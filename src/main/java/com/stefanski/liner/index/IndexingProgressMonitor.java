@@ -1,8 +1,12 @@
 package com.stefanski.liner.index;
 
+import java.time.Instant;
+
 import lombok.extern.slf4j.Slf4j;
 
 import static com.stefanski.liner.LinerConstants.HDD_MB;
+import static java.time.Instant.now;
+import static java.time.temporal.ChronoUnit.MILLIS;
 
 /**
  * Reports progress of indexing a file.
@@ -11,11 +15,11 @@ import static com.stefanski.liner.LinerConstants.HDD_MB;
  * @since Sep 19, 2013
  */
 @Slf4j
-public class IndexingProgressMonitor {
+class IndexingProgressMonitor {
     private static final long CHUNK_SIZE = 100 * HDD_MB;
 
     private final long size;
-    private long start;
+    private Instant start;
     private long processedLines = 0;
     private long processedBytes = 0;
     private int chunkNr = 1;
@@ -31,7 +35,7 @@ public class IndexingProgressMonitor {
     }
 
     public void start() {
-        start = System.currentTimeMillis();
+        start = now();
     }
 
     public void stop() {
@@ -41,12 +45,12 @@ public class IndexingProgressMonitor {
     /**
      * This method should be called after processing each line.
      *
-     * @param startPos
+     * @param startPositionOfLine
      *            A starting position of a processed line in file
      */
-    public void processedLine(long startPos) {
+    public void processedLine(long startPositionOfLine) {
         processedLines++;
-        processedBytes = startPos;
+        processedBytes = startPositionOfLine;
 
         if (processedBytes > CHUNK_SIZE * chunkNr) {
             logProgress();
@@ -59,16 +63,28 @@ public class IndexingProgressMonitor {
     }
 
     private void logProgress() {
-        long elapsedTime = System.currentTimeMillis() - start;
-        long percent = (100 * processedBytes) / size;
-        log.info("Processed {} MB in {} ms ({} %)", byte2MB(processedBytes), elapsedTime, percent);
+        log.info("Processed {} MB in {} ({} %)",
+                processedMegaBytes(), elapsedTime(), processingPercent());
     }
 
     private void logProcessingStats() {
-        long elapsedTime = System.currentTimeMillis() - start;
+        log.info("Index build in {}", elapsedTime());
+        log.info("Lines: {}, size: {} MB", processedLines, processedMegaBytes());
+    }
 
-        log.info("Index build in {} ms", elapsedTime);
-        log.info("Lines: {}, size: {} MB", processedLines, size / HDD_MB);
+    private long processingPercent() {
+        return (100 * processedBytes) / size;
+    }
+
+    private String elapsedTime() {
+        long msTotal = MILLIS.between(start, now());
+        long s = msTotal / 1000;
+        long ms = msTotal % 1000;
+        return String.format("%ss %sms", s, ms);
+    }
+
+    private long processedMegaBytes() {
+        return byte2MB(processedBytes);
     }
 
     private long byte2MB(long b) {
