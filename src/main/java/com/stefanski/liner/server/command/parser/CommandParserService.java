@@ -30,7 +30,7 @@ public class CommandParserService {
      *
      * @throws CommandParserException
      */
-    public Command parseCmd(String line) {
+    public Command parse(String line) {
         log.trace("Paring command: {}", line);
         assert line != null;
         return parsers.stream()

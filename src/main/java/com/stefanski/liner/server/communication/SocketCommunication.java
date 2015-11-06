@@ -42,7 +42,7 @@ public class SocketCommunication implements Communication {
             if (line == null) {
                 throw new CommunicationException("Communication channel was closed");
             }
-            return parser.parseCmd(line);
+            return parser.parse(line);
         } catch (IOException | CommandParserException e) {
             log.error("Cannot create new command: ", e);
             return EmptyCommand.getInstance();

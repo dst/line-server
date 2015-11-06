@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import com.stefanski.liner.server.command.Command;
 import com.stefanski.liner.server.command.QuitCommand;
-import com.stefanski.liner.server.command.parser.CommandParserException;
-import com.stefanski.liner.server.command.parser.CommandParserService;
-import com.stefanski.liner.server.command.parser.QuitCommandParser;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -25,7 +22,7 @@ public class CommandParserServiceTest {
         CommandParserService parserService = new CommandParserService(asList(new QuitCommandParser()));
 
         // when:
-        Command command = parserService.parseCmd("QUIT");
+        Command command = parserService.parse("QUIT");
 
         // then:
         Assert.assertEquals(QuitCommand.getInstance(), command);
@@ -35,6 +32,6 @@ public class CommandParserServiceTest {
     public void shouldThrowExceptionForUnknownCommand() {
         // given:
         CommandParserService parserService = new CommandParserService(emptyList());
-        parserService.parseCmd("aaaaaa");
+        parserService.parse("aaaaaa");
     }
 }
