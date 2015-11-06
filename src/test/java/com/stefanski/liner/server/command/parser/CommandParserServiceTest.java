@@ -1,6 +1,13 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
 
+import junit.framework.Assert;
 import org.junit.Test;
+
+import com.stefanski.liner.server.command.Command;
+import com.stefanski.liner.server.command.QuitCommand;
+import com.stefanski.liner.server.command.parser.CommandParserException;
+import com.stefanski.liner.server.command.parser.CommandParserService;
+import com.stefanski.liner.server.command.parser.QuitCommandParser;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -21,7 +28,7 @@ public class CommandParserServiceTest {
         Command command = parserService.parseCmd("QUIT");
 
         // then:
-        assertEquals(QuitCommand.getInstance(), command);
+        Assert.assertEquals(QuitCommand.getInstance(), command);
     }
 
     @Test(expected = CommandParserException.class)

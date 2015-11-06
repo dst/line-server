@@ -1,6 +1,9 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
 
 import org.springframework.stereotype.Component;
+
+import com.stefanski.liner.server.command.Command;
+import com.stefanski.liner.server.command.QuitCommand;
 
 /**
  * @author Dariusz Stefanski

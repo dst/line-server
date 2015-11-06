@@ -1,6 +1,10 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
 
+import junit.framework.Assert;
 import org.junit.Test;
+
+import com.stefanski.liner.server.command.QuitCommand;
+import com.stefanski.liner.server.command.parser.QuitCommandParser;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -20,7 +24,7 @@ public class QuitCommandParserTest {
 
     @Test
     public void shouldParseQuitCommand() {
-        assertEquals(QuitCommand.getInstance(), parser.parse("QUIT"));
+        Assert.assertEquals(QuitCommand.getInstance(), parser.parse("QUIT"));
     }
 
 }

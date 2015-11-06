@@ -9,8 +9,8 @@ import java.net.Socket;
 import lombok.extern.slf4j.Slf4j;
 
 import com.stefanski.liner.server.command.Command;
-import com.stefanski.liner.server.command.CommandParserException;
-import com.stefanski.liner.server.command.CommandParserService;
+import com.stefanski.liner.server.command.parser.CommandParserException;
+import com.stefanski.liner.server.command.parser.CommandParserService;
 import com.stefanski.liner.server.command.EmptyCommand;
 import com.stefanski.liner.server.resp.Response;
 

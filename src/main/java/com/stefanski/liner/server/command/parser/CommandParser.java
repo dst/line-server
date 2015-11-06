@@ -1,4 +1,6 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
+
+import com.stefanski.liner.server.command.Command;
 
 /**
  * @author Dariusz Stefanski

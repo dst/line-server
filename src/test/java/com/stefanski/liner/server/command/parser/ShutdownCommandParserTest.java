@@ -1,6 +1,10 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
 
+import junit.framework.Assert;
 import org.junit.Test;
+
+import com.stefanski.liner.server.command.ShutdownCommand;
+import com.stefanski.liner.server.command.parser.ShutdownCommandParser;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -19,7 +23,7 @@ public class ShutdownCommandParserTest {
 
     @Test
     public void shouldParseShutdownCommand() {
-        assertEquals(ShutdownCommand.getInstance(), parser.parse("SHUTDOWN"));
+        Assert.assertEquals(ShutdownCommand.getInstance(), parser.parse("SHUTDOWN"));
     }
 
 }

@@ -1,10 +1,12 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
 
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.stefanski.liner.server.command.Command;
 
 /**
  * Parses commands from String.

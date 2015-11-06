@@ -1,6 +1,11 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
 
+import junit.framework.Assert;
 import org.junit.Test;
+
+import com.stefanski.liner.server.command.LineCommand;
+import com.stefanski.liner.server.command.parser.CommandParserException;
+import com.stefanski.liner.server.command.parser.LineCommandParser;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -20,7 +25,7 @@ public class LineCommandParserTest {
 
     @Test
     public void shouldParseCorrectLineCommand() {
-        assertEquals(new LineCommand(123), parser.parse("LINE 123"));
+        Assert.assertEquals(new LineCommand(123), parser.parse("LINE 123"));
     }
 
     @Test

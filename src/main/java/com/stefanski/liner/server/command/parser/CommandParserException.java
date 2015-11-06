@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.command;
+package com.stefanski.liner.server.command.parser;
 
 /**
  * An exception that is thrown whenever there are some problems during parsing commands.
