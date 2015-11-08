@@ -1,4 +1,4 @@
-package com.stefanski.liner.server.resp;
+package com.stefanski.liner.server.response;
 
 import java.io.IOException;
 import java.io.PrintWriter;

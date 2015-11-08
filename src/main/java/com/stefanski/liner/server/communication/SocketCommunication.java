@@ -12,7 +12,7 @@ import com.stefanski.liner.server.command.Command;
 import com.stefanski.liner.server.command.parser.CommandParserException;
 import com.stefanski.liner.server.command.parser.CommandParserService;
 import com.stefanski.liner.server.command.EmptyCommand;
-import com.stefanski.liner.server.resp.Response;
+import com.stefanski.liner.server.response.Response;
 
 /**
  * A communication is done via a socket.

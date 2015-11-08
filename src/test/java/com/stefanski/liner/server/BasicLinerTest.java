@@ -13,8 +13,8 @@ import com.stefanski.liner.server.command.LineCommand;
 import com.stefanski.liner.server.command.ShutdownCommand;
 import com.stefanski.liner.server.communication.Communication;
 import com.stefanski.liner.server.communication.CommunicationDetector;
-import com.stefanski.liner.server.resp.LineResponse;
-import com.stefanski.liner.server.resp.Response;
+import com.stefanski.liner.server.response.LineResponse;
+import com.stefanski.liner.server.response.Response;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;

@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.file.TextFileException;
-import com.stefanski.liner.server.resp.LineResponse;
-import com.stefanski.liner.server.resp.Response;
+import com.stefanski.liner.server.response.LineResponse;
+import com.stefanski.liner.server.response.Response;
 
 /**
  * A request to send specified line from a file.

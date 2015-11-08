@@ -2,8 +2,8 @@ package com.stefanski.liner.server.command;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.stefanski.liner.server.resp.EmptyResponse;
-import com.stefanski.liner.server.resp.Response;
+import com.stefanski.liner.server.response.EmptyResponse;
+import com.stefanski.liner.server.response.Response;
 
 /**
  * A request to disconnect client.

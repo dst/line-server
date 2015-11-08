@@ -6,8 +6,8 @@ import org.mockito.Mockito;
 
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.file.TextFileException;
-import com.stefanski.liner.server.resp.LineResponse;
-import com.stefanski.liner.server.resp.Response;
+import com.stefanski.liner.server.response.LineResponse;
+import com.stefanski.liner.server.response.Response;
 
 import static org.mockito.Mockito.when;
 

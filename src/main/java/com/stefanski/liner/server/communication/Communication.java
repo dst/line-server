@@ -1,7 +1,7 @@
 package com.stefanski.liner.server.communication;
 
 import com.stefanski.liner.server.command.Command;
-import com.stefanski.liner.server.resp.Response;
+import com.stefanski.liner.server.response.Response;
 
 /**
  * A communication channel between a server and clients. The server get requests via this channel
