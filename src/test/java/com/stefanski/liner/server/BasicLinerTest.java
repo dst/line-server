@@ -12,7 +12,7 @@ import com.stefanski.liner.server.command.Command;
 import com.stefanski.liner.server.command.LineCommand;
 import com.stefanski.liner.server.command.ShutdownCommand;
 import com.stefanski.liner.server.communication.Communication;
-import com.stefanski.liner.server.communication.CommunicationDetector;
+import com.stefanski.liner.server.communication.TCPCommunicationDetector;
 import com.stefanski.liner.server.response.LineResponse;
 import com.stefanski.liner.server.response.Response;
 
@@ -55,7 +55,7 @@ public class BasicLinerTest extends LinerTest {
     }
 
     private LinerServer createServer(int simultaneousClientsLimit, Communication communication) {
-        CommunicationDetector detector = mock(CommunicationDetector.class);
+        TCPCommunicationDetector detector = mock(TCPCommunicationDetector.class);
         when(detector.acceptNextClient()).thenReturn(communication);
 
         TextFile textFile = mock(TextFile.class);

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import com.stefanski.liner.file.TextFile;
 import com.stefanski.liner.file.TextFileFactory;
 import com.stefanski.liner.server.communication.Communication;
-import com.stefanski.liner.server.communication.CommunicationDetector;
 import com.stefanski.liner.server.communication.CommunicationException;
+import com.stefanski.liner.server.communication.TCPCommunicationDetector;
 
 /**
  * A server that serves specified lines of an immutable text file.
@@ -27,7 +27,7 @@ public class LinerServer {
     /**
      * Detects new clients.
      */
-    private final CommunicationDetector detector;
+    private final TCPCommunicationDetector detector;
 
     private final TextFileFactory textFileFactory;
 
@@ -49,7 +49,7 @@ public class LinerServer {
 
     @Autowired
     LinerServer(@Value("${server.simultaneous.clients.limit}") int simultaneousClientsLimit,
-                       CommunicationDetector detector, TextFileFactory textFileFactory) {
+                TCPCommunicationDetector detector, TextFileFactory textFileFactory) {
         this.detector = detector;
         this.textFileFactory = textFileFactory;
         this.listening = true;

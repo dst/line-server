@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 import com.stefanski.liner.server.command.parser.CommandParserService;
 
 /**
- * *It listens for TCP connections on specified port.
+ * *It listens (detects) for TCP connections on specified port.
  *
  * @author Dariusz Stefanski
  * @since Sep 21, 2013
  */
 @Slf4j
 @Component
-class TCPCommunicationDetector implements CommunicationDetector {
+public class TCPCommunicationDetector {
 
     private final int port;
     private final CommandParserService parser;
@@ -36,7 +36,11 @@ class TCPCommunicationDetector implements CommunicationDetector {
         this.parser = parser;
     }
 
-    @Override
+    /**
+     * Prepares for detecting clients.
+     *
+     * @throws CommunicationException
+     */
     public void start() {
         log.info("Start detecting clients on port {}", port);
 
@@ -47,7 +51,11 @@ class TCPCommunicationDetector implements CommunicationDetector {
         }
     }
 
-    @Override
+    /**
+     * Stops a detection.
+     *
+     * @throws CommunicationException
+     */
     public void stop() {
         try {
             serverSocket.close();
@@ -56,7 +64,12 @@ class TCPCommunicationDetector implements CommunicationDetector {
         }
     }
 
-    @Override
+    /**
+     * After accepting the next client, it returns a communication channel to this client.
+     *
+     * @return a communication between client and server
+     * @throws CommunicationException
+     */
     public Communication acceptNextClient() {
         try {
             Socket clientSocket = serverSocket.accept();
