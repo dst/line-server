@@ -41,10 +41,10 @@ public class LineCommandTest {
         CommandContext ctx = new CommandContext(null, textFile);
 
         Response resp = cmd.execute(ctx);
-        Assert.assertEquals(LineResponse.createOkResp(line), resp);
+        Assert.assertEquals(LineResponse.ok(line), resp);
     }
 
     private void assertIsErrResp(Response resp) {
-        Assert.assertEquals(LineResponse.createErrResp(), resp);
+        Assert.assertEquals(LineResponse.error(), resp);
     }
 }

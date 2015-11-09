@@ -27,11 +27,11 @@ public class LineResponse implements Response {
     private final String status;
     private final Optional<String> line;
 
-    public static LineResponse createOkResp(String line) {
+    public static LineResponse ok(String line) {
         return new LineResponse(OK, of(line));
     }
 
-    public static LineResponse createErrResp() {
+    public static LineResponse error() {
         return new LineResponse(ERROR, empty());
     }
 

@@ -46,10 +46,10 @@ public class LineCommand implements Command {
         TextFile textFile = ctx.getTextFile();
         try {
             String line = textFile.getLine(lineNr);
-            return LineResponse.createOkResp(line);
+            return LineResponse.ok(line);
         } catch (TextFileException e) {
             log.error("Cannot get line: ", e);
-            return LineResponse.createErrResp();
+            return LineResponse.error();
         }
     }
 }
