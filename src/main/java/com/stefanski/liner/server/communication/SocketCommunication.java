@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.stefanski.liner.server.command.Command;
 import com.stefanski.liner.server.command.parser.CommandParserException;
-import com.stefanski.liner.server.command.parser.CommandParserService;
+import com.stefanski.liner.server.command.parser.CommandParserAggregator;
 import com.stefanski.liner.server.command.EmptyCommand;
 import com.stefanski.liner.server.response.Response;
 
@@ -24,11 +24,11 @@ import com.stefanski.liner.server.response.Response;
 public class SocketCommunication implements Communication {
 
     private final Socket socket;
-    private final CommandParserService parser;
+    private final CommandParserAggregator parser;
     private final BufferedReader reader;
     private final PrintWriter writer;
 
-    public SocketCommunication(Socket socket, CommandParserService parser) throws IOException {
+    public SocketCommunication(Socket socket, CommandParserAggregator parser) throws IOException {
         this.socket = socket;
         this.parser = parser;
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));

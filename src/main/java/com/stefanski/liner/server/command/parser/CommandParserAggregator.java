@@ -4,7 +4,7 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.stefanski.liner.server.command.Command;
 
@@ -14,14 +14,14 @@ import com.stefanski.liner.server.command.Command;
  * @author Dariusz Stefanski
  * @since Sep 12, 2013
  */
-@Service
+@Component
 @Slf4j
-public class CommandParserService {
+public class CommandParserAggregator {
 
     private final List<CommandParser> parsers;
 
     @Autowired
-    public CommandParserService(List<CommandParser> parsers) {
+    public CommandParserAggregator(List<CommandParser> parsers) {
         this.parsers = parsers;
     }
 
@@ -31,12 +31,12 @@ public class CommandParserService {
      * @throws CommandParserException
      */
     public Command parse(String line) {
-        log.trace("Paring command: {}", line);
+        log.trace("Parsing command: {}", line);
         assert line != null;
         return parsers.stream()
                 .filter(parser -> parser.isApplicableTo(line))
                 .findAny()
                 .map(parser -> parser.parse(line))
-                .orElseThrow(() -> new CommandParserException("Unknown command: " + line));
+                .orElseThrow(() -> new CommandParserException("Cannot parse command: " + line));
     }
 }

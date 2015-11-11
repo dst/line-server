@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.stefanski.liner.server.command.parser.CommandParserService;
+import com.stefanski.liner.server.command.parser.CommandParserAggregator;
 
 /**
  * *It listens (detects) for TCP connections on specified port.
@@ -22,7 +22,7 @@ import com.stefanski.liner.server.command.parser.CommandParserService;
 public class TCPCommunicationDetector {
 
     private final int port;
-    private final CommandParserService parser;
+    private final CommandParserAggregator parser;
 
     /**
      * Socket for accepting clients.
@@ -31,7 +31,7 @@ public class TCPCommunicationDetector {
 
     @Autowired
     TCPCommunicationDetector(@Value("${server.portNr}") int port,
-                             CommandParserService parser) {
+                             CommandParserAggregator parser) {
         this.port = port;
         this.parser = parser;
     }

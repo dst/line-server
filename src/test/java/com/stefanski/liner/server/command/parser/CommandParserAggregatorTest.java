@@ -14,12 +14,12 @@ import static junit.framework.Assert.assertEquals;
  * @author Dariusz Stefanski
  * @since Sep 21, 2013
  */
-public class CommandParserServiceTest {
+public class CommandParserAggregatorTest {
 
     @Test
     public void shouldParseCorrectCommand() {
         // given:
-        CommandParserService parserService = new CommandParserService(asList(new QuitCommandParser()));
+        CommandParserAggregator parserService = new CommandParserAggregator(asList(new QuitCommandParser()));
 
         // when:
         Command command = parserService.parse("QUIT");
@@ -31,7 +31,7 @@ public class CommandParserServiceTest {
     @Test(expected = CommandParserException.class)
     public void shouldThrowExceptionForUnknownCommand() {
         // given:
-        CommandParserService parserService = new CommandParserService(emptyList());
+        CommandParserAggregator parserService = new CommandParserAggregator(emptyList());
         parserService.parse("aaaaaa");
     }
 }
