@@ -16,7 +16,7 @@ public class LinerTest {
             try {
                 server.run(fileName);
             } catch (Exception e) {
-                throw new AssertionError("We have a problem. Starting server failed: " + e);
+                throw new AssertionError("Starting server failed: " + e);
             }
         });
 
