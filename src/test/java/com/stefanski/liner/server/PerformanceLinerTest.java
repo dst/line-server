@@ -3,12 +3,10 @@ package com.stefanski.liner.server;
 import java.util.LinkedList;
 import java.util.List;
 
-import junit.framework.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,6 +14,9 @@ import com.stefanski.liner.Application;
 import com.stefanski.liner.server.client.Client;
 import com.stefanski.liner.server.client.FastClient;
 import com.stefanski.liner.server.client.SingleCmdClient;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Performance tests are run only if PerformanceTesting system variable is set.
@@ -93,7 +94,7 @@ public class PerformanceLinerTest extends LinerTest {
         }
 
         clients.forEach(client-> {
-            Assert.assertTrue(client.getName() + " didn't finish", client.isJobDone());
+            assertTrue(client.getName() + " didn't finish", client.isJobDone());
         });
 
         printStats("Client count: " + clientCount, clients);
@@ -121,7 +122,7 @@ public class PerformanceLinerTest extends LinerTest {
     private static String getTestFile() {
         String file = System.getenv("TestFile");
         if (file == null) {
-            Assert.fail("Missing TestFile in env");
+            fail("Missing TestFile in env");
         }
         return file;
     }
@@ -129,7 +130,7 @@ public class PerformanceLinerTest extends LinerTest {
     private int getMaxLineNr() {
         String value = System.getenv("MaxLineNr");
         if (value == null) {
-            Assert.fail("Missing MaxLineNr in env");
+            fail("Missing MaxLineNr in env");
         }
         return Integer.valueOf(value);
     }
