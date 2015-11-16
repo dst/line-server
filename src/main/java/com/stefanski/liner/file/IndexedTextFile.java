@@ -46,8 +46,6 @@ public class IndexedTextFile implements TextFile {
     private String getLine(LineMetadata lineMetadata) {
         try {
             ByteBuffer line = fileReader.read(lineMetadata.getOffset(), lineMetadata.getLength());
-            // TODO(dst), Sep 2, 2013: creating String is not a good idea here (memory + coping). It
-            // would be better to use byte[]
             return new String(line.array(), "ASCII");
         } catch (IOException e) {
             throw new TextFileException("Error when reading line from metadata: " + lineMetadata, e);
